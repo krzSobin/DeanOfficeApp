@@ -7,6 +7,7 @@ import { AppComponent } from './app.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
+import { AdminChildComponent } from './components/admin/child/admin-child.component'
 
 import { RoutingModule } from './routing.module'
 
@@ -17,7 +18,9 @@ import { AuthService } from './auth/auth.service'
 	declarations: [
 		AppComponent,
 		DashboardComponent,
-        LoginComponent
+        LoginComponent,
+		AdminComponent,
+		AdminChildComponent
 	],
 	imports: [
 		BrowserModule,

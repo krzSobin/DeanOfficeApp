@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service'
 
 @Component({
 	selector: 'login',
@@ -7,10 +8,9 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent {
-	constructor(private router: Router) { }
+	constructor(private auth: AuthService) { }
 
 	login(): void {
-		window.localStorage.setItem('token', 'xd')
-        this.router.navigate(['/dashboard'])
+		this.auth.login('aa', 'bb')
 	}
 }

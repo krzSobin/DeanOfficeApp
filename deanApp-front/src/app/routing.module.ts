@@ -5,24 +5,40 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
+import { AdminComponent } from './components/admin/admin.component'
+import { AdminChildComponent } from './components/admin/child/admin-child.component'
 
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 
 const routes: Routes = [
-    {
+	{
 		path: 'login',
 		component: LoginComponent
 	},
-    {
+	{
 		path: '',
-        canActivateChild: [AuthGuard],
-        children: [
-            {
-                path: 'dashboard',
-                component: DashboardComponent
-            }
-        ]
+		canActivateChild: [AuthGuard],
+		data: { expectedRole: 'user' },
+		children: [
+			{
+				path: 'dashboard',
+				component: DashboardComponent
+			}
+		]
+	},
+	{
+		path: 'admin',
+		component: AdminComponent,
+		data: { expectedRole: 'admin' },
+		canActivate: [AuthGuard],
+		canActivateChild: [AuthGuard],
+		children: [
+			{
+				path: 'child',
+				component: AdminChildComponent
+			}
+		]
 	}
 ]
 
@@ -31,4 +47,4 @@ const routes: Routes = [
 	exports: [RouterModule]
 })
 
-export class RoutingModule {}
+export class RoutingModule { }
