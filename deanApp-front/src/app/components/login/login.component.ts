@@ -4,13 +4,14 @@ import { AuthService } from '../../auth/auth.service'
 
 @Component({
 	selector: 'login',
-	template: '<button (click)="login()" id="login">login</button><p>login</p>',
+	templateUrl: './login.component.html',
 })
 
 export class LoginComponent {
 	constructor(private auth: AuthService) { }
 
-	login(): void {
-		this.auth.login('aa', 'bb')
+	login(formData: any): void {
+		console.log(formData)
+		this.auth.login(formData)
 	}
 }
