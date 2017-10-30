@@ -1,51 +1,40 @@
-﻿using DeanOfficeApp.Api.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using DeanOfficeApp.Api.Models;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
-namespace DeanOfficeApp.Api.DAL
+namespace DeanOfficeApp.Api.DAL.Teachers
 {
-    public class StudentRepository : IStudentRepository
+    public class TeacherRepository : ITeacherRepository
     {
         private readonly ApplicationDbContext context;
 
-        public StudentRepository(ApplicationDbContext context)
+        public TeacherRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Student> GetStudents()
+        public void DeleteTeacher(Teacher teacher)
         {
-            return context.Students.ToList();
+            context.Teachers.Remove(teacher);
         }
 
-        public Student GetStudentByID(int id)
+        public Teacher GetTeacherByID(int teacherId)
         {
-            return context.Students.Find(id);
+            return context.Teachers.Find(teacherId);
         }
 
-        public Student InsertStudent(Student student)
+        public IEnumerable<Teacher> GetTeachers()
         {
-            return context.Students.Add(student);
+            return context.Teachers.ToList();
         }
 
-        public void DeleteStudent(Student student)
+        public Teacher InsertTeacher(Teacher teacher)
         {
-            context.Students.Remove(student);
-        }
-
-        public void UpdateStudent(Student student)
-        {
-            context.Entry(student).State = EntityState.Modified;
-        }
-
-        public bool StudentExists(int studentId)
-        {
-            return context.Students.Count(e => e.RecordBookNumber == studentId) > 0;
+            return context.Teachers.Add(teacher);
         }
 
         public bool Save()
@@ -72,6 +61,16 @@ namespace DeanOfficeApp.Api.DAL
             }
         }
 
+        public bool TeacherExists(int teacherId)
+        {
+            return context.Teachers.Count(e => e.TeacherId == teacherId) > 0;
+        }
+
+        public void UpdateTeacher(Teacher teacher)
+        {
+            context.Entry(teacher).State = EntityState.Modified;
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -81,17 +80,18 @@ namespace DeanOfficeApp.Api.DAL
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects).
+                    context.Dispose();
                 }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
 
                 disposedValue = true;
             }
         }
-
-        // This code added to correctly implement the disposable pattern.
+        
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
         }
         #endregion

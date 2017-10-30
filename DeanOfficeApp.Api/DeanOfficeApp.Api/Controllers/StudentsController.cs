@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using System.Data.Entity.Infrastructure;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using DeanOfficeApp.Api.Models;
+using DeanOfficeApp.Api.DAL;
+using System.Collections.Generic;
+using System.Web;
+using DeanOfficeApp.Contracts;
+using DeanOfficeApp.Api.BLL;
+using DeanOfficeApp.Contracts.Students;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -18,116 +19,128 @@ namespace DeanOfficeApp.Api.Controllers
     public class StudentsController : ApiController
     {
         private readonly static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IStudentRepository _repository;
+        private ApplicationUserManager userManager;
+        private StudentService studentService;
+        private readonly CustomUserStore _store;
+
+        public StudentsController()
+        {
+            var context = new ApplicationDbContext();
+            _repository = new StudentRepository(context);
+            _store = new CustomUserStore(context);
+        }
+
+        public StudentsController(IStudentRepository studentRepository)
+        {
+            _repository = studentRepository;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get { return userManager ?? new ApplicationUserManager(_store); }
+            private set { userManager = value; }
+        }
+
+        public StudentService StudentService
+        {
+            get { return studentService ?? new StudentService(UserManager, _repository, _store); }
+            private set { studentService = value; }
+        }
+
 
         // GET: api/Students
         [Route("")]
         [HttpGet]
-        public IQueryable<Student> GetStudents()
+        [ResponseType(typeof(IEnumerable<GetStudentDTO>))]
+        public IEnumerable<GetStudentDTO> GetStudents()
         {
             _logger.Info("test logowania");
-            return db.Students;
+            return StudentService.GetStudents();
         }
 
         // GET: api/Students/5
-        [Route("{id:int}")]
+        [Route("{id:int}", Name="GetStudent")]
         [HttpGet]
-        [ResponseType(typeof(Student))]
-        public async Task<IHttpActionResult> GetStudent(int id)
+        [ResponseType(typeof(GetStudentDTO))]
+        public IHttpActionResult GetStudent(int id)
         {
-            Student student = await db.Students.FindAsync(id);
+            var student = StudentService.GetStudentById(id);
             if (student == null)
             {
                 return NotFound();
             }
 
             return Ok(student);
-        }
-
-        // PUT: api/Students/5
-        [Route("{id:int}")]
-        [HttpPut]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutStudent(int id, Student student)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != student.StudentID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(student).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Students
         [Route("")]
         [HttpPost]
-        [ResponseType(typeof(Student))]
-        public async Task<IHttpActionResult> PostStudent(Student student)
+        [ResponseType(typeof(GetStudentDTO))]
+        public async Task<IHttpActionResult> PostStudentAsync(CreateStudentDTO student)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Students.Add(student);
-            await db.SaveChangesAsync();
+            var result = await StudentService.AddStudentAsync(student);
+            if (!result.Created)
+            {
+                return BadRequest("Adding student error. Try again.");
+            }
+            return CreatedAtRoute("GetStudent", new { id = result.Student.RecordBookNumber }, result.Student);
+        }
 
-            return CreatedAtRoute("DefaultApi", new { id = student.StudentID }, student);
+        // PUT: api/Students/5
+        [Route("{id:int}")]
+        [HttpPut]
+        [ResponseType(typeof(UpdateStudentResultDTO))]
+        public async Task<IHttpActionResult> PutStudentAsync(int id, UpdateStudentDTO student)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != student.RecordBookNumber)
+            {
+                return BadRequest();
+            }
+
+            var updateResult = await StudentService.UpdateStudentAsync(student);
+
+            if (updateResult.Updated)
+            {
+                return Ok(updateResult);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // DELETE: api/Students/5
         [Route("{id:int}")]
         [HttpDelete]
-        [ResponseType(typeof(Student))]
-        public async Task<IHttpActionResult> DeleteStudent(int id)
+        [ResponseType(typeof(DeleteStudentResultDTO))]
+        public async Task<IHttpActionResult> DeleteStudentAsync(int id)
         {
-            Student student = await db.Students.FindAsync(id);
-            if (student == null)
+            var result = await StudentService.DeleteStudentAsync(id);
+            if (result == null)
             {
                 return NotFound();
             }
 
-            db.Students.Remove(student);
-            await db.SaveChangesAsync();
-
-            return Ok(student);
+            return Ok(result);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _repository.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool StudentExists(int id)
-        {
-            return db.Students.Count(e => e.StudentID == id) > 0;
         }
     }
 }

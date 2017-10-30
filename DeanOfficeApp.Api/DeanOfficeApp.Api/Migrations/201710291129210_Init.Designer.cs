@@ -7,13 +7,13 @@ namespace DeanOfficeApp.Api.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class moremodels : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(moremodels));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201710092145008_more models"; }
+            get { return "201710291129210_Init"; }
         }
         
         string IMigrationMetadata.Source

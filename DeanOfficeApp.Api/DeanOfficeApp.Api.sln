@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeanOfficeApp.Api", "DeanOfficeApp.Api\DeanOfficeApp.Api.csproj", "{F6A3F79D-E213-47DD-8A08-B8A69018F8DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeanOfficeApp.Contracts", "DeanOfficeApp.Contracts\DeanOfficeApp.Contracts.csproj", "{00EE8365-CFC1-4006-BED4-CC22A071FBDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F6A3F79D-E213-47DD-8A08-B8A69018F8DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6A3F79D-E213-47DD-8A08-B8A69018F8DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A3F79D-E213-47DD-8A08-B8A69018F8DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00EE8365-CFC1-4006-BED4-CC22A071FBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EE8365-CFC1-4006-BED4-CC22A071FBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EE8365-CFC1-4006-BED4-CC22A071FBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EE8365-CFC1-4006-BED4-CC22A071FBDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

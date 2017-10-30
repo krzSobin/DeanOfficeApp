@@ -8,6 +8,18 @@ namespace DeanOfficeApp.Api.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Lectures",
+                c => new
+                    {
+                        LectureId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        Bibliography = c.String(),
+                        EcstsPoints = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.LectureId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -34,13 +46,15 @@ namespace DeanOfficeApp.Api.Migrations
                 "dbo.Students",
                 c => new
                     {
-                        StudentID = c.Int(nullable: false),
-                        RecordBookNumber = c.Int(nullable: false),
+                        RecordBookNumber = c.Int(nullable: false, identity: true),
                         Pesel = c.Long(nullable: false),
                         CurrentSemester = c.Int(nullable: false),
                         EnrollmentDate = c.DateTime(nullable: false),
+                        UserId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.StudentID);
+                .PrimaryKey(t => t.RecordBookNumber)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -90,26 +104,46 @@ namespace DeanOfficeApp.Api.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.Teachers",
+                c => new
+                    {
+                        TeacherId = c.Int(nullable: false, identity: true),
+                        Degree = c.String(),
+                        Position = c.String(),
+                        Room = c.String(),
+                        UserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.TeacherId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.UserId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Teachers", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Students", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.Teachers", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Students", new[] { "UserId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.Teachers");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Students");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Lectures");
         }
     }
 }
