@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule } from '@angular/material'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
@@ -16,7 +18,7 @@ import { FormsModule } from '@angular/forms'
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 
-import { AuthInterceptor } from './auth/auth.interceptor'
+import { CustomHttpInterceptor } from './http.interceptor'
 
 @NgModule({
 	declarations: [
@@ -31,14 +33,20 @@ import { AuthInterceptor } from './auth/auth.interceptor'
 		RoutingModule,
 		HttpModule,
 		FormsModule,
-		HttpClientModule
+		HttpClientModule,
+		BrowserAnimationsModule,
+
+		MatInputModule,
+		MatButtonModule,
+		MatCardModule,
+		MatToolbarModule
 	],
 	providers: [
 		AuthGuard,
 		AuthService,
 		{
 			provide: HTTP_INTERCEPTORS,
-			useClass: AuthInterceptor,
+			useClass: CustomHttpInterceptor,
 			multi: true,
 		}
 	],

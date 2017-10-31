@@ -13,6 +13,12 @@ import { AuthService } from './auth/auth.service'
 
 const routes: Routes = [
 	{
+		 path: '',
+		 redirectTo: 'login',
+		//  pathMatch: 'prefix'
+		 pathMatch: 'full'
+	},
+	{
 		path: 'login',
 		component: LoginComponent
 	},
@@ -39,7 +45,8 @@ const routes: Routes = [
 				component: AdminChildComponent
 			}
 		]
-	}
+	},
+
 ]
 
 @NgModule({

@@ -1,6 +1,15 @@
-<form #loginForm="ngForm" (ngSubmit)="login(loginForm.form.value)">
-	<input type="text" name="UserName" placeholder="username" ngModel>
-	<input type="password" name="Password" placeholder="password" ngModel>
-	<input type="hidden" name="grant_type" value="password" ngModel="password">
-	<button>Login</button>
-</form>
+<main class="login">
+	<h1 class="login__heading">Sztosowy dziekanat v0.1</h1>
+	<form #loginForm="ngForm" class="login__form" (ngSubmit)="login(loginForm.form)">
+		<mat-form-field>
+			<input matInput type="text" name="UserName" class="login__input" placeholder="Username" ngModel required>
+		</mat-form-field>
+
+		<mat-form-field>
+			<input matInput type="password" name="Password" class="login__input" placeholder="Password" ngModel required>
+		</mat-form-field>
+
+		<input type="hidden" name="grant_type" value="password" ngModel="password">
+		<button mat-raised-button class="login__button" color="primary">Zaloguj</button>
+	</form>
+</main>
