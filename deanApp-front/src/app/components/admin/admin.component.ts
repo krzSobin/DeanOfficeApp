@@ -3,7 +3,10 @@ import { AuthService } from '../../auth/auth.service'
 
 @Component({
 	selector: 'admin-component',
-	template: '<h1>Admin dashboard</h1><router-outlet></router-outlet><button (click)="logout()" id="logout">logout</button>',
+	template: `<h1>Admin dashboard</h1><button (click)="logout()" id="logout">logout</button>
+	<a routerLink="/admin/students/">Studenci</a>
+
+	<router-outlet></router-outlet>`,
 })
 
 export class AdminComponent {

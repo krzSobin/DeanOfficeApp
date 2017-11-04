@@ -1,7 +1,10 @@
 import { Component } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { Router } from '@angular/router'
 
 import { AuthService } from '../../auth/auth.service'
+// import { StudentsService } from '../../students/students.service'
+
+// import { Student } from '../../models/Student'
 
 @Component({
 	selector: 'dashboard-component',
@@ -10,14 +13,13 @@ import { AuthService } from '../../auth/auth.service'
 })
 
 export class DashboardComponent {
-	constructor(private auth: AuthService, private http: HttpClient) { }
+	constructor(private auth: AuthService, private router: Router) { }
 
 	logout(): void {
 		this.auth.logout()
 	}
 
-	sendRequest(): void {
-		console.log('sended')
-		this.http.get('https://demo7717529.mockable.io/').subscribe()
+	getStudents(): void {
+		this.router.navigate(['/dashboard/xd'])
 	}
 }

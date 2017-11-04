@@ -18,7 +18,7 @@ export class AuthService {
 
 	constructor(private http: HttpClient, private router: Router) { }
 
-	login(formData): Promise<void> {
+	login(formData): Promise<any> {
 		let string = ''
 		Object.entries(formData).forEach(([key, value]) => {
 			string += `&${ key }=${ value }`
@@ -32,11 +32,13 @@ export class AuthService {
 				window.localStorage.setItem('token', this.token)
 				window.localStorage.setItem('role', role)
 				window.localStorage.setItem('name', res.userName)
+				
 				const redirectUrl: string = (role === 'admin') ? '/admin' : '/dashboard'
 				this.router.navigate([redirectUrl])
 			})
 			.catch((err: any) => {
 				console.error(err.error)
+				return Promise.reject(err)
 			})
 	}
 

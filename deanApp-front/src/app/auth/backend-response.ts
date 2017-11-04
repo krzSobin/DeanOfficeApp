@@ -3,7 +3,7 @@ export const data = {
 	"token_type": "bearer",
 	"expires_in": 1209599,
 	"userName": "test1@test.pl",
-	"role": "user",
+	"role": "admin",
 	".issued": "Tue, 10 Oct 2017 09:27:50 GMT",
 	".expires": "Tue, 24 Oct 2017 09:27:50 GMT"
 }

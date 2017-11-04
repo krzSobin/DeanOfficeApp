@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
-import { AdminChildComponent } from './components/admin/child/admin-child.component'
+import { StudentsComponent } from './components/admin/students/students.component'
 
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
@@ -15,7 +15,6 @@ const routes: Routes = [
 	{
 		 path: '',
 		 redirectTo: 'login',
-		//  pathMatch: 'prefix'
 		 pathMatch: 'full'
 	},
 	{
@@ -23,15 +22,15 @@ const routes: Routes = [
 		component: LoginComponent
 	},
 	{
-		path: '',
+		path: 'student',
 		canActivateChild: [AuthGuard],
 		data: { expectedRole: 'user' },
-		children: [
-			{
-				path: 'dashboard',
-				component: DashboardComponent
-			}
-		]
+		component: DashboardComponent,
+		// children: [
+		// 	{
+		//
+		// 	}
+		// ]
 	},
 	{
 		path: 'admin',
@@ -41,8 +40,8 @@ const routes: Routes = [
 		canActivateChild: [AuthGuard],
 		children: [
 			{
-				path: 'child',
-				component: AdminChildComponent
+				path: 'students',
+				component: StudentsComponent
 			}
 		]
 	},
