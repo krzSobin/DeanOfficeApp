@@ -16,14 +16,18 @@ namespace DeanOfficeApp.Api.BLL
     public class StudentService
     {
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
         private readonly IStudentRepository _repository;
         private readonly CustomUserStore _store;
+        private readonly CustomRoleStore _roleStore;
 
-        public StudentService(ApplicationUserManager userManager, IStudentRepository repository, CustomUserStore store)
+        public StudentService(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IStudentRepository repository, CustomUserStore store, CustomRoleStore roleStore)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _repository = repository;
             _store = store;
+            _roleStore = roleStore;
         }
         
         public async Task<NewStudentResultDTO> AddStudentAsync(CreateStudentDTO studentDTO)
@@ -36,8 +40,9 @@ namespace DeanOfficeApp.Api.BLL
             var user = new ApplicationUser() { UserName = studentDTO.Email, Email = studentDTO.Email, CreatedDate = DateTime.Now, FirstName = studentDTO.FirstName, LastName = studentDTO.LastName, EmailConfirmed = true };
 
             var result = await _userManager.CreateAsync(user, studentDTO.Pesel.ToString()+ studentDTO.LastName.ToLower().Substring(0, Math.Min(studentDTO.LastName.Length, 3)));
-            var saveUserResult = _store.Context.SaveChanges();
-            if (!result.Succeeded && saveUserResult < 1)
+            //var saveUserResult = _store.Context.SaveChanges();
+            var roleResult = await _userManager.AddToRoleAsync(user.Id, "student");
+            if (!result.Succeeded || !roleResult.Succeeded)
             {
                 return createResult;
             }

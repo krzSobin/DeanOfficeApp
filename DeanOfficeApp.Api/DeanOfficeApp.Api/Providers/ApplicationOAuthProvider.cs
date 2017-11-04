@@ -44,7 +44,9 @@ namespace DeanOfficeApp.Api.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            Claim role = oAuthIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+
+            AuthenticationProperties properties = CreateProperties(user.UserName, role.Value);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -86,13 +88,14 @@ namespace DeanOfficeApp.Api.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userName, string role)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                { "userName", userName },
+                {"role", role }
             };
-            return new AuthenticationProperties(data);
-        }
+                return new AuthenticationProperties(data);
+            }
     }
 }

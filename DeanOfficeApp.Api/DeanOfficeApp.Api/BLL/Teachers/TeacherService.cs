@@ -34,8 +34,8 @@ namespace DeanOfficeApp.Api.BLL.Teachers
             var user = new ApplicationUser { UserName = teacherDTO.Email, Email = teacherDTO.Email, CreatedDate = DateTime.Now, FirstName = teacherDTO.FirstName, LastName = teacherDTO.LastName, EmailConfirmed = true };
 
             var result = await _userManager.CreateAsync(user, teacherDTO.Pesel.ToString() + teacherDTO.LastName.ToLower().Substring(0, Math.Min(teacherDTO.LastName.Length, 3)));
-            var saveUserResult = _store.Context.SaveChanges();
-            if (!result.Succeeded && saveUserResult < 1)
+            var roleResult = await _userManager.AddToRoleAsync(user.Id, "teacher");
+            if (!result.Succeeded && !roleResult.Succeeded)
             {
                 return createResult;
             }

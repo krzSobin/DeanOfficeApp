@@ -21,19 +21,28 @@ namespace DeanOfficeApp.Api.Controllers
         private readonly static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IStudentRepository _repository;
         private ApplicationUserManager userManager;
+        private ApplicationRoleManager roleManager;
         private StudentService studentService;
         private readonly CustomUserStore _store;
+        private readonly CustomRoleStore _roleStore;
 
         public StudentsController()
         {
             var context = new ApplicationDbContext();
             _repository = new StudentRepository(context);
             _store = new CustomUserStore(context);
+            _roleStore = new CustomRoleStore(context);
         }
 
         public StudentsController(IStudentRepository studentRepository)
         {
             _repository = studentRepository;
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get { return roleManager ?? new ApplicationRoleManager(_roleStore); }
+            private set { roleManager = value; }
         }
 
         public ApplicationUserManager UserManager
@@ -44,7 +53,7 @@ namespace DeanOfficeApp.Api.Controllers
 
         public StudentService StudentService
         {
-            get { return studentService ?? new StudentService(UserManager, _repository, _store); }
+            get { return studentService ?? new StudentService(UserManager, RoleManager, _repository, _store, _roleStore); }
             private set { studentService = value; }
         }
 
