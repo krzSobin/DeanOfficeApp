@@ -42,6 +42,12 @@
   <ItemGroup>
     <Compile Include="CreateStudentDTO.cs" />
     <Compile Include="CreateTeacherDTO.cs" />
+    <Compile Include="Lectures\DeleteLectureResultDTO.cs" />
+    <Compile Include="Lectures\GetLectureDTO.cs" />
+    <Compile Include="Lectures\NewLectureDTO.cs" />
+    <Compile Include="Lectures\NewLectureResultDTO.cs" />
+    <Compile Include="Lectures\UpdateLectureDTO.cs" />
+    <Compile Include="Lectures\UpdateLectureResultDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Students\DeleteStudentResultDTO.cs" />
     <Compile Include="Students\GetStudentDTO.cs" />

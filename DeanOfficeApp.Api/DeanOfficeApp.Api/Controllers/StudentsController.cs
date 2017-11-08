@@ -1,14 +1,11 @@
-﻿using System.Data.Entity.Infrastructure;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Api.DAL;
 using System.Collections.Generic;
-using System.Web;
 using DeanOfficeApp.Contracts;
 using DeanOfficeApp.Api.BLL;
 using DeanOfficeApp.Contracts.Students;
@@ -59,6 +56,7 @@ namespace DeanOfficeApp.Api.Controllers
 
 
         // GET: api/Students
+        [Authorize(Roles = "student")]
         [Route("")]
         [HttpGet]
         [ResponseType(typeof(IEnumerable<GetStudentDTO>))]
@@ -69,6 +67,7 @@ namespace DeanOfficeApp.Api.Controllers
         }
 
         // GET: api/Students/5
+        [Authorize(Roles = "Student")]
         [Route("{id:int}", Name="GetStudent")]
         [HttpGet]
         [ResponseType(typeof(GetStudentDTO))]

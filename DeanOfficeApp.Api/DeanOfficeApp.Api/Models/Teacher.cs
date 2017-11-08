@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace DeanOfficeApp.Api.Models
 {
@@ -21,5 +18,7 @@ namespace DeanOfficeApp.Api.Models
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser UserData { get; set; }
+
+        public virtual ICollection<Lecture> Lectures { get; set; }
     }
 }

@@ -1,38 +1,38 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DeanOfficeApp.Api.Models;
+﻿using DeanOfficeApp.Api.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Linq;
 
-namespace DeanOfficeApp.Api.DAL.Teachers
+namespace DeanOfficeApp.Api.DAL.Lectures
 {
-    public class TeacherRepository : ITeacherRepository
+    public class LectureRepository : ILectureRepository
     {
         private readonly ApplicationDbContext context;
 
-        public TeacherRepository(ApplicationDbContext context)
+        public LectureRepository(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public void DeleteTeacher(Teacher teacher)
+        public void DeleteLecture(Lecture lecture)
         {
-            context.Teachers.Remove(teacher);
+            context.Lectures.Remove(lecture);
         }
 
-        public Teacher GetTeacherByID(int teacherId)
+        public Lecture GetLectureByID(int lectureId)
         {
-            return context.Teachers.Find(teacherId);
+            return context.Lectures.Find(lectureId);
         }
 
-        public IEnumerable<Teacher> GetTeachers()
+        public IEnumerable<Lecture> GetLectures()
         {
-            return context.Teachers.ToList();
+            return context.Lectures.ToList();
         }
 
-        public Teacher InsertTeacher(Teacher teacher)
+        public Lecture InsertLecture(Lecture lecture)
         {
-            return context.Teachers.Add(teacher);
+            return context.Lectures.Add(lecture);
         }
 
         public bool Save()
@@ -59,14 +59,14 @@ namespace DeanOfficeApp.Api.DAL.Teachers
             }
         }
 
-        public bool TeacherExists(int teacherId)
+        public bool LectureExists(int lectureId)
         {
-            return context.Teachers.Count(e => e.TeacherId == teacherId) > 0;
+            return context.Lectures.Count(e => e.LectureId == lectureId) > 0;
         }
 
-        public void UpdateTeacher(Teacher teacher)
+        public void UpdateLecture(Lecture lecture)
         {
-            context.Entry(teacher).State = EntityState.Modified;
+            context.Entry(lecture).State = EntityState.Modified;
         }
 
         #region IDisposable Support
@@ -87,7 +87,7 @@ namespace DeanOfficeApp.Api.DAL.Teachers
                 disposedValue = true;
             }
         }
-        
+
         public void Dispose()
         {
             Dispose(true);
