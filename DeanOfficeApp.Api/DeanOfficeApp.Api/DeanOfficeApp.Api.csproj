@@ -217,6 +217,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\Lectures\LectureService.cs" />
+    <Compile Include="BLL\Logging\LoggingService.cs" />
     <Compile Include="BLL\StudentService.cs" />
     <Compile Include="BLL\Teachers\TeacherService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -226,6 +227,8 @@
     <Compile Include="DAL\IStudentRepository.cs" />
     <Compile Include="DAL\Lectures\ILectureRepository.cs" />
     <Compile Include="DAL\Lectures\LectureRepository.cs" />
+    <Compile Include="DAL\Logging\ILoggingRepository.cs" />
+    <Compile Include="DAL\Logging\LoggingRepository.cs" />
     <Compile Include="DAL\StudentRepository.cs" />
     <Compile Include="DAL\Teachers\ITeacherRepository.cs" />
     <Compile Include="DAL\Teachers\TeacherRepository.cs" />
@@ -252,11 +255,16 @@
     <Compile Include="Migrations\201711041758430_LecturesNullableTeacher.Designer.cs">
       <DependentUpon>201711041758430_LecturesNullableTeacher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711081955500_Logging.cs" />
+    <Compile Include="Migrations\201711081955500_Logging.Designer.cs">
+      <DependentUpon>201711081955500_Logging.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Lecture.cs" />
+    <Compile Include="Models\Logging\Error.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -314,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711041758430_LecturesNullableTeacher.resx">
       <DependentUpon>201711041758430_LecturesNullableTeacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081955500_Logging.resx">
+      <DependentUpon>201711081955500_Logging.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
