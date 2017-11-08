@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DeanOfficeApp.Api.DAL.Lectures;
+using DeanOfficeApp.Api.DAL.Teachers;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Contracts.Lectures;
 using System.Collections.Generic;
@@ -9,10 +10,12 @@ namespace DeanOfficeApp.Api.BLL.Lectures
     public class LectureService
     {
         private readonly ILectureRepository _repository;
+        private readonly ITeacherRepository _teacherRepository;
 
-        public LectureService(ILectureRepository repository)
+        public LectureService(ILectureRepository repository, ITeacherRepository teacherRepository)
         {
             _repository = repository;
+            _teacherRepository = teacherRepository;
         }
 
         public IEnumerable<GetLectureDTO> GetLectures()
@@ -69,6 +72,9 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             lectureEntity.Bibliography = lecture.Bibliography;
             lectureEntity.TeacherId = lecture.TeacherId;
 
+            if (lecture.TeacherId != null)
+                lectureEntity.Teacher = _teacherRepository.GetTeacherByID((int)lectureEntity.TeacherId);
+
             updateResult.Lecture = Mapper.Map<GetLectureDTO>(lectureEntity);
 
 
@@ -88,12 +94,13 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             if (lecture == null)
                 return null;
 
-            _repository.DeleteLecture(lecture);
             var deleteLectureResult = new DeleteLectureResultDTO
             {
                 Deleted = false,
                 Lecture = Mapper.Map<GetLectureDTO>(lecture)
             };
+
+            _repository.DeleteLecture(lecture);
 
             if (_repository.Save())
             {

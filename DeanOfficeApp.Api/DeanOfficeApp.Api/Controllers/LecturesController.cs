@@ -8,6 +8,7 @@ using NLog;
 using DeanOfficeApp.Api.DAL.Lectures;
 using DeanOfficeApp.Api.BLL.Lectures;
 using DeanOfficeApp.Contracts.Lectures;
+using DeanOfficeApp.Api.DAL.Teachers;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -16,22 +17,25 @@ namespace DeanOfficeApp.Api.Controllers
     {
         private readonly static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly ILectureRepository _repository;
+        private readonly ITeacherRepository _teacherRepository;
         private LectureService lectureService;
 
         public LecturesController()
         {
             var context = new ApplicationDbContext();
             _repository = new LectureRepository(context);
+            _teacherRepository = new TeacherRepository(context);
         }
 
-        public LecturesController(ILectureRepository studentRepository)
+        public LecturesController(ILectureRepository studentRepository, ITeacherRepository teacherRepository)
         {
             _repository = studentRepository;
+            _teacherRepository = teacherRepository;
         }
 
         public LectureService LectureService
         {
-            get { return lectureService ?? new LectureService(_repository); }
+            get { return lectureService ?? new LectureService(_repository, _teacherRepository); }
             private set { lectureService = value; }
         }
 
