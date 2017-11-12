@@ -3,13 +3,10 @@ using DeanOfficeApp.Api.DAL;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Contracts;
 using DeanOfficeApp.Contracts.Students;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace DeanOfficeApp.Api.BLL
 {
@@ -64,7 +61,7 @@ namespace DeanOfficeApp.Api.BLL
 
         public IEnumerable<GetStudentDTO> GetStudents()
         {
-            var studentEntities = _repository.GetStudents();
+            var studentEntities = _repository.GetStudents(ConfigurationManager.ConnectionStrings["DeanOffice"].ConnectionString);
 
             return Mapper.Map<IEnumerable<GetStudentDTO>>(studentEntities);
         }

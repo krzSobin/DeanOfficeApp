@@ -1,17 +1,17 @@
-﻿using System.Data.Entity.Infrastructure;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Api.DAL;
 using System.Collections.Generic;
-using System.Web;
 using DeanOfficeApp.Contracts;
 using DeanOfficeApp.Api.BLL;
 using DeanOfficeApp.Contracts.Students;
+using DeanOfficeApp.Api.DAL.Logging;
+using DeanOfficeApp.Api.BLL.Logging;
+using Newtonsoft.Json;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -20,9 +20,11 @@ namespace DeanOfficeApp.Api.Controllers
     {
         private readonly static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IStudentRepository _repository;
+        private readonly ILoggingRepository _loggingRepository;
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private StudentService studentService;
+        private LoggingService loggingService;
         private readonly CustomUserStore _store;
         private readonly CustomRoleStore _roleStore;
 
@@ -30,6 +32,7 @@ namespace DeanOfficeApp.Api.Controllers
         {
             var context = new ApplicationDbContext();
             _repository = new StudentRepository(context);
+            _loggingRepository = new LoggingRepository(context);
             _store = new CustomUserStore(context);
             _roleStore = new CustomRoleStore(context);
         }
@@ -49,6 +52,12 @@ namespace DeanOfficeApp.Api.Controllers
         {
             get { return userManager ?? new ApplicationUserManager(_store); }
             private set { userManager = value; }
+        }
+
+        public LoggingService LoggingService
+        {
+            get { return loggingService ?? new LoggingService(_loggingRepository); }
+            private set { loggingService = value; }
         }
 
         public StudentService StudentService
@@ -77,6 +86,7 @@ namespace DeanOfficeApp.Api.Controllers
             var student = StudentService.GetStudentById(id);
             if (student == null)
             {
+                LoggingService.SaveErrorLog($"Student with id: {id} not found");
                 return NotFound();
             }
 
@@ -97,6 +107,7 @@ namespace DeanOfficeApp.Api.Controllers
             var result = await StudentService.AddStudentAsync(student);
             if (!result.Created)
             {
+                LoggingService.SaveErrorLog($"Adding student error. Student {JsonConvert.SerializeObject(student)}");
                 return BadRequest("Adding student error. Try again.");
             }
             return CreatedAtRoute("GetStudent", new { id = result.Student.RecordBookNumber }, result.Student);
@@ -110,11 +121,13 @@ namespace DeanOfficeApp.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
+                LoggingService.SaveErrorLog($"Updating student error. Id in url: {id}, id in model: {student.RecordBookNumber}");
                 return BadRequest(ModelState);
             }
 
             if (id != student.RecordBookNumber)
             {
+                LoggingService.SaveErrorLog($"Updating student error. Model: {JsonConvert.SerializeObject(student)} invalid");
                 return BadRequest();
             }
 

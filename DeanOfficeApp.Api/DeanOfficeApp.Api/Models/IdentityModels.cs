@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System;
+using DeanOfficeApp.Api.Models.Logging;
 
 namespace DeanOfficeApp.Api.Models
 {
@@ -49,6 +49,7 @@ namespace DeanOfficeApp.Api.Models
         public DbSet<Student> Students { get; set; }
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Error> Errors { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

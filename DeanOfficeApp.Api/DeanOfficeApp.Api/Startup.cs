@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 using AutoMapper;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Contracts;
 using DeanOfficeApp.Contracts.Students;
 using DeanOfficeApp.Contracts.Teachers;
+using DeanOfficeApp.Contracts.Lectures;
 
 [assembly: OwinStartup(typeof(DeanOfficeApp.Api.Startup))]
 
@@ -47,6 +45,17 @@ namespace DeanOfficeApp.Api
                 .ForMember(dest => dest.UserData, opt => opt.Ignore())
                 .ForMember(dest => dest.TeacherId, opt => opt.Ignore())
                 .ForMember(dest => dest.UserId, opt => opt.Ignore());
+
+                cfg.CreateMap<Lecture, GetLectureDTO>()
+                .ForMember(dest => dest.Teacher, opt => opt.MapFrom(s => s.Teacher.UserData.FirstName + " " + s.Teacher.UserData.LastName));
+
+                cfg.CreateMap<GetLectureDTO, Lecture>()
+                .ForMember(dest => dest.LectureId, opt => opt.Ignore());
+
+                cfg.CreateMap<NewLectureDTO, Lecture>()
+                .ForMember(dest => dest.TeacherId, opt => opt.Ignore())
+                .ForMember(dest => dest.Teacher, opt => opt.Ignore())
+                .ForMember(dest => dest.LectureId, opt => opt.Ignore());
             });
         }
     }
