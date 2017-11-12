@@ -220,6 +220,7 @@
     <Compile Include="BLL\Logging\LoggingService.cs" />
     <Compile Include="BLL\StudentService.cs" />
     <Compile Include="BLL\Teachers\TeacherService.cs" />
+    <Compile Include="BLL\Users\IUserManager.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />

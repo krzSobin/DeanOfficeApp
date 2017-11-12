@@ -12,6 +12,7 @@ using DeanOfficeApp.Contracts.Students;
 using DeanOfficeApp.Api.DAL.Logging;
 using DeanOfficeApp.Api.BLL.Logging;
 using Newtonsoft.Json;
+using DeanOfficeApp.Api.BLL.Users;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -21,7 +22,7 @@ namespace DeanOfficeApp.Api.Controllers
         private readonly static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IStudentRepository _repository;
         private readonly ILoggingRepository _loggingRepository;
-        private ApplicationUserManager userManager;
+        private IUserManager userManager;
         private ApplicationRoleManager roleManager;
         private StudentService studentService;
         private LoggingService loggingService;
@@ -37,10 +38,11 @@ namespace DeanOfficeApp.Api.Controllers
             _roleStore = new CustomRoleStore(context);
         }
 
-        public StudentsController(IStudentRepository studentRepository, ILoggingRepository loggingRepository)
+        public StudentsController(IStudentRepository studentRepository, ILoggingRepository loggingRepository, IUserManager userManager)
         {
             _repository = studentRepository;
             _loggingRepository = loggingRepository;
+            this.userManager = userManager;
 
             var context = new ApplicationDbContext();
             _store = new CustomUserStore(context);
@@ -53,7 +55,7 @@ namespace DeanOfficeApp.Api.Controllers
             private set { roleManager = value; }
         }
 
-        public ApplicationUserManager UserManager
+        public IUserManager UserManager
         {
             get { return userManager ?? new ApplicationUserManager(_store); }
             private set { userManager = value; }

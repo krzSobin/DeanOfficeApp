@@ -2,12 +2,13 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using DeanOfficeApp.Api.Models;
+using DeanOfficeApp.Api.BLL.Users;
 
 namespace DeanOfficeApp.Api
 {
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
-    public class ApplicationUserManager : UserManager<ApplicationUser, int>
+    public class ApplicationUserManager : UserManager<ApplicationUser, int>, IUserManager
     {
         public ApplicationUserManager(IUserStore<ApplicationUser, int> store)
             : base(store)

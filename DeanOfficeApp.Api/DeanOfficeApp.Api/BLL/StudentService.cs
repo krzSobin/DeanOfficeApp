@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DeanOfficeApp.Api.BLL.Users;
 using DeanOfficeApp.Api.DAL;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Contracts;
@@ -12,13 +13,13 @@ namespace DeanOfficeApp.Api.BLL
 {
     public class StudentService
     {
-        private ApplicationUserManager _userManager;
+        private IUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private readonly IStudentRepository _repository;
         private readonly CustomUserStore _store;
         private readonly CustomRoleStore _roleStore;
 
-        public StudentService(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IStudentRepository repository, CustomUserStore store, CustomRoleStore roleStore)
+        public StudentService(IUserManager userManager, ApplicationRoleManager roleManager, IStudentRepository repository, CustomUserStore store, CustomRoleStore roleStore)
         {
             _userManager = userManager;
             _roleManager = roleManager;
