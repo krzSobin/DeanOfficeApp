@@ -37,9 +37,14 @@ namespace DeanOfficeApp.Api.Controllers
             _roleStore = new CustomRoleStore(context);
         }
 
-        public StudentsController(IStudentRepository studentRepository)
+        public StudentsController(IStudentRepository studentRepository, ILoggingRepository loggingRepository)
         {
             _repository = studentRepository;
+            _loggingRepository = loggingRepository;
+
+            var context = new ApplicationDbContext();
+            _store = new CustomUserStore(context);
+            _roleStore = new CustomRoleStore(context);
         }
 
         public ApplicationRoleManager RoleManager

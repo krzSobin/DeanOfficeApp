@@ -47,8 +47,6 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             {
                 createResult.Created = true;
                 createResult.Lecture = Mapper.Map<GetLectureDTO>(createdLecture);
-
-                return createResult;
             }
 
             return createResult;
