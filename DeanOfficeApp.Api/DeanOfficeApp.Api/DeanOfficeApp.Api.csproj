@@ -216,15 +216,21 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\Enrollments\EnrollmentService.cs" />
     <Compile Include="BLL\Lectures\LectureService.cs" />
     <Compile Include="BLL\Logging\LoggingService.cs" />
     <Compile Include="BLL\StudentService.cs" />
     <Compile Include="BLL\Teachers\TeacherService.cs" />
     <Compile Include="BLL\Users\IUserManager.cs" />
+    <Compile Include="BLL\Validation\Enrollments\EnrollmentsValidator.cs" />
+    <Compile Include="BLL\Validation\Enrollments\Models\BussinessLogicValidationResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EnrollmentsController.cs" />
     <Compile Include="Controllers\LecturesController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
+    <Compile Include="DAL\Enrollments\EnrollmentRepository.cs" />
+    <Compile Include="DAL\Enrollments\IEnrollmentRepository.cs" />
     <Compile Include="DAL\IStudentRepository.cs" />
     <Compile Include="DAL\Lectures\ILectureRepository.cs" />
     <Compile Include="DAL\Lectures\LectureRepository.cs" />
@@ -260,9 +266,18 @@
     <Compile Include="Migrations\201711081955500_Logging.Designer.cs">
       <DependentUpon>201711081955500_Logging.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711082141366_Enrollments.cs" />
+    <Compile Include="Migrations\201711082141366_Enrollments.Designer.cs">
+      <DependentUpon>201711082141366_Enrollments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711141459242_UniqueAndMaxLenght.cs" />
+    <Compile Include="Migrations\201711141459242_UniqueAndMaxLenght.Designer.cs">
+      <DependentUpon>201711141459242_UniqueAndMaxLenght.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Lecture.cs" />
     <Compile Include="Models\Logging\Error.cs" />
@@ -326,6 +341,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711081955500_Logging.resx">
       <DependentUpon>201711081955500_Logging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082141366_Enrollments.resx">
+      <DependentUpon>201711082141366_Enrollments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711141459242_UniqueAndMaxLenght.resx">
+      <DependentUpon>201711141459242_UniqueAndMaxLenght.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

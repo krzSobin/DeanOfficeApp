@@ -60,6 +60,11 @@ namespace DeanOfficeApp.Api.DAL
             return context.Students.Find(id);
         }
 
+        public Student GetStudentByUserId(int userId)
+        {
+            return context.Students.FirstOrDefault(s => s.UserId == userId);
+        }
+
         public Student InsertStudent(Student student)
         {
             return context.Students.Add(student);

@@ -9,6 +9,10 @@ using DeanOfficeApp.Api.DAL.Lectures;
 using DeanOfficeApp.Api.BLL.Lectures;
 using DeanOfficeApp.Contracts.Lectures;
 using DeanOfficeApp.Api.DAL.Teachers;
+using DeanOfficeApp.Api.DAL.Enrollments;
+using DeanOfficeApp.Api.BLL.Enrollments;
+using DeanOfficeApp.Api.DAL;
+using DeanOfficeApp.Contracts.Enrollments;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -16,27 +20,40 @@ namespace DeanOfficeApp.Api.Controllers
     public class LecturesController : ApiController
     {
         private readonly static Logger _logger = NLog.LogManager.GetCurrentClassLogger();
-        private readonly ILectureRepository _repository;
+
+        private readonly IEnrollmentRepository _enrollmentRepository;
+        private readonly ILectureRepository _lectureRepository;
         private readonly ITeacherRepository _teacherRepository;
+        private readonly IStudentRepository _studentRepository;
         private LectureService lectureService;
+        private EnrollmentService enrollmentService;
 
         public LecturesController()
         {
             var context = new ApplicationDbContext();
-            _repository = new LectureRepository(context);
+            _lectureRepository = new LectureRepository(context);
             _teacherRepository = new TeacherRepository(context);
+            _enrollmentRepository = new EnrollmentRepository(context);
         }
 
-        public LecturesController(ILectureRepository studentRepository, ITeacherRepository teacherRepository)
+        public LecturesController(ILectureRepository lectureRepository, ITeacherRepository teacherRepository, IEnrollmentRepository enrollmentRepository, IStudentRepository studentRepository)
         {
-            _repository = studentRepository;
+            _lectureRepository = lectureRepository;
             _teacherRepository = teacherRepository;
+            _enrollmentRepository = enrollmentRepository;
+            _studentRepository = studentRepository;
         }
 
         public LectureService LectureService
         {
-            get { return lectureService ?? new LectureService(_repository, _teacherRepository); }
+            get { return lectureService ?? new LectureService(_lectureRepository, _teacherRepository); }
             private set { lectureService = value; }
+        }
+
+        public EnrollmentService EnrollmentService
+        {
+            get { return enrollmentService ?? new EnrollmentService(_enrollmentRepository, _studentRepository, _lectureRepository); }
+            private set { enrollmentService = value; }
         }
 
         // GET: api/Lectures
@@ -61,6 +78,17 @@ namespace DeanOfficeApp.Api.Controllers
             }
 
             return Ok(lecture);
+        }
+
+        // GET: api/Lectures/5/Enrollments
+        [Route("{id:int}/Enrollments", Name = "GetEnrollmentsOfLecture")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<GetEnrollmentDTO>))]
+        public IHttpActionResult GetEnrollmentsOfLecture(int id)
+        {
+            var enrollments = EnrollmentService.GetEnrollmentsOfLecture(id);
+
+            return Ok(enrollments);
         }
 
         // PUT: api/Lectures/5
@@ -118,14 +146,14 @@ namespace DeanOfficeApp.Api.Controllers
         {
             if (disposing)
             {
-                _repository.Dispose();
+                _lectureRepository.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool LectureExists(int id)
         {
-            return _repository.LectureExists(id);
+            return _lectureRepository.LectureExists(id);
         }
     }
 }

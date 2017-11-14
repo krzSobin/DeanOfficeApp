@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +19,6 @@ namespace DeanOfficeApp.Api.Models
         [ForeignKey("UserId")]
         public virtual ApplicationUser UserData { get; set; }
 
-        //public virtual ICollection<Enrollment> Enrollments { get; set; }
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }

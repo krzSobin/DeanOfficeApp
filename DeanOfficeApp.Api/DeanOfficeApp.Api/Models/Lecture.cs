@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeanOfficeApp.Api.Models
@@ -8,6 +9,7 @@ namespace DeanOfficeApp.Api.Models
         [Key]
         [DatabaseGe‌​nerated(DatabaseGen‌​eratedOption.Identity)]
         public int LectureId { get; set; }
+        [StringLength(255)]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Bibliography { get; set; }
@@ -18,5 +20,6 @@ namespace DeanOfficeApp.Api.Models
         public int? TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
 
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }

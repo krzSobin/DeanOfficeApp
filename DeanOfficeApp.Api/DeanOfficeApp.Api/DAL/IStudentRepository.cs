@@ -8,6 +8,7 @@ namespace DeanOfficeApp.Api.DAL
     {
         IEnumerable<Student> GetStudents(string connectionString);
         Student GetStudentByID(int studentId);
+        Student GetStudentByUserId(int userId);
         Student InsertStudent(Student student);
         void DeleteStudent(Student student);
         void UpdateStudent(Student student);
