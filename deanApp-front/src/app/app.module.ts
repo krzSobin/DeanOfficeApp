@@ -10,8 +10,11 @@ import { AppComponent } from './app.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
-import { StudentsComponent, AddEditStudentModal, ConfirmationModal } from './components/admin/students/students.component'
+import { StudentsComponent, AddEditStudentModal } from './components/admin/students/students.component'
+import { TeachersComponent, AddEditTeacherModal } from './components/admin/teachers/teachers.component'
+import { ConfirmationModal } from './components/admin/confirmation.component'
 import { StudentFormComponent } from './components/admin/students/form/form.component'
+import { TeacherFormComponent } from './components/admin/teachers/form/form.component'
 
 import { RoutingModule } from './routing.module'
 import { FormsModule } from '@angular/forms'
@@ -19,6 +22,7 @@ import { FormsModule } from '@angular/forms'
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 import { StudentsService } from './services/students.service'
+import { TeachersService } from './services/teachers.service'
 
 import { CustomHttpInterceptor } from './http.interceptor'
 
@@ -30,8 +34,11 @@ import { CustomHttpInterceptor } from './http.interceptor'
 		AdminComponent,
 		StudentsComponent,
 		AddEditStudentModal,
+		StudentFormComponent,
+		TeachersComponent,
+		AddEditTeacherModal,
+		TeacherFormComponent,
 		ConfirmationModal,
-		StudentFormComponent
 	],
 	imports: [
 		BrowserModule,
@@ -52,13 +59,14 @@ import { CustomHttpInterceptor } from './http.interceptor'
 		AuthGuard,
 		AuthService,
 		StudentsService,
+		TeachersService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: CustomHttpInterceptor,
 			multi: true,
 		}
 	],
-	entryComponents: [AddEditStudentModal, ConfirmationModal],
+	entryComponents: [AddEditStudentModal, AddEditTeacherModal, ConfirmationModal],
 	bootstrap: [AppComponent]
 })
 

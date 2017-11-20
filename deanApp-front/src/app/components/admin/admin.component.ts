@@ -5,6 +5,7 @@ import { AuthService } from '../../auth/auth.service'
 	selector: 'admin-component',
 	template: `<h1>Admin dashboard</h1><button (click)="logout()" id="logout">logout</button>
 	<a routerLink="/admin/students/">Studenci</a>
+	<a routerLink="/admin/teachers/">Wykładowcy</a>
 
 	<router-outlet></router-outlet>`,
 })

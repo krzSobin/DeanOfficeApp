@@ -7,6 +7,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
 import { StudentsComponent } from './components/admin/students/students.component'
+import { TeachersComponent } from './components/admin/teachers/teachers.component'
 
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
@@ -42,9 +43,18 @@ const routes: Routes = [
 			{
 				path: 'students',
 				component: StudentsComponent
+			},
+			{
+				path: 'teachers',
+				component: TeachersComponent
 			}
 		]
 	},
+	{
+		path: '**',
+		component: LoginComponent
+	}
+
 
 ]
 

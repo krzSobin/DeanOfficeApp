@@ -10,6 +10,7 @@ import 'rxjs/add/observable/of'
 
 import { Student } from '../../../models/Student'
 import { StudentFormComponent } from './form/form.component'
+import { ConfirmationModal } from '../confirmation.component'
 
 @Component({
 	selector: 'students-component',
@@ -142,22 +143,6 @@ export class StudentsDataSource extends DataSource<Student> {
 export class AddEditStudentModal {
 
 	constructor(public dialogRef: MatDialogRef<AddEditStudentModal>, @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-	onNoClick(): void {
-		this.dialogRef.close()
-	}
-}
-
-@Component({
-	selector: 'confirmation-modal',
-	template: `<p>Czy na pewno chcesz usunąć?</p>
-	<button (click)="dialogRef.close('confirmed')">usuń</button>
-	<button (click)="dialogRef.close()">anuluj</button>`
-})
-
-export class ConfirmationModal {
-
-	constructor(public dialogRef: MatDialogRef<ConfirmationModal>) { }
 
 	onNoClick(): void {
 		this.dialogRef.close()

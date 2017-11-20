@@ -1,0 +1,33 @@
+<form #teacherForm="ngForm" class="teacher__form" (ngSubmit)="onSubmit(teacherForm.form)">
+	<mat-form-field>
+		<input matInput type="text" name="firstName" class="login__input" placeholder="Imię" [(ngModel)]="teacher.firstName" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="lastName" class="login__input" placeholder="Nazwisko" [(ngModel)]="teacher.lastName" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="email" name="email" class="login__input" placeholder="Email" [(ngModel)]="teacher.email" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="pesel" class="login__input" placeholder="PESEL" [(ngModel)]="teacher.pesel" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="room" class="login__input" placeholder="Pokój" [(ngModel)]="teacher.room" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="position" class="login__input" placeholder="Stanowisko" [(ngModel)]="teacher.position" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="degree" class="login__input" placeholder="Stopień naukowy" [(ngModel)]="teacher.degree" required>
+	</mat-form-field>
+
+	<input type="hidden" name="teacherId" [(ngModel)]="teacher.teacherId">
+
+	<button mat-raised-button class="login__button" color="primary">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+</form>
