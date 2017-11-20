@@ -1,0 +1,7 @@
+mat-row {
+	transition: .3s;
+	cursor: pointer;
+	&:hover {
+		background: #eee;
+	}
+}

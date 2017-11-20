@@ -1,0 +1,31 @@
+<form #studentForm="ngForm" class="student__form" (ngSubmit)="onSubmit(studentForm.form)">
+	<mat-form-field>
+		<input matInput type="text" name="firstName" class="login__input" placeholder="Imię" [(ngModel)]="student.firstName" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="lastName" class="login__input" placeholder="Nazwisko" [(ngModel)]="student.lastName" required>
+	</mat-form-field>
+
+	<mat-form-field *ngIf="type === 'edit'" >
+		<input matInput type="text" name="recordBookNumber" class="login__input" placeholder="Nr indeksu" [(ngModel)]="student.recordBookNumber" required readonly>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="email" name="email" class="login__input" placeholder="Email" [(ngModel)]="student.email" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="pesel" class="login__input" placeholder="PESEL" [(ngModel)]="student.pesel" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="currentSemester" class="login__input" placeholder="Semestr studiów" [(ngModel)]="student.currentSemester" required>
+	</mat-form-field>
+
+	<mat-form-field>
+		<input matInput type="text" name="enrollmentDate" class="login__input" placeholder="enrollmentDate" [(ngModel)]="student.enrollmentDate" value="2017-11-19T12:01:32.689Z" required>
+	</mat-form-field>
+
+	<button mat-raised-button class="login__button" color="primary">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+</form>

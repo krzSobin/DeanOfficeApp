@@ -1,5 +1,5 @@
 export class Student {
-	recordBookNumber: number
+	recordBookNumber?: number
 	firstName: string
 	lastName: string
 	email: string

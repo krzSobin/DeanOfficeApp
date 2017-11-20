@@ -4,13 +4,14 @@ import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule } from '@angular/material'
+import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule } from '@angular/material'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
-import { StudentsComponent } from './components/admin/students/students.component'
+import { StudentsComponent, AddEditStudentModal, ConfirmationModal } from './components/admin/students/students.component'
+import { StudentFormComponent } from './components/admin/students/form/form.component'
 
 import { RoutingModule } from './routing.module'
 import { FormsModule } from '@angular/forms'
@@ -27,7 +28,10 @@ import { CustomHttpInterceptor } from './http.interceptor'
 		DashboardComponent,
 		LoginComponent,
 		AdminComponent,
-		StudentsComponent
+		StudentsComponent,
+		AddEditStudentModal,
+		ConfirmationModal,
+		StudentFormComponent
 	],
 	imports: [
 		BrowserModule,
@@ -41,7 +45,8 @@ import { CustomHttpInterceptor } from './http.interceptor'
 		MatButtonModule,
 		MatCardModule,
 		MatToolbarModule,
-		MatTableModule
+		MatTableModule,
+		MatDialogModule
 	],
 	providers: [
 		AuthGuard,
@@ -53,6 +58,7 @@ import { CustomHttpInterceptor } from './http.interceptor'
 			multi: true,
 		}
 	],
+	entryComponents: [AddEditStudentModal, ConfirmationModal],
 	bootstrap: [AppComponent]
 })
 

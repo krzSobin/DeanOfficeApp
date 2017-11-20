@@ -32,7 +32,7 @@ export class AuthService {
 				window.localStorage.setItem('token', this.token)
 				window.localStorage.setItem('role', role)
 				window.localStorage.setItem('name', res.userName)
-				
+
 				const redirectUrl: string = (role === 'admin') ? '/admin' : '/dashboard'
 				this.router.navigate([redirectUrl])
 			})
