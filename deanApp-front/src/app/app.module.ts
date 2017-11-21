@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule } from '@angular/material'
+import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule } from '@angular/material'
 
-import { AppComponent } from './app.component'
+import { AppComponent, PasswordModal } from './app.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
@@ -25,6 +25,7 @@ import { StudentsService } from './services/students.service'
 import { TeachersService } from './services/teachers.service'
 
 import { CustomHttpInterceptor } from './http.interceptor'
+import { EqualValidator } from './directives//equalValidator.directive'
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,8 @@ import { CustomHttpInterceptor } from './http.interceptor'
 		AddEditTeacherModal,
 		TeacherFormComponent,
 		ConfirmationModal,
+		PasswordModal,
+		EqualValidator
 	],
 	imports: [
 		BrowserModule,
@@ -53,7 +56,8 @@ import { CustomHttpInterceptor } from './http.interceptor'
 		MatCardModule,
 		MatToolbarModule,
 		MatTableModule,
-		MatDialogModule
+		MatDialogModule,
+		MatMenuModule
 	],
 	providers: [
 		AuthGuard,
@@ -66,7 +70,7 @@ import { CustomHttpInterceptor } from './http.interceptor'
 			multi: true,
 		}
 	],
-	entryComponents: [AddEditStudentModal, AddEditTeacherModal, ConfirmationModal],
+	entryComponents: [AddEditStudentModal, AddEditTeacherModal, ConfirmationModal, PasswordModal],
 	bootstrap: [AppComponent]
 })
 

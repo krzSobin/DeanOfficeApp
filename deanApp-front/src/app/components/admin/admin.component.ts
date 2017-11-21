@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../auth/auth.service'
+import { Component } from '@angular/core'
 
 import { MatCardModule } from '@angular/material'
 import { MatRipple } from '@angular/material'
@@ -11,9 +10,5 @@ import { MatRipple } from '@angular/material'
 })
 
 export class AdminComponent {
-	constructor(private auth: AuthService) { }
 
-	logout(): void {
-		this.auth.logout()
-	}
 }

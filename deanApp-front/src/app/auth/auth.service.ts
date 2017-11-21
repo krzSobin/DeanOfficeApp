@@ -21,7 +21,7 @@ export class AuthService {
 	login(formData): Promise<any> {
 		let string = ''
 		Object.entries(formData).forEach(([key, value]) => {
-			string += `&${ key }=${ value }`
+			string += `&${key}=${value}`
 		})
 		return this.http.post('token', string.slice(1))
 			.toPromise()
@@ -47,7 +47,7 @@ export class AuthService {
 	}
 
 	getAccessToken(): string {
-		return this.token
+		return window.localStorage.getItem('token')
 	}
 
 	logout(): void {
@@ -57,9 +57,17 @@ export class AuthService {
 	}
 
 	checkAuth(): boolean {
-		if (window.localStorage.getItem('token')) {
-			return true
-		}
-		return false
+		return !!window.localStorage.getItem('token')
+	}
+
+	changePassword(data): Promise<any> {
+		return this.http.post('api/Account/ChangePassword', data, { responseType: "text" })
+			.toPromise()
+			// .then((res: string) => {
+			// 	console.log(res.json())
+			// })
+			// .catch((res: Response) => {
+			// 	console.log(res.json())
+			// })
 	}
 }
