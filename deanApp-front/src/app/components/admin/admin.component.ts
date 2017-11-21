@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service'
 
+import { MatCardModule } from '@angular/material'
+import { MatRipple } from '@angular/material'
+
 @Component({
 	selector: 'admin-component',
-	template: `<h1>Admin dashboard</h1><button (click)="logout()" id="logout">logout</button>
-	<a routerLink="/admin/students/">Studenci</a>
-	<a routerLink="/admin/teachers/">Wykładowcy</a>
-
-	<router-outlet></router-outlet>`,
+	templateUrl: './admin.component.html',
+	styleUrls: ['./admin.component.scss']
 })
 
 export class AdminComponent {

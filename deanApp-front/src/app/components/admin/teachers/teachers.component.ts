@@ -30,7 +30,7 @@ export class TeachersComponent implements OnDestroy {
 	public teachers: Teacher[]
 
 	constructor(private teachersService: TeachersService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
-		this.columns = ['degree', 'firstName', 'lastName', 'room', 'delete', 'edit']
+		this.columns = ['degree', 'firstName', 'lastName', 'room']
 
 		this.subscription = teachersService.formSubmitted$.subscribe(({ teacher, type }) => {
 			switch (type) {
@@ -51,7 +51,6 @@ export class TeachersComponent implements OnDestroy {
 	}
 
 	openEditTeacherModal(teacher: Teacher): void {
-		console.log(teacher)
 		this.editTeacherModal = this.modal.open(AddEditTeacherModal, {
 			data: {
 				action: 'edit',

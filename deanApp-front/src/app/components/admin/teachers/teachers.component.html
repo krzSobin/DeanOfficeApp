@@ -27,7 +27,7 @@
 		<mat-header-cell *matHeaderCellDef>Pokój</mat-header-cell>
 		<mat-cell *matCellDef="let teacher">{{ teacher.room }}</mat-cell>
 	</ng-container>
-
+<!--
 	<ng-container matColumnDef="delete">
 		<mat-header-cell *matHeaderCellDef>Edytuj</mat-header-cell>
 		<mat-cell *matCellDef="let teacher"><button (click)="openEditTeacherModal(teacher)">edytuj</button></mat-cell>
@@ -36,9 +36,9 @@
 	<ng-container matColumnDef="edit">
 		<mat-header-cell *matHeaderCellDef>Usuń</mat-header-cell>
 		<mat-cell *matCellDef="let teacher"><button (click)="openDeleteTeacherModal(teacher)">usuń</button></mat-cell>
-	</ng-container>
+	</ng-container> -->
 
 	<mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-	<mat-row *matRowDef="let teacher; columns: columns;"></mat-row>
+	<mat-row *matRowDef="let teacher; columns: columns;" (click)="openEditTeacherModal(teacher)"></mat-row>
 
 </mat-table>

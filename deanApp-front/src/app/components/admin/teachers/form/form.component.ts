@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 
 import { Teacher } from '../../../../models/Teacher'
 import { TeachersService } from '../../../../services/teachers.service'
@@ -8,11 +8,16 @@ import { TeachersService } from '../../../../services/teachers.service'
 	templateUrl: './form.component.html'
 })
 
-export class TeacherFormComponent {
-	constructor(private teachersService: TeachersService) {}
+export class TeacherFormComponent implements OnInit {
+	constructor(private teachersService: TeachersService) {	}
 
 	@Input() type: string
 	@Input() teacher: Teacher
+	private isEditable: boolean
+
+	ngOnInit() {
+		this.isEditable = this.type === 'add'
+	}
 
 	onSubmit(form) {
 		const teacher: Teacher = form.value

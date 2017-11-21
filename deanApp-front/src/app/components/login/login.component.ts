@@ -12,10 +12,16 @@ export class LoginComponent {
 	constructor(private auth: AuthService) { }
 
 	login(form: any): void {
-		const login = form.valid && this.auth.login(form.value)
+		const login = this.auth.login(form.value)
 		login.catch(err => {
-			form.controls['UserName'].setErrors({'incorrect': true})
-			form.controls['Password'].setErrors({'incorrect': true})
+			form.controls['UserName'].setErrors({ 'incorrect': true })
+			form.controls['Password'].setErrors({ 'incorrect': true })
 		})
 	}
+
+	dataChanged(form) {
+		form.controls['UserName'].updateValueAndValidity()
+		form.controls['Password'].updateValueAndValidity()
+	}
+
 }
