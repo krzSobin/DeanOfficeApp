@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angula
 import { TeachersService } from '../../../services/teachers.service'
 import { DataSource } from '@angular/cdk/collections'
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material'
 
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
@@ -29,7 +29,7 @@ export class TeachersComponent implements OnDestroy {
 
 	public teachers: Teacher[]
 
-	constructor(private teachersService: TeachersService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
+	constructor(private teachersService: TeachersService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef, public snackbar: MatSnackBar) {
 		this.columns = ['degree', 'firstName', 'lastName', 'room']
 
 		this.subscription = teachersService.formSubmitted$.subscribe(({ teacher, type }) => {
@@ -90,6 +90,9 @@ export class TeachersComponent implements OnDestroy {
 		this.teachersService.add(teacher).subscribe(teacher => {
 			this.teachers.push(teacher)
 			this.refreshTable()
+			this.snackbar.open('Pomyślnie dodano wykładowcę!', 'OK', {
+				duration: 5000
+			})
 			this.addTeacherModal.close()
 		})
 	}
@@ -99,6 +102,9 @@ export class TeachersComponent implements OnDestroy {
 			const index = this.teachers.findIndex(teacher => teacher.teacherId === editedTeacher.teacher.teacherId)
 			this.teachers[index] = editedTeacher.teacher
 			this.refreshTable()
+			this.snackbar.open('Zapisano zmiany!', 'OK', {
+				duration: 4000
+			})
 			this.editTeacherModal.close()
 		})
 	}
@@ -107,6 +113,9 @@ export class TeachersComponent implements OnDestroy {
 		this.teachersService.delete(teacher).subscribe(res => {
 			this.teachers = this.teachers.filter(teacher => teacher.teacherId !== res.teacher.teacherId)
 			this.refreshTable()
+			this.snackbar.open('Pomyślnie usunięto wykładowcę!', 'OK', {
+				duration: 5000
+			})
 			this.confirmationModal.close()
 		})
 	}

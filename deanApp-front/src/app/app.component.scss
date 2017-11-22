@@ -7,6 +7,7 @@
 
 	&__subtitle {
 		font-family: 'Roboto Slab';
+		margin: 60px 0 15px;
 	}
 }
 
@@ -105,9 +106,38 @@
 		}
 	}
 }
-
+.mat-dialog-container {
+	overflow: hidden !important;
+}
 .mat-dialog-title {
 	font-family: 'Roboto Slab';
+	margin: 20px 0 !important;
+	font-size: 24px;
+	display: inline-block !important;
+	text-align: center;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	&:before {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		position: absolute;
+		top: 18px;
+		left: calc(-100% - 15px);
+		background: $red;
+	}
+	&:after {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		position: absolute;
+		top: 18px;
+		right: calc(-100% - 15px);
+		background: $red;
+	}
 }
 
 password-modal {
@@ -190,12 +220,37 @@ password-modal {
 }
 
 .form {
+	max-width: 400px;
+	margin: 40px 0 0;
+
+	&__field {
+		float: left;
+		margin: 10px 15px;
+
+		&--full {
+			width: calc(100% - 30px);
+		}
+
+		&--half {
+			width: calc(50% - 30px);
+		}
+	}
+
 	&--readonly {
 		.mat-form-field-underline {
 			background: none;
 		}
+
 		.mat-placeholder-required {
 			opacity: 0;
+		}
+	}
+
+	&__button {
+		margin: 40px 5px 15px !important;
+
+		&--right {
+			float: right;
 		}
 	}
 }

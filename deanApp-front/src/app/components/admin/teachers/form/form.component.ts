@@ -22,7 +22,8 @@ export class TeacherFormComponent implements OnInit {
 	makeEditable() {
 		this.isEditable = true
 		window.setTimeout(() => {
-			document.getElementById('mat-input-0').focus()
+			const firstInput = <HTMLElement>document.querySelector('#teacherForm input')
+			firstInput.focus()
 		}, 0)
 	}
 
