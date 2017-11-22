@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy, ChangeDetectorRef } from '@angula
 import { StudentsService } from '../../../services/students.service'
 import { DataSource } from '@angular/cdk/collections'
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material'
 
 import { Observable } from 'rxjs/Observable'
 import { Subscription } from 'rxjs/Subscription'
@@ -29,8 +29,8 @@ export class StudentsComponent implements OnDestroy {
 
 	public students: Student[]
 
-	constructor(private studentsService: StudentsService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef) {
-		this.columns = ['firstName', 'lastName', 'recordBookNumber', 'delete', 'edit']
+	constructor(private studentsService: StudentsService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef, public snackbar: MatSnackBar) {
+		this.columns = ['firstName', 'lastName', 'recordBookNumber']
 
 		this.subscription = studentsService.formSubmitted$.subscribe(({ student, type }) => {
 			switch (type) {
@@ -90,6 +90,9 @@ export class StudentsComponent implements OnDestroy {
 		this.studentsService.add(student).subscribe(student => {
 			this.students.push(student)
 			this.refreshTable()
+			this.snackbar.open('Pomyślnie dodano studenta!', 'OK', {
+				duration: 5000
+			})
 			this.addStudentModal.close()
 		})
 	}
@@ -99,6 +102,9 @@ export class StudentsComponent implements OnDestroy {
 			const index = this.students.findIndex(student => student.recordBookNumber === editedStudent.student.recordBookNumber)
 			this.students[index] = editedStudent.student
 			this.refreshTable()
+			this.snackbar.open('Zapisano zmiany!', 'OK', {
+				duration: 4000
+			})
 			this.editStudentModal.close()
 		})
 	}
@@ -107,6 +113,9 @@ export class StudentsComponent implements OnDestroy {
 		this.studentsService.delete(student).subscribe(res => {
 			this.students = this.students.filter(student => student.recordBookNumber !== res.student.recordBookNumber)
 			this.refreshTable()
+			this.snackbar.open('Pomyślnie usunięto studenta!', 'OK', {
+				duration: 5000
+			})
 			this.confirmationModal.close()
 		})
 	}

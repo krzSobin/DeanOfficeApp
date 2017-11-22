@@ -2,7 +2,7 @@
 
 <form id="teacherForm" #teacherForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(teacherForm.form)">
 	<mat-form-field class="form__field form__field--full">
-		<input matInput type="text" name="degree" class="login__input" placeholder="Stopień naukowy" [(ngModel)]="teacher.degree" required [readonly]="!isEditable">
+		<input matInput type="text" name="degree" placeholder="Stopień naukowy" [(ngModel)]="teacher.degree" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
@@ -10,23 +10,23 @@
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="lastName" class="login__input" placeholder="Nazwisko" [(ngModel)]="teacher.lastName" required [readonly]="!isEditable">
+		<input matInput type="text" name="lastName" placeholder="Nazwisko" [(ngModel)]="teacher.lastName" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="email" name="email" class="login__input" placeholder="Email" [(ngModel)]="teacher.email" required [readonly]="!isEditable">
+		<input matInput type="email" name="email" placeholder="Email" [(ngModel)]="teacher.email" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="pesel" class="login__input" placeholder="PESEL" [(ngModel)]="teacher.pesel" required [readonly]="!isEditable">
+		<input matInput type="text" name="pesel" placeholder="PESEL" [(ngModel)]="teacher.pesel" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="room" class="login__input" placeholder="Pokój" [(ngModel)]="teacher.room" required [readonly]="!isEditable">
+		<input matInput type="text" name="room" placeholder="Pokój" [(ngModel)]="teacher.room" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="position" class="login__input" placeholder="Stanowisko" [(ngModel)]="teacher.position" required [readonly]="!isEditable">
+		<input matInput type="text" name="position" placeholder="Stanowisko" [(ngModel)]="teacher.position" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<input type="hidden" name="teacherId" [(ngModel)]="teacher.teacherId">

@@ -141,7 +141,7 @@
 }
 
 password-modal {
-	padding: 20px;
+	padding: 0 20px;
 	display: block;
 
 	.mat-form-field {
@@ -150,7 +150,7 @@ password-modal {
 	}
 
 	.mat-dialog-title {
-		margin-bottom: 50px;
+		margin-bottom: 50px !important;
 	}
 }
 
@@ -233,6 +233,11 @@ password-modal {
 
 		&--half {
 			width: calc(50% - 30px);
+		}
+
+		&--three {
+			margin: 10px 15px;
+			width: calc(33.333333% - 30px);
 		}
 	}
 

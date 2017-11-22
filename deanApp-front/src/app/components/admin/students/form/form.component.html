@@ -1,31 +1,37 @@
-<form #studentForm="ngForm" class="student__form" (ngSubmit)="onSubmit(studentForm.form)">
-	<mat-form-field>
-		<input matInput type="text" name="firstName" class="login__input" placeholder="Imię" [(ngModel)]="student.firstName" required>
+<h2 mat-dialog-title class="modal__title">Dodaj studenta</h2>
+
+<form id="studentForm" #studentForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(studentForm.form)">
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="firstName" placeholder="Imię" [(ngModel)]="student.firstName" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="text" name="lastName" class="login__input" placeholder="Nazwisko" [(ngModel)]="student.lastName" required>
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="lastName" placeholder="Nazwisko" [(ngModel)]="student.lastName" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field *ngIf="type === 'edit'" >
-		<input matInput type="text" name="recordBookNumber" class="login__input" placeholder="Nr indeksu" [(ngModel)]="student.recordBookNumber" required readonly>
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="email" name="email" placeholder="Email" [(ngModel)]="student.email" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="email" name="email" class="login__input" placeholder="Email" [(ngModel)]="student.email" required>
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="pesel" placeholder="PESEL" [(ngModel)]="student.pesel" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="text" name="pesel" class="login__input" placeholder="PESEL" [(ngModel)]="student.pesel" required>
+	<mat-form-field *ngIf="type === 'edit'" class="form__field form__field--half">
+		<input matInput type="text" name="recordBookNumber" placeholder="Nr indeksu" [(ngModel)]="student.recordBookNumber" required readonly>
 	</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="text" name="currentSemester" class="login__input" placeholder="Semestr studiów" [(ngModel)]="student.currentSemester" required>
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="currentSemester" placeholder="Semestr studiów" [(ngModel)]="student.currentSemester" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field>
-		<input matInput type="text" name="enrollmentDate" class="login__input" placeholder="enrollmentDate" [(ngModel)]="student.enrollmentDate" value="2017-11-19T12:01:32.689Z" required>
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="enrollmentDate" placeholder="enrollmentDate" [(ngModel)]="student.enrollmentDate" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<button mat-raised-button class="login__button" color="primary">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">Usuń</button>
+
+	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="studentForm.pristine || studentForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
 </form>
