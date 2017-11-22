@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core'
-import { MatMenuModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'
+import { MatMenuModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material'
 import { Router } from '@angular/router'
 
 import { AuthService } from './auth/auth.service'
@@ -66,19 +66,23 @@ export class AppComponent {
 
 export class PasswordModal {
 
-	constructor(public dialogRef: MatDialogRef<PasswordModal>, private auth: AuthService) { }
+	constructor(public dialogRef: MatDialogRef<PasswordModal>, private auth: AuthService, public snackbar: MatSnackBar) { }
 
 	onNoClick(): void {
 		this.dialogRef.close()
 	}
 
 	changePassword(form): void {
+
 		this.auth.changePassword(form.value)
-		.then(() => {
-			this.dialogRef.close()
-		})
-		.catch(() => {
-			console.log('error')
-		})
+			.then(() => {
+				this.snackbar.open('Pomyślnie zmieniono hasło!', 'OK', {
+					duration: 5000
+				})
+				this.dialogRef.close()
+			})
+			.catch(() => {
+				console.log('error')
+			})
 	}
 }

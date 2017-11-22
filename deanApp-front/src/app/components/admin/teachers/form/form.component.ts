@@ -19,6 +19,13 @@ export class TeacherFormComponent implements OnInit {
 		this.isEditable = this.type === 'add'
 	}
 
+	makeEditable() {
+		this.isEditable = true
+		window.setTimeout(() => {
+			document.getElementById('mat-input-0').focus()
+		}, 0)
+	}
+
 	onSubmit(form) {
 		const teacher: Teacher = form.value
 		this.teachersService.passTeacherFormData(teacher, this.type)

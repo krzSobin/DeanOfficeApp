@@ -1,44 +1,39 @@
-<h1>Teachers component</h1>
-<!-- <ul>
-	<li *ngFor="let teacher of teachers">
-		{{ teacher.firstName }} {{ teacher.lastName }}
-	</li>
-</ul> -->
-<button (click)="openAddTeacherModal()">Dodaj teachera</button>
+<section>
+	<h1 class="page__subtitle">Teachers component</h1>
 
-<mat-table #table [dataSource]="dataSource">
+	<button mat-button class="button--add mat-elevation-z2" color="accent" (click)="openAddTeacherModal()">
+		<div class="button__circle">
+			<img class="button__circle-plus" src="/assets/img/plus-symbol.svg"/>
+		</div>
+		<p class="button__text">
+			Dodaj wykładowcę
+		</p>
+	</button>
 
-	<ng-container matColumnDef="degree">
-		<mat-header-cell *matHeaderCellDef>Stopień</mat-header-cell>
-		<mat-cell *matCellDef="let teacher">{{ teacher.degree }}</mat-cell>
-	</ng-container>
+	<mat-table #table [dataSource]="dataSource" class="mat-elevation-z2">
 
-	<ng-container matColumnDef="firstName">
-		<mat-header-cell *matHeaderCellDef>Imię</mat-header-cell>
-		<mat-cell *matCellDef="let teacher">{{ teacher.firstName }}</mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="degree">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Stopień</mat-header-cell>
+			<mat-cell *matCellDef="let teacher">{{ teacher.degree }}</mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="lastName">
-		<mat-header-cell *matHeaderCellDef>Nazwisko</mat-header-cell>
-		<mat-cell *matCellDef="let teacher">{{ teacher.lastName }}</mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="firstName">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Imię</mat-header-cell>
+			<mat-cell *matCellDef="let teacher">{{ teacher.firstName }}</mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="room">
-		<mat-header-cell *matHeaderCellDef>Pokój</mat-header-cell>
-		<mat-cell *matCellDef="let teacher">{{ teacher.room }}</mat-cell>
-	</ng-container>
-<!--
-	<ng-container matColumnDef="delete">
-		<mat-header-cell *matHeaderCellDef>Edytuj</mat-header-cell>
-		<mat-cell *matCellDef="let teacher"><button (click)="openEditTeacherModal(teacher)">edytuj</button></mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="lastName">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Nazwisko</mat-header-cell>
+			<mat-cell *matCellDef="let teacher">{{ teacher.lastName }}</mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="edit">
-		<mat-header-cell *matHeaderCellDef>Usuń</mat-header-cell>
-		<mat-cell *matCellDef="let teacher"><button (click)="openDeleteTeacherModal(teacher)">usuń</button></mat-cell>
-	</ng-container> -->
+		<ng-container matColumnDef="room">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Pokój</mat-header-cell>
+			<mat-cell *matCellDef="let teacher">{{ teacher.room }}</mat-cell>
+		</ng-container>
 
-	<mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-	<mat-row *matRowDef="let teacher; columns: columns;" (click)="openEditTeacherModal(teacher)"></mat-row>
+		<mat-header-row *matHeaderRowDef="columns" class="table__header"></mat-header-row>
+		<mat-row class="table__row" *matRowDef="let teacher; columns: columns;" (click)="openEditTeacherModal(teacher)"></mat-row>
 
-</mat-table>
+	</mat-table>
+</section>

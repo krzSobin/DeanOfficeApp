@@ -1,6 +1,6 @@
-<form #teacherForm="ngForm" class="teacher__form" (ngSubmit)="onSubmit(teacherForm.form)">
+<form #teacherForm="ngForm" class="teacher__form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(teacherForm.form)">
 	<mat-form-field>
-		<input matInput type="text" name="firstName" class="login__input" placeholder="Imię" [(ngModel)]="teacher.firstName" required [readonly]="!isEditable">
+		<input matInput type="text" name="firstName" class="login__input firstInput" placeholder="Imię" [(ngModel)]="teacher.firstName" required [readonly]="!isEditable" autofocus>
 	</mat-form-field>
 
 	<mat-form-field>
@@ -29,7 +29,7 @@
 
 	<input type="hidden" name="teacherId" [(ngModel)]="teacher.teacherId">
 
-	<button mat-raised-button type="button" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">usuń</button>
-	<button mat-raised-button type="button" class="login__button" color="primary" *ngIf="type === 'edit'" (click)="isEditable = true">Edytuj</button>
+	<button mat-raised-button type="button" color="warn" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">Usuń</button>
+	<button mat-raised-button type="button" class="login__button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
 	<button mat-raised-button class="login__button" color="primary" [disabled]="teacherForm.pristine || teacherForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
 </form>

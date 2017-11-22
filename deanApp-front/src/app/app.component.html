@@ -1,5 +1,5 @@
 <nav class="nav" *ngIf="router.url !== '/login'">
-	<img src="/assets/img/graduates.svg" class="nav__logo" />
+	<img src="/assets/img/owl.svg" class="nav__logo" />
 	<h1 class="nav__title">Sztosowy Dziekanat</h1>
 	<div>
 		<p class="nav__text">
@@ -12,5 +12,6 @@
 		</mat-menu>
 	</div>
 </nav>
+<div class="nav-replacer" *ngIf="router.url !== '/login'"></div>
 
 <router-outlet></router-outlet>

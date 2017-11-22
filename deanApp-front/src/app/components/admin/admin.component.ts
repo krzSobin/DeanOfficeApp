@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { MatCardModule } from '@angular/material'
 import { MatRipple } from '@angular/material'
@@ -10,5 +11,9 @@ import { MatRipple } from '@angular/material'
 })
 
 export class AdminComponent {
+	public router: Router
 
+	constructor(private _router: Router) {
+		this.router = _router
+	}
 }
