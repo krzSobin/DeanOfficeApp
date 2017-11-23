@@ -3,14 +3,13 @@ import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { Headers, Response } from '@angular/http'
 
+import { MatDialogRef } from '@angular/material'
+
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
 
-// import { MatTableModule } from '@angular/material'
-
 import { Student } from '../models/Student'
-
-// import 'rxjs/add/operator/toPromise'
+import { ConfirmationModal } from '../components/admin/confirmation.component'
 
 @Injectable()
 export class StudentsService {
@@ -22,8 +21,8 @@ export class StudentsService {
 
 	constructor(private http: HttpClient) { }
 
-	passStudentFormData(student: Student, type: string) {
-		this.studentFormSubmitHandler.next({ student, type })
+	passStudentFormData(student: Student, type: string, modal?: MatDialogRef<ConfirmationModal>) {
+		this.studentFormSubmitHandler.next({ student, type, modal })
 	}
 
 	get(id?: number): Observable<Student[]> {

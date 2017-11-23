@@ -30,7 +30,7 @@
 		<input matInput type="text" name="enrollmentDate" placeholder="enrollmentDate" [(ngModel)]="student.enrollmentDate" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">Usuń</button>
+	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteStudentModal(student)" *ngIf="type === 'edit'">Usuń</button>
 
 	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="studentForm.pristine || studentForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
 	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>

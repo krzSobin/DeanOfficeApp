@@ -32,6 +32,7 @@
 	<input type="hidden" name="teacherId" [(ngModel)]="teacher.teacherId">
 
 	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">Usuń</button>
+	
 	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="teacherForm.pristine || teacherForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
 	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
 </form>

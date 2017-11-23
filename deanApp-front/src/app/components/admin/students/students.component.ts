@@ -14,8 +14,7 @@ import { ConfirmationModal } from '../confirmation.component'
 
 @Component({
 	selector: 'students-component',
-	templateUrl: './students.component.html',
-	styleUrls: ['./students.component.scss']
+	templateUrl: './students.component.html'
 })
 
 export class StudentsComponent implements OnDestroy {
@@ -23,7 +22,6 @@ export class StudentsComponent implements OnDestroy {
 	public dataSource: StudentsDataSource | null
 	public subscription: Subscription
 
-	public confirmationModal: MatDialogRef<ConfirmationModal>
 	private addStudentModal: MatDialogRef<AddEditStudentModal>
 	public editStudentModal: MatDialogRef<AddEditStudentModal>
 
@@ -32,13 +30,16 @@ export class StudentsComponent implements OnDestroy {
 	constructor(private studentsService: StudentsService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef, public snackbar: MatSnackBar) {
 		this.columns = ['firstName', 'lastName', 'recordBookNumber']
 
-		this.subscription = studentsService.formSubmitted$.subscribe(({ student, type }) => {
+		this.subscription = studentsService.formSubmitted$.subscribe(({ student, type, modal }) => {
 			switch (type) {
 				case 'add':
 					this.addStudent(student)
 					break
 				case 'edit':
 					this.editStudent(student)
+					break
+				case 'delete':
+					this.deleteStudent(student, modal)
 					break
 				default:
 					throw new Error('Student Form - invalid action type')
@@ -68,14 +69,6 @@ export class StudentsComponent implements OnDestroy {
 				}
 			}
 		})
-	}
-
-	openDeleteStudentModal(student: Student): void {
-		this.confirmationModal = this.modal.open(ConfirmationModal)
-
-		this.confirmationModal.afterClosed().subscribe(result => {
-			result && this.deleteStudent(student)
-	 	})
 	}
 
 	getStudents(): void {
@@ -109,14 +102,15 @@ export class StudentsComponent implements OnDestroy {
 		})
 	}
 
-	deleteStudent(student: Student): void {
+	deleteStudent(student: Student, modal: MatDialogRef<ConfirmationModal>): void {
 		this.studentsService.delete(student).subscribe(res => {
 			this.students = this.students.filter(student => student.recordBookNumber !== res.student.recordBookNumber)
 			this.refreshTable()
 			this.snackbar.open('Pomyślnie usunięto studenta!', 'OK', {
 				duration: 5000
 			})
-			this.confirmationModal.close()
+			modal.close()
+			this.editStudentModal.close()
 		})
 	}
 

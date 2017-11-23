@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
 import { StudentsComponent } from './components/admin/students/students.component'
 import { TeachersComponent } from './components/admin/teachers/teachers.component'
+import { LecturesComponent } from './components/admin/lectures/lectures.component'
 
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
@@ -26,12 +27,7 @@ const routes: Routes = [
 		path: 'student',
 		canActivateChild: [AuthGuard],
 		data: { expectedRole: 'user' },
-		component: DashboardComponent,
-		// children: [
-		// 	{
-		//
-		// 	}
-		// ]
+		component: DashboardComponent
 	},
 	{
 		path: 'admin',
@@ -47,6 +43,10 @@ const routes: Routes = [
 			{
 				path: 'teachers',
 				component: TeachersComponent
+			},
+			{
+				path: 'lectures',
+				component: LecturesComponent
 			}
 		]
 	},

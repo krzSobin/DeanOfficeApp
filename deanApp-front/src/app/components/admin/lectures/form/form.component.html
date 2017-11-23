@@ -1,0 +1,30 @@
+<h2 mat-dialog-title class="modal__title">Dodaj przedmiot</h2>
+
+<form id="lectureForm" #lectureForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(lectureForm.form)">
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="text" name="name" placeholder="Nazwa" [(ngModel)]="lecture.name" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<textarea matInput name="description" placeholder="Opis" [(ngModel)]="lecture.description" required [readonly]="!isEditable" style="max-height:115px;"></textarea>
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<textarea matInput name="bibliography" placeholder="Bibliografia" [(ngModel)]="lecture.bibliography" required [readonly]="!isEditable" style="max-height:75px;"></textarea>
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="email" name="minimalSemester" placeholder="Minimalny wymagany semestr" [(ngModel)]="lecture.minimalSemester" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="ecstsPoints" placeholder="Punkty ECTS za przedmiot" [(ngModel)]="lecture.ecstsPoints" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<input type="hidden" name="lectureId" [(ngModel)]="lecture.lectureId">
+
+	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteLectureModal(lecture)" *ngIf="type === 'edit'">Usuń</button>
+
+	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="lectureForm.pristine || lectureForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
+</form>

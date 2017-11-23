@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core'
 
+import { MatDialog, MatDialogRef } from '@angular/material'
+
 import { Student } from '../../../../models/Student'
 import { StudentsService } from '../../../../services/students.service'
+import { ConfirmationModal } from '../../confirmation.component'
 
 @Component({
 	selector: 'student-form',
@@ -9,7 +12,9 @@ import { StudentsService } from '../../../../services/students.service'
 })
 
 export class StudentFormComponent implements OnInit {
-	constructor(private studentsService: StudentsService) {}
+	public confirmationModal: MatDialogRef<ConfirmationModal>
+
+	constructor(private studentsService: StudentsService, public modal: MatDialog) { }
 
 	@Input() type: string
 	@Input() student: Student
@@ -25,6 +30,14 @@ export class StudentFormComponent implements OnInit {
 			const firstInput = <HTMLElement>document.querySelector('#studentForm input')
 			firstInput.focus()
 		}, 0)
+	}
+
+	openDeleteStudentModal(student: Student): void {
+		this.confirmationModal = this.modal.open(ConfirmationModal)
+
+		this.confirmationModal.afterClosed().subscribe(result => {
+			result && this.studentsService.passStudentFormData(student, 'delete', this.confirmationModal)
+		})
 	}
 
 	onSubmit(form) {

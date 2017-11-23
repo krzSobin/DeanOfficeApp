@@ -12,9 +12,11 @@ import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
 import { StudentsComponent, AddEditStudentModal } from './components/admin/students/students.component'
 import { TeachersComponent, AddEditTeacherModal } from './components/admin/teachers/teachers.component'
+import { LecturesComponent, AddEditLectureModal } from './components/admin/lectures/lectures.component'
 import { ConfirmationModal } from './components/admin/confirmation.component'
 import { StudentFormComponent } from './components/admin/students/form/form.component'
 import { TeacherFormComponent } from './components/admin/teachers/form/form.component'
+import { LectureFormComponent } from './components/admin/lectures/form/form.component'
 
 import { RoutingModule } from './routing.module'
 import { FormsModule } from '@angular/forms'
@@ -23,6 +25,7 @@ import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
 import { StudentsService } from './services/students.service'
 import { TeachersService } from './services/teachers.service'
+import { LecturesService } from './services/lectures.service'
 
 import { CustomHttpInterceptor } from './http.interceptor'
 import { EqualValidator } from './directives//equalValidator.directive'
@@ -39,6 +42,9 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		TeachersComponent,
 		AddEditTeacherModal,
 		TeacherFormComponent,
+		LecturesComponent,
+		AddEditLectureModal,
+		LectureFormComponent,
 		ConfirmationModal,
 		PasswordModal,
 		EqualValidator
@@ -65,13 +71,14 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		AuthService,
 		StudentsService,
 		TeachersService,
+		LecturesService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: CustomHttpInterceptor,
 			multi: true,
 		}
 	],
-	entryComponents: [AddEditStudentModal, AddEditTeacherModal, ConfirmationModal, PasswordModal],
+	entryComponents: [AddEditStudentModal, AddEditTeacherModal, AddEditLectureModal, ConfirmationModal, PasswordModal],
 	bootstrap: [AppComponent]
 })
 

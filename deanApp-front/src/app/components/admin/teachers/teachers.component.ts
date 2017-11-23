@@ -14,8 +14,7 @@ import { ConfirmationModal } from '../confirmation.component'
 
 @Component({
 	selector: 'teachers-component',
-	templateUrl: './teachers.component.html',
-	styleUrls: ['./teachers.component.scss']
+	templateUrl: './teachers.component.html'
 })
 
 export class TeachersComponent implements OnDestroy {
