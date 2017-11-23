@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="CreateStudentDTO.cs" />
     <Compile Include="CreateTeacherDTO.cs" />
-    <Compile Include="Enrollments\CreateenrollmentDTO.cs" />
+    <Compile Include="Enrollments\CreateEnrollmentDTO.cs" />
     <Compile Include="Enrollments\CreateEnrollmentResultDTO.cs" />
     <Compile Include="Enrollments\DeleteEnrollmentResultDTO.cs" />
     <Compile Include="Enrollments\GetEnrollmentDTO.cs" />

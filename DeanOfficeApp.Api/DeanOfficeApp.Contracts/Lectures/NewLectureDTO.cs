@@ -7,5 +7,6 @@
         public string Bibliography { get; set; }
         public int MinimalSemester { get; set; }
         public int EcstsPoints { get; set; }
+        public int TeacherId { get; set; }
     }
 }

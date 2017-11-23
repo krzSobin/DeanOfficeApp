@@ -17,7 +17,7 @@ namespace DeanOfficeApp.Api.Models
         public int EcstsPoints { get; set; }
 
         [ForeignKey("Teacher")]
-        public int? TeacherId { get; set; }
+        public int TeacherId { get; set; }
         public virtual Teacher Teacher { get; set; }
 
         public virtual ICollection<Enrollment> Enrollments { get; set; }

@@ -57,7 +57,6 @@ namespace DeanOfficeApp.Api
                 .ForMember(dest => dest.LectureId, opt => opt.Ignore());
 
                 cfg.CreateMap<NewLectureDTO, Lecture>()
-                .ForMember(dest => dest.TeacherId, opt => opt.Ignore())
                 .ForMember(dest => dest.Teacher, opt => opt.Ignore())
                 .ForMember(dest => dest.LectureId, opt => opt.Ignore());
 

@@ -42,6 +42,7 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             };
 
             var lecture = Mapper.Map<Lecture>(lectureDTO);
+            lecture.Teacher = _teacherRepository.GetTeacherByID((int)lecture.TeacherId);
 
             var createdLecture = _repository.InsertLecture(lecture);
             if (_repository.Save())
@@ -70,9 +71,8 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             lectureEntity.Description = lecture.Description;
             lectureEntity.Bibliography = lecture.Bibliography;
             lectureEntity.TeacherId = lecture.TeacherId;
-
-            if (lecture.TeacherId != null)
-                lectureEntity.Teacher = _teacherRepository.GetTeacherByID((int)lectureEntity.TeacherId);
+            
+            lectureEntity.Teacher = _teacherRepository.GetTeacherByID(lectureEntity.TeacherId);
 
             updateResult.Lecture = Mapper.Map<GetLectureDTO>(lectureEntity);
 
