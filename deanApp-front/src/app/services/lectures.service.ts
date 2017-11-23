@@ -3,10 +3,13 @@ import { Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http'
 import { Headers, Response } from '@angular/http'
 
+import { MatDialogRef } from '@angular/material'
+
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
 
 import { Lecture } from '../models/Lecture'
+import { ConfirmationModal } from '../components/admin/confirmation.component'
 
 @Injectable()
 export class LecturesService {
@@ -18,8 +21,8 @@ export class LecturesService {
 
 	constructor(private http: HttpClient) { }
 
-	passLectureFormData(lecture: Lecture, type: string) {
-		this.lectureFormSubmitHandler.next({ lecture, type })
+	passLectureFormData(lecture: Lecture, type: string, modal?: MatDialogRef<ConfirmationModal>) {
+		this.lectureFormSubmitHandler.next({ lecture, type, modal })
 	}
 
 	get(id?: number): Observable<Lecture[]> {

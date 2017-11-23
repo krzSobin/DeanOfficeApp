@@ -22,7 +22,6 @@ export class TeachersComponent implements OnDestroy {
 	public dataSource: TeachersDataSource | null
 	public subscription: Subscription
 
-	public confirmationModal: MatDialogRef<ConfirmationModal>
 	private addTeacherModal: MatDialogRef<AddEditTeacherModal>
 	public editTeacherModal: MatDialogRef<AddEditTeacherModal>
 
@@ -31,13 +30,16 @@ export class TeachersComponent implements OnDestroy {
 	constructor(private teachersService: TeachersService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef, public snackbar: MatSnackBar) {
 		this.columns = ['degree', 'firstName', 'lastName', 'room']
 
-		this.subscription = teachersService.formSubmitted$.subscribe(({ teacher, type }) => {
+		this.subscription = teachersService.formSubmitted$.subscribe(({ teacher, type, modal }) => {
 			switch (type) {
 				case 'add':
 					this.addTeacher(teacher)
 					break
 				case 'edit':
 					this.editTeacher(teacher)
+					break
+				case 'delete':
+					this.deleteTeacher(teacher, modal)
 					break
 				default:
 					throw new Error('Teacher Form - invalid action type')
@@ -67,14 +69,6 @@ export class TeachersComponent implements OnDestroy {
 				}
 			}
 		})
-	}
-
-	openDeleteTeacherModal(teacher: Teacher): void {
-		this.confirmationModal = this.modal.open(ConfirmationModal)
-
-		this.confirmationModal.afterClosed().subscribe(result => {
-			result && this.deleteTeacher(teacher)
-	 	})
 	}
 
 	getTeachers(): void {
@@ -108,14 +102,15 @@ export class TeachersComponent implements OnDestroy {
 		})
 	}
 
-	deleteTeacher(teacher: Teacher): void {
+	deleteTeacher(teacher: Teacher, modal: MatDialogRef<ConfirmationModal>): void {
 		this.teachersService.delete(teacher).subscribe(res => {
 			this.teachers = this.teachers.filter(teacher => teacher.teacherId !== res.teacher.teacherId)
 			this.refreshTable()
 			this.snackbar.open('Pomyślnie usunięto wykładowcę!', 'OK', {
 				duration: 5000
 			})
-			this.confirmationModal.close()
+			modal.close()
+			this.editTeacherModal.close()
 		})
 	}
 

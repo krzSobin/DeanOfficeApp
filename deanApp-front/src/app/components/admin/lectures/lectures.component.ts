@@ -22,7 +22,6 @@ export class LecturesComponent implements OnDestroy {
 	public dataSource: LecturesDataSource | null
 	public subscription: Subscription
 
-	public confirmationModal: MatDialogRef<ConfirmationModal>
 	private addLectureModal: MatDialogRef<AddEditLectureModal>
 	public editLectureModal: MatDialogRef<AddEditLectureModal>
 
@@ -31,13 +30,16 @@ export class LecturesComponent implements OnDestroy {
 	constructor(private lecturesService: LecturesService, public modal: MatDialog, private changeDetectorRefs: ChangeDetectorRef, public snackbar: MatSnackBar) {
 		this.columns = ['name', 'minimalSemester', 'ecstsPoints']
 
-		this.subscription = lecturesService.formSubmitted$.subscribe(({ lecture, type }) => {
+		this.subscription = lecturesService.formSubmitted$.subscribe(({ lecture, type, modal }) => {
 			switch (type) {
 				case 'add':
 					this.addLecture(lecture)
 					break
 				case 'edit':
 					this.editLecture(lecture)
+					break
+				case 'delete':
+					this.deleteLecture(lecture, modal)
 					break
 				default:
 					throw new Error('Lecture Form - invalid action type')
@@ -67,14 +69,6 @@ export class LecturesComponent implements OnDestroy {
 				}
 			}
 		})
-	}
-
-	openDeleteLectureModal(lecture: Lecture): void {
-		this.confirmationModal = this.modal.open(ConfirmationModal)
-
-		this.confirmationModal.afterClosed().subscribe(result => {
-			result && this.deleteLecture(lecture)
-	 	})
 	}
 
 	getLectures(): void {
@@ -108,14 +102,15 @@ export class LecturesComponent implements OnDestroy {
 		})
 	}
 
-	deleteLecture(lecture: Lecture): void {
+	deleteLecture(lecture: Lecture, modal: MatDialogRef<ConfirmationModal>): void {
 		this.lecturesService.delete(lecture).subscribe(res => {
 			this.lectures = this.lectures.filter(lecture => lecture.lectureId !== res.lecture.lectureId)
 			this.refreshTable()
 			this.snackbar.open('Pomyślnie usunięto przedmiot!', 'OK', {
 				duration: 5000
 			})
-			this.confirmationModal.close()
+			modal.close()
+			this.editLectureModal.close()
 		})
 	}
 
