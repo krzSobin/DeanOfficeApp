@@ -1,16 +1,27 @@
 <h2 mat-dialog-title class="modal__title">Dodaj przedmiot</h2>
 
 <form id="lectureForm" #lectureForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(lectureForm.form)">
+
 	<mat-form-field class="form__field form__field--full">
 		<input matInput type="text" name="name" placeholder="Nazwa" [(ngModel)]="lecture.name" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--full">
-		<textarea matInput name="description" placeholder="Opis" [(ngModel)]="lecture.description" required [readonly]="!isEditable" style="max-height:115px;"></textarea>
+		<input type="hidden" name="teacherId" [value]="teacherId">
+		<input type="text" placeholder="Wykładowca prowadzący" matInput [matAutocomplete]="auto" [(ngModel)]="teacherId" [ngModelOptions]="{standalone: true}">
+		<mat-autocomplete #auto="matAutocomplete" [displayWith]="showFullName.bind(this)">
+		  <mat-option *ngFor="let teacher of teachers" [value]="teacher.teacherId">
+			{{ teacher.firstName }} {{ teacher.lastName }}
+		  </mat-option>
+		</mat-autocomplete>
+	  </mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<textarea matInput name="description" placeholder="Opis" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="6" [(ngModel)]="lecture.description" required [readonly]="!isEditable" style="max-height:115px;"></textarea>
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--full">
-		<textarea matInput name="bibliography" placeholder="Bibliografia" [(ngModel)]="lecture.bibliography" required [readonly]="!isEditable" style="max-height:75px;"></textarea>
+		<textarea matInput name="bibliography" placeholder="Bibliografia" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="4" [(ngModel)]="lecture.bibliography" required [readonly]="!isEditable" style="max-height:75px;"></textarea>
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">

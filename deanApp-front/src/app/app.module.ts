@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatSnackBarModule } from '@angular/material'
+import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatSnackBarModule, MatAutocompleteModule } from '@angular/material'
 
 import { AppComponent, PasswordModal } from './app.component'
 import { DashboardComponent } from './components/dashboard/dashboard.component'
@@ -64,7 +64,8 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		MatTableModule,
 		MatDialogModule,
 		MatMenuModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatAutocompleteModule
 	],
 	providers: [
 		AuthGuard,

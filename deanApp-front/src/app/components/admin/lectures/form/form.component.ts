@@ -3,7 +3,9 @@ import { Component, Input, OnInit } from '@angular/core'
 import { MatDialog, MatDialogRef } from '@angular/material'
 
 import { Lecture } from '../../../../models/Lecture'
+import { Teacher } from '../../../../models/Teacher'
 import { LecturesService } from '../../../../services/lectures.service'
+import { TeachersService } from '../../../../services/teachers.service'
 import { ConfirmationModal } from '../../confirmation.component'
 
 @Component({
@@ -14,14 +16,26 @@ import { ConfirmationModal } from '../../confirmation.component'
 export class LectureFormComponent implements OnInit {
 	public confirmationModal: MatDialogRef<ConfirmationModal>
 
-	constructor(private lecturesService: LecturesService, public modal: MatDialog) { }
+	constructor(private lecturesService: LecturesService, private teachersService: TeachersService, public modal: MatDialog) { }
 
 	@Input() type: string
 	@Input() lecture: Lecture
 	private isEditable: boolean
+	private teachers: Teacher[] = []
+	private teacherId: number
 
 	ngOnInit() {
+		this.teachersService.get().subscribe(teachers => {
+			this.teachers = teachers
+		})
 		this.isEditable = this.type === 'add'
+	}
+
+	showFullName(teacherId: number) {
+		if (teacherId) {
+			const teacher = this.teachers.find(teacher => teacher.teacherId === teacherId)
+			return `${ teacher.firstName } ${ teacher.lastName }`
+		}
 	}
 
 	makeEditable() {
