@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core'
+import { FormControl } from '@angular/forms';
 
 import { MatDialog, MatDialogRef } from '@angular/material'
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/startWith'
 
 import { Lecture } from '../../../../models/Lecture'
 import { Teacher } from '../../../../models/Teacher'
@@ -22,26 +26,28 @@ export class LectureFormComponent implements OnInit {
 	@Input() lecture: Lecture
 	private isEditable: boolean
 	private teachers: Teacher[] = []
+	private filteredTeachers: Teacher[]
 	private teacherId: number
 
 	ngOnInit() {
 		this.teachersService.get().subscribe(teachers => {
 			this.teachers = teachers
+			this.filteredTeachers = teachers
 		})
 		this.isEditable = this.type === 'add'
 	}
 
-	showFullName(teacherId: number) {
+	showFullName(teacherId: number): string {
 		if (teacherId) {
 			const teacher = this.teachers.find(teacher => teacher.teacherId === teacherId)
-			return `${ teacher.firstName } ${ teacher.lastName }`
+			return `${teacher.firstName} ${teacher.lastName}`
 		}
 		if (this.lecture.teacher) {
 			return this.lecture.teacher // TO FIX
 		}
 	}
 
-	makeEditable() {
+	makeEditable(): void {
 		this.isEditable = true
 		window.setTimeout(() => {
 			const firstInput = <HTMLElement>document.querySelector('#lectureForm input')
@@ -57,7 +63,16 @@ export class LectureFormComponent implements OnInit {
 		})
 	}
 
-	onSubmit(form) {
+	filter(query: string): Teacher[] {
+		if (typeof query == 'string' || query instanceof String) {
+			return this.teachers.filter(teacher => {
+				teacher.fullName = `${teacher.firstName} ${teacher.lastName}`
+				return teacher.fullName.toLowerCase().indexOf(query.toLowerCase()) === 0
+			})
+		}
+	}
+
+	onSubmit(form): void {
 		const lecture: Lecture = form.value
 		this.lecturesService.passLectureFormData(lecture, this.type)
 	}

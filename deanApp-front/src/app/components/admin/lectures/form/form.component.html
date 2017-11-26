@@ -7,9 +7,9 @@
 	</mat-form-field>
 	<mat-form-field class="form__field form__field--full">
 		<input type="hidden" name="teacherId" [(ngModel)]="teacherId">
-		<input type="text" placeholder="Wykładowca prowadzący" matInput [matAutocomplete]="auto" [(ngModel)]="teacherId" [ngModelOptions]="{ standalone: true }" [readonly]="!isEditable">
-		<mat-autocomplete #auto="matAutocomplete" activeOption="xd" [displayWith]="showFullName.bind(this)">
-		  <mat-option *ngFor="let teacher of teachers" [value]="teacher.teacherId" (onSelectionChange)="lectureForm.control.markAsDirty()">
+		<input type="text" (ngModelChange)="filteredTeachers = filter($event)" placeholder="Wykładowca prowadzący" matInput [matAutocomplete]="auto" [(ngModel)]="teacherId" [ngModelOptions]="{ standalone: true }" [readonly]="!isEditable">
+		<mat-autocomplete #auto="matAutocomplete" [displayWith]="showFullName.bind(this)">
+		  <mat-option *ngFor="let teacher of filteredTeachers" [value]="teacher.teacherId" (onSelectionChange)="lectureForm.control.markAsDirty()">
 			{{ teacher.firstName }} {{ teacher.lastName }}
 		  </mat-option>
 		</mat-autocomplete>
