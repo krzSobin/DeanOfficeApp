@@ -36,6 +36,9 @@ export class LectureFormComponent implements OnInit {
 			const teacher = this.teachers.find(teacher => teacher.teacherId === teacherId)
 			return `${ teacher.firstName } ${ teacher.lastName }`
 		}
+		if (this.lecture.teacher) {
+			return this.lecture.teacher // TO FIX
+		}
 	}
 
 	makeEditable() {
@@ -45,7 +48,6 @@ export class LectureFormComponent implements OnInit {
 			firstInput.focus()
 		}, 0)
 	}
-
 
 	openDeleteLectureModal(lecture: Lecture): void {
 		this.confirmationModal = this.modal.open(ConfirmationModal)
