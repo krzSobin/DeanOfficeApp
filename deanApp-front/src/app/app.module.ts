@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatSnackBarModule, MatAutocompleteModule } from '@angular/material'
 
 import { AppComponent, PasswordModal } from './app.component'
-import { DashboardComponent } from './components/dashboard/dashboard.component'
+import { StudentDashboardComponent } from './components/student/dashboard.component'
+import { TeacherDashboardComponent } from './components/teacher/dashboard.component'
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
 import { StudentsComponent, AddEditStudentModal } from './components/admin/students/students.component'
@@ -33,7 +34,8 @@ import { EqualValidator } from './directives//equalValidator.directive'
 @NgModule({
 	declarations: [
 		AppComponent,
-		DashboardComponent,
+		StudentDashboardComponent,
+		TeacherDashboardComponent,
 		LoginComponent,
 		AdminComponent,
 		StudentsComponent,

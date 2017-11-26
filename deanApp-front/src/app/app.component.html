@@ -5,7 +5,7 @@
 		<p class="nav__text">
 			Zalogowany jako
 		</p>
-		<button class="nav__button" mat-button [matMenuTriggerFor]="options">{{ name }}</button>
+		<button class="nav__button" mat-button [matMenuTriggerFor]="options">{{ user.name }}</button>
 		<mat-menu class="nav__menu" #options="matMenu" [overlapTrigger]="false">
 			<button mat-menu-item (click)="openPasswordModal()">Zmień hasło</button>
 			<button class="nav__menu-item nav__menu-item--logout" mat-menu-item (click)="logout()">Wyloguj</button>

@@ -7,19 +7,11 @@ import { AuthService } from '../../auth/auth.service'
 // import { Student } from '../../models/Student'
 
 @Component({
-	selector: 'dashboard-component',
+	selector: 'student-dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.scss']
 })
 
-export class DashboardComponent {
+export class StudentDashboardComponent {
 	constructor(private auth: AuthService, private router: Router) { }
-
-	logout(): void {
-		this.auth.logout()
-	}
-
-	getStudents(): void {
-		this.router.navigate(['/dashboard/xd'])
-	}
 }

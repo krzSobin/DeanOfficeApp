@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component'
+import { StudentDashboardComponent } from './components/student/dashboard.component'
+import { TeacherDashboardComponent } from './components/teacher/dashboard.component'
+
 import { LoginComponent } from './components/login/login.component'
+
 import { AdminComponent } from './components/admin/admin.component'
 import { StudentsComponent } from './components/admin/students/students.component'
 import { TeachersComponent } from './components/admin/teachers/teachers.component'
@@ -27,7 +30,13 @@ const routes: Routes = [
 		path: 'student',
 		canActivateChild: [AuthGuard],
 		data: { expectedRole: 'user' },
-		component: DashboardComponent
+		component: StudentDashboardComponent
+	},
+	{
+		path: 'teacher',
+		canActivateChild: [AuthGuard],
+		data: { expectedRole: 'teacher' },
+		component: TeacherDashboardComponent
 	},
 	{
 		path: 'admin',

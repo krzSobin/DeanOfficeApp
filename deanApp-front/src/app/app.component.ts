@@ -2,7 +2,10 @@ import { Component, ViewEncapsulation } from '@angular/core'
 import { MatMenuModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material'
 import { Router } from '@angular/router'
 
+import { Subscription } from 'rxjs/Subscription'
+
 import { AuthService } from './auth/auth.service'
+
 import { User } from './models/User'
 
 @Component({
@@ -13,23 +16,25 @@ import { User } from './models/User'
 })
 
 export class AppComponent {
+	public user: User
+	public router: Router
+	private passwordModal: MatDialogRef<PasswordModal>
+	public title = 'Dean Office App'
+
+	public subscription: Subscription
 
 	constructor(private auth: AuthService, private _router: Router, public modal: MatDialog) {
 		this.router = _router
+		this.user = {
+			firstName: window.localStorage.getItem('firstName'),
+			lastName: window.localStorage.getItem('lastName'),
+			role: window.localStorage.getItem('role'),
+			name: window.localStorage.getItem('name')
+		}
+		this.subscription = auth.loggedIn$.subscribe(name => {
+			this.user.name = name
+		})
 	}
-
-	public router: Router
-	private passwordModal: MatDialogRef<PasswordModal>
-
-	public user: User = {
-		firstName: window.localStorage.getItem('firstName'),
-		lastName: window.localStorage.getItem('lastName'),
-		role: window.localStorage.getItem('role')
-	}
-
-	public name: string = window.localStorage.getItem('name') // remove after setting User
-
-	public title = 'Dean Office App'
 
 	logout(): void {
 		this.auth.logout()
