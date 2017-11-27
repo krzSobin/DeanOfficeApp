@@ -35,7 +35,7 @@ export class AuthService {
 			.toPromise()
 			.then((res: any) => {
 				const name = res.userName
-				window.localStorage.setItem('token', this.token)
+				window.localStorage.setItem('token', res.access_token)
 				window.localStorage.setItem('role', res.role)
 				window.localStorage.setItem('name', name)
 				this.passUserName(name)

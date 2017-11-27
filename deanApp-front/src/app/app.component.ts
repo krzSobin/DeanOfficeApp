@@ -25,14 +25,22 @@ export class AppComponent {
 
 	constructor(private auth: AuthService, private _router: Router, public modal: MatDialog) {
 		this.router = _router
+		let name = window.localStorage.getItem('name')
+		if (!name.trim().length) {
+			name = 'Administrator'
+		}
 		this.user = {
 			firstName: window.localStorage.getItem('firstName'),
 			lastName: window.localStorage.getItem('lastName'),
 			role: window.localStorage.getItem('role'),
-			name: window.localStorage.getItem('name')
+			name: name
 		}
 		this.subscription = auth.loggedIn$.subscribe(name => {
-			this.user.name = name
+			if (name.trim().length) {
+				this.user.name = name
+			} else {
+				this.user.name = 'Administrator'
+			}
 		})
 	}
 

@@ -1,4 +1,29 @@
-<h1>Student dashboard</h1>
-<button (click)="logout()" id="logout">logout</button>
+<h1 class="page__title">Panel studenta</h1>
+
+<header class="card__container">
+	<a routerLink="/student/lectures/" class="card__link">
+		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/student/lectures' }">
+			<mat-card-content>
+				<img class="card__img" src="/assets/img/blackboard.svg" />
+				<h2 class="card__heading">Twoje zajęcia</h2>
+				<p class="card__lead">
+					Wyświetl listę swoich zajęć, zrezygnuj z wybranych zajęć
+				</p>
+			</mat-card-content>
+		</mat-card>
+	</a>
+
+	<a routerLink="/student/available-lectures/" class="card__link">
+		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/student/available-lectures' }">
+			<mat-card-content>
+				<img class="card__img" src="/assets/img/reading.svg" />
+				<h2 class="card__heading">Dostępne zajęcia</h2>
+				<p class="card__lead">
+					Wyświetl listę dostępnych zajęć, zapisz się na wybrane zajęcia
+				</p>
+			</mat-card-content>
+		</mat-card>
+	</a>
+</header>
 
 <router-outlet></router-outlet>

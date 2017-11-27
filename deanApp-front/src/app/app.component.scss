@@ -1,5 +1,68 @@
 @import "variables";
 
+.card {
+	width: 200px;
+	transition: 0.3s;
+	margin: 10px;
+
+	&:after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 1px;
+		background: $red;
+		position: absolute;
+		top: 70px;
+		left: 0;
+		opacity: 0.4;
+	}
+
+	&__container {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	&__link {
+		display: block;
+		text-decoration: none;
+	}
+
+	&__img {
+		max-width: 90px;
+		display: block;
+		margin: auto;
+		position: relative;
+		z-index: 1;
+	}
+
+	&__heading {
+		font-family: 'Roboto Slab';
+		text-align: center;
+		text-decoration: none;
+		margin-bottom: 5px;
+	}
+
+	&__lead {
+		font-weight: 200;
+		text-align: center;
+		margin: 0;
+
+		&--long {
+			width: calc(100% + 4px);
+			margin-left: -2px;
+		}
+	}
+
+	&:hover {
+		background: $teal-light;
+		// background: rgba(0,0,0,.05);
+	}
+
+	&--active {
+		background: $red-light;
+	}
+}
+
 .page {
 	&__title {
 		font-family: 'Roboto Slab';
@@ -27,8 +90,9 @@
 	}
 
 	&__row {
-		transition: .3s;
+		transition: 0.3s;
 		cursor: pointer;
+
 		&:hover {
 			background: $teal-light !important;
 		}
@@ -108,9 +172,11 @@
 		}
 	}
 }
+
 .mat-dialog-container {
 	overflow: hidden !important;
 }
+
 .mat-dialog-title {
 	font-family: 'Roboto Slab';
 	margin: 20px 0 !important;
@@ -120,6 +186,7 @@
 	position: relative;
 	left: 50%;
 	transform: translateX(-50%);
+
 	&:before {
 		content: "";
 		display: block;
@@ -130,6 +197,7 @@
 		left: calc(-100% - 15px);
 		background: $red;
 	}
+
 	&:after {
 		content: "";
 		display: block;
@@ -261,6 +329,44 @@ password-modal {
 		}
 	}
 }
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+
+input:-webkit-autofill,
+select:-webkit-autofill,
+textarea:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+.panel {
+	&__label {
+		color: rgba(0,0,0,.54);
+		font-size: 12px;
+		margin: 25px 0 0;
+		&-container {
+			display: flex;
+			div {
+				margin-right: 50px;
+			}
+			.panel__label, .panel__description {
+				margin: 0;
+			}
+		}
+	}
+	&__description {
+		margin: 0 0 25px;
+	}
+	&:hover {
+		.mat-expansion-panel-header {
+			background: $teal-light !important;
+		}
+	}
+	&.mat-expanded .mat-expansion-panel-header {
+		background: $teal-light !important;
+	}
+	.mat-action-row {
+		// background: $teal-light;
+		padding: 16px 30px 16px 24px;
+	}
+	.mat-expansion-panel-body {
+		margin: 0 20px;
+	}
 }

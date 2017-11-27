@@ -8,8 +8,7 @@ import { AuthService } from '../../auth/auth.service'
 
 @Component({
 	selector: 'student-dashboard',
-	templateUrl: './dashboard.component.html',
-	styleUrls: ['./dashboard.component.scss']
+	templateUrl: './dashboard.component.html'
 })
 
 export class StudentDashboardComponent {

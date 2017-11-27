@@ -1,0 +1,33 @@
+<h1 class="page__subtitle">Dostępne zajęcia</h1>
+
+<mat-expansion-panel *ngFor="let lecture of lectures" class="panel">
+	<mat-expansion-panel-header>
+		<mat-panel-title>
+			{{ lecture.name }}
+		</mat-panel-title>
+	</mat-expansion-panel-header>
+
+	<p class="panel__label">Kierownik przedmiotu</p>
+	<p class="panel__description">{{ lecture.teacher }}</p>
+
+	<div class="panel__label-container">
+		<div>
+			<p class="panel__label">Punkty ECTS</p>
+			<p class="panel__description">{{ lecture.ecstsPoints }}</p>
+		</div>
+		<div>
+			<p class="panel__label">Minimalny wymagany semestr</p>
+			<p class="panel__description">{{ lecture.minimalSemester }}</p>
+		</div>
+	</div>
+
+	<p class="panel__label">Opis</p>
+	<p class="panel__description">{{ lecture.description }}</p>
+
+	<p class="panel__label">Bibliografia</p>
+	<p class="panel__description">{{ lecture.bibliography }}</p>
+
+	<mat-action-row>
+		<button mat-raised-button color="primary" (click)="joinLecture(lecture.lectureId)">Zapisz się</button>
+	</mat-action-row>
+</mat-expansion-panel>

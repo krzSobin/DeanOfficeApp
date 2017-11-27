@@ -1,0 +1,51 @@
+.panel {
+	position: relative;
+
+	&__button {
+		position: absolute;
+		right: 20px;
+		top: 95px;
+
+	}
+
+	&__table {
+		margin: 30px 20px 40px;
+
+		&-label {
+			text-align: right;
+			color: rgba(0,0,0,.54);
+			font-size: 15px;
+			margin: 25px 0 0;
+		}
+
+		&-description {
+			padding-left: 10px;
+			font-weight: 700;
+			font-size: 16px;
+		}
+
+		&--grades {
+			margin: 20px;
+
+			.panel__table-label {
+				&:after {
+					content: "Kierownik przedmiotu";
+					display: block;
+					visibility: hidden;
+					position: relative;
+					margin-top: -21px;
+				}
+			}
+		}
+	}
+
+	.mat-expansion-panel-header-title {
+		font-family: 'Roboto Slab';
+		font-size: 16px;
+	}
+
+	&__heading-inner {
+		font-size: 20px;
+		font-weight: 700;
+	}
+}
