@@ -5,8 +5,10 @@ using DeanOfficeApp.Api.DAL.Enrollments;
 using DeanOfficeApp.Api.DAL.Lectures;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Contracts.Enrollments;
+using DeanOfficeApp.Contracts.Grades;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace DeanOfficeApp.Api.BLL.Enrollments
 {
@@ -23,9 +25,9 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
             _lectureRepository = lectureRepository;
         }
 
-        public IEnumerable<GetEnrollmentDTO> GetEnrollments()
+        public IEnumerable<GetEnrollmentDTO> GetEnrollments(int userId)
         {
-            var enrollments = _repository.GetEnrollments();
+            var enrollments = _repository.GetEnrollments(userId);
 
             return Mapper.Map<IEnumerable<GetEnrollmentDTO>>(enrollments);
         }
@@ -35,6 +37,38 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
             var enrollments = _repository.GetEnrollmentsOfLecture(lectureId);
 
             return Mapper.Map<IEnumerable<GetEnrollmentDTO>>(enrollments);
+        }
+
+        public AddGradeResultDTO AddGrade(int enrollmentId, AddGradeDTO gradeDTO)
+        {
+            var result = new AddGradeResultDTO
+            {
+                Added = false,
+                Grade = null
+            };
+
+            var enrollment = _repository.GetEnrollmentById(enrollmentId);
+
+            var grade = Mapper.Map<Grade>(gradeDTO);
+            grade.Enrollement = enrollment;
+            if (grade.GradeValueId.HasValue)
+            {
+                grade.GradeValue = _repository.GetGradeValueById((int)grade.GradeValueId);
+            }
+            else
+            {
+                grade.GradeValue = null;
+            }
+            
+
+            var addedGrade = _repository.InsertGrade(grade);
+            if (_repository.Save())
+            {
+                result.Added = true;
+                result.Grade = Mapper.Map<GetGradeDTO>(addedGrade);
+            }
+
+            return result;
         }
 
         public CreateEnrollmentResultDTO AddEnrollment(int lectureId, int userId)
@@ -62,7 +96,8 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
                 Lecture = lecture,
                 LectureId = lecture.LectureId,
                 Student = student,
-                StudentId = student.RecordBookNumber
+                StudentId = student.RecordBookNumber,
+                Grades = new List<Grade>()
             };
 
             var validationResult = EnrollmentsValidator.Validate(enrollment);
@@ -81,6 +116,13 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
             }
 
             return result;
+        }
+
+        public IEnumerable<GetGradeValueDTO> GetGradeValues()
+        {
+            var grades = _repository.GetGradeValues(ConfigurationManager.ConnectionStrings["DeanOffice"].ConnectionString);
+
+            return Mapper.Map<IEnumerable<GetGradeValueDTO>>(grades);
         }
     }
 }

@@ -239,6 +239,8 @@
     <Compile Include="DAL\StudentRepository.cs" />
     <Compile Include="DAL\Teachers\ITeacherRepository.cs" />
     <Compile Include="DAL\Teachers\TeacherRepository.cs" />
+    <Compile Include="DAL\User\IUserAddressRepository.cs" />
+    <Compile Include="DAL\User\UserAddressRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -278,10 +280,32 @@
     <Compile Include="Migrations\201711232139346_TeacherIdInAddLecture.Designer.cs">
       <DependentUpon>201711232139346_TeacherIdInAddLecture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711261933236_Grades.cs" />
+    <Compile Include="Migrations\201711261933236_Grades.Designer.cs">
+      <DependentUpon>201711261933236_Grades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711261953340_EnrollmentsFix.cs" />
+    <Compile Include="Migrations\201711261953340_EnrollmentsFix.Designer.cs">
+      <DependentUpon>201711261953340_EnrollmentsFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711262253240_Addresses.cs" />
+    <Compile Include="Migrations\201711262253240_Addresses.Designer.cs">
+      <DependentUpon>201711262253240_Addresses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711262330035_AddressesFix.cs" />
+    <Compile Include="Migrations\201711262330035_AddressesFix.Designer.cs">
+      <DependentUpon>201711262330035_AddressesFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711272014220_NullGradeValue.cs" />
+    <Compile Include="Migrations\201711272014220_NullGradeValue.Designer.cs">
+      <DependentUpon>201711272014220_NullGradeValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Enrollment.cs" />
+    <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Lecture.cs" />
     <Compile Include="Models\Logging\Error.cs" />
@@ -354,6 +378,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711232139346_TeacherIdInAddLecture.resx">
       <DependentUpon>201711232139346_TeacherIdInAddLecture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711261933236_Grades.resx">
+      <DependentUpon>201711261933236_Grades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711261953340_EnrollmentsFix.resx">
+      <DependentUpon>201711261953340_EnrollmentsFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711262253240_Addresses.resx">
+      <DependentUpon>201711262253240_Addresses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711262330035_AddressesFix.resx">
+      <DependentUpon>201711262330035_AddressesFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711272014220_NullGradeValue.resx">
+      <DependentUpon>201711272014220_NullGradeValue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

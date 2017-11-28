@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DeanOfficeApp.Api.Models;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 
 namespace DeanOfficeApp.Api.DAL.Enrollments
 {
@@ -17,14 +18,60 @@ namespace DeanOfficeApp.Api.DAL.Enrollments
         }
 
 
-        public IEnumerable<Enrollment> GetEnrollments()
+        public IEnumerable<Enrollment> GetEnrollments(int userId)
         {
-            return context.Enrollments;
+            return context.Enrollments.Where(e => e.Student.UserId == userId).ToList();
         }
 
         public IEnumerable<Enrollment> GetEnrollmentsOfLecture(int lectureId)
         {
             return context.Enrollments.Where(e => e.LectureId == lectureId).OrderBy(e => e.Student.UserData.LastName).ToList();
+        }
+
+        public Enrollment GetEnrollmentById(int id)
+        {
+            return context.Enrollments.FirstOrDefault(e => e.Id == id);
+        }
+
+        public GradeValue GetGradeValueById(int id)
+        {
+            return context.GradeValues.FirstOrDefault(g => g.Id == id);
+        }
+
+        public IEnumerable<GradeValue> GetGradeValues(string connectionString)
+        {
+            var gradeValues = new List<GradeValue>();
+            var queryString = "SELECT * FROM GradeValue";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(queryString, connection))
+            {
+                connection.Open();
+                var reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        gradeValues.Add(new GradeValue
+                        {
+                            Id = reader.GetInt32(0),
+                            Value = reader.GetDouble(1)
+                        });
+                    }
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    reader.Close();
+                }
+            }
+
+            return gradeValues;
+        }
+
+        public Grade InsertGrade(Grade grade)
+        {
+            return context.Grades.Add(grade);
         }
 
         public Enrollment InsertEnrollment(Enrollment enrollment)

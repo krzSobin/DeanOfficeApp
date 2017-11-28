@@ -15,44 +15,45 @@ namespace DeanOfficeApp.Api.DAL
         {
             this.context = context;
         }
-        public IEnumerable<Student> GetStudents(string connectionString)
+        public IEnumerable<Student> GetStudents()
         {
-            var students = new List<Student>();
-            var queryString = "SELECT s.RecordBookNumber, s.UserId, s.Pesel, s.CurrentSemester, s.Enrollmentdate, u.FirstName, u.LastName, u.Email FROM Students s JOIN AspNetUsers u ON s.UserId = u.Id;";
+            return context.Students.ToList();
+            //var students = new List<Student>();
+            //var queryString = "SELECT s.RecordBookNumber, s.UserId, s.Pesel, s.CurrentSemester, s.Enrollmentdate, u.FirstName, u.LastName, u.Email FROM Students s JOIN AspNetUsers u ON s.UserId = u.Id;";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-                using (var command = new SqlCommand(queryString, connection))
-                {
-                    connection.Open();
-                    var reader = command.ExecuteReader();
-                    try
-                    {
-                        while (reader.Read())
-                        {
-                            students.Add(new Student
-                            {
-                                RecordBookNumber = reader.GetInt32(0),
-                                CurrentSemester = reader.GetInt32(3),
-                                EnrollmentDate = reader.GetDateTime(4),
-                                Pesel = reader.GetInt64(2),
-                                UserId = reader.GetInt32(1),
-                                UserData = new ApplicationUser
-                                {
-                                    FirstName = reader.GetString(5),
-                                    LastName = reader.GetString(6),
-                                    Email = reader.GetString(7)
-                                }
-                            });
-                        }
-                    }
-                    finally
-                    {
-                        // Always call Close when done reading.
-                        reader.Close();
-                    }
-                }
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //    using (var command = new SqlCommand(queryString, connection))
+            //    {
+            //        connection.Open();
+            //        var reader = command.ExecuteReader();
+            //        try
+            //        {
+            //            while (reader.Read())
+            //            {
+            //                students.Add(new Student
+            //                {
+            //                    RecordBookNumber = reader.GetInt32(0),
+            //                    CurrentSemester = reader.GetInt32(3),
+            //                    EnrollmentDate = reader.GetDateTime(4),
+            //                    Pesel = reader.GetInt64(2),
+            //                    UserId = reader.GetInt32(1),
+            //                    UserData = new ApplicationUser
+            //                    {
+            //                        FirstName = reader.GetString(5),
+            //                        LastName = reader.GetString(6),
+            //                        Email = reader.GetString(7)
+            //                    }
+            //                });
+            //            }
+            //        }
+            //        finally
+            //        {
+            //            // Always call Close when done reading.
+            //            reader.Close();
+            //        }
+            //    }
 
-            return students;
+            //return students;
         }
 
         public Student GetStudentByID(int id)

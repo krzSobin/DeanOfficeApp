@@ -7,6 +7,8 @@ using DeanOfficeApp.Contracts.Students;
 using DeanOfficeApp.Contracts.Teachers;
 using DeanOfficeApp.Contracts.Lectures;
 using DeanOfficeApp.Contracts.Enrollments;
+using DeanOfficeApp.Contracts.Grades;
+using DeanOfficeApp.Contracts.Addresses;
 
 [assembly: OwinStartup(typeof(DeanOfficeApp.Api.Startup))]
 
@@ -67,6 +69,22 @@ namespace DeanOfficeApp.Api
                 .ForMember(dest => dest.LectureName, opt => opt.MapFrom(s => s.Lecture.Name))
                 .ForMember(dest => dest.StudentRecordBookNumber, opt => opt.MapFrom(s => s.Student.RecordBookNumber))
                 .ForMember(dest => dest.LectureId, opt => opt.MapFrom(s => s.Lecture.LectureId));
+
+
+                //grades
+                cfg.CreateMap<GradeValue, GetGradeValueDTO>();
+
+                cfg.CreateMap<Grade, GetGradeDTO>()
+                .ForMember(dest => dest.GradeValue, opt => opt.MapFrom(g => g.GradeValue.Value));
+
+                cfg.CreateMap<AddGradeDTO, Grade>()
+                .ForMember(dest => dest.Enrollement, opt => opt.Ignore())
+                .ForMember(dest => dest.GradeValue, opt => opt.Ignore());
+
+
+                //address
+                cfg.CreateMap<Address, GetAddressDTO>();
+
             });
         }
     }

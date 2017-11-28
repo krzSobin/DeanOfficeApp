@@ -6,7 +6,7 @@ namespace DeanOfficeApp.Api.DAL
 {
     public interface IStudentRepository : IDisposable
     {
-        IEnumerable<Student> GetStudents(string connectionString);
+        IEnumerable<Student> GetStudents();
         Student GetStudentByID(int studentId);
         Student GetStudentByUserId(int userId);
         Student InsertStudent(Student student);

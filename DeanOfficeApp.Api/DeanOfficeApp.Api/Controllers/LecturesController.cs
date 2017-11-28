@@ -13,6 +13,8 @@ using DeanOfficeApp.Api.DAL.Enrollments;
 using DeanOfficeApp.Api.BLL.Enrollments;
 using DeanOfficeApp.Api.DAL;
 using DeanOfficeApp.Contracts.Enrollments;
+using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -34,6 +36,7 @@ namespace DeanOfficeApp.Api.Controllers
             _lectureRepository = new LectureRepository(context);
             _teacherRepository = new TeacherRepository(context);
             _enrollmentRepository = new EnrollmentRepository(context);
+            _studentRepository = new StudentRepository(context);
         }
 
         public LecturesController(ILectureRepository lectureRepository, ITeacherRepository teacherRepository, IEnrollmentRepository enrollmentRepository, IStudentRepository studentRepository)
@@ -46,7 +49,7 @@ namespace DeanOfficeApp.Api.Controllers
 
         public LectureService LectureService
         {
-            get { return lectureService ?? new LectureService(_lectureRepository, _teacherRepository); }
+            get { return lectureService ?? new LectureService(_lectureRepository, _teacherRepository, _studentRepository); }
             private set { lectureService = value; }
         }
 
@@ -63,6 +66,18 @@ namespace DeanOfficeApp.Api.Controllers
         public IEnumerable<GetLectureDTO> GetLectures()
         {
             return LectureService.GetLectures();
+        }
+
+        // GET: api/Lectures
+        [Authorize(Roles = "student")]
+        [Route("available")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<GetLectureDTO>))]
+        public IEnumerable<GetLectureDTO> GetLecturesAvailableForEnroll()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId<int>();
+
+            return LectureService.GetLecturesAvailableForEnroll(userId);
         }
 
         // GET: api/Lectures/5

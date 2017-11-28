@@ -16,6 +16,7 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using DeanOfficeApp.Api.DAL;
 using DeanOfficeApp.Api.DAL.Lectures;
+using DeanOfficeApp.Contracts.Grades;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -50,12 +51,24 @@ namespace DeanOfficeApp.Api.Controllers
         }
 
         // GET: api/Enrollments
+        [Authorize(Roles = "student")]
         [Route("")]
         [HttpGet]
         [ResponseType(typeof(IEnumerable<GetEnrollmentDTO>))]
         public IEnumerable<GetEnrollmentDTO> GetEnrollments()
         {
-            return EnrollmentService.GetEnrollments();
+            var userId = HttpContext.Current.User.Identity.GetUserId<int>();
+
+            return EnrollmentService.GetEnrollments(userId);
+        }
+
+        // GET: api/Grades
+        [Route("~/api/grades", Name="GetGrade")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<GetGradeValueDTO>))]
+        public IEnumerable<GetGradeValueDTO> GetGradeValues()
+        {
+            return EnrollmentService.GetGradeValues();
         }
 
         // GET: api/Enrollments/5
@@ -73,41 +86,30 @@ namespace DeanOfficeApp.Api.Controllers
             return Ok(enrollment);
         }
 
-        // PUT: api/Enrollments/5
-        [Route("{id:int}")]
-        [HttpPut]
+        // PUT: api/Enrollments/5/grades
+        [Route("{enrollmentId:int}/grades")]
+        [HttpPost]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEnrollment(int id, Enrollment enrollment)
+        public IHttpActionResult AddGrade(int enrollmentId, AddGradeDTO grade)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != enrollment.Id)
+            if (enrollmentId != grade.EnrollementId)
             {
                 return BadRequest();
             }
 
-            db.Entry(enrollment).State = EntityState.Modified;
+            var result = EnrollmentService.AddGrade(enrollmentId, grade);
 
-            try
+            if (result.Added)
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EnrollmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return CreatedAtRoute("GetGrade", new { id = result.Grade.Id }, result.Grade);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return BadRequest("Creating not succeed");
         }
 
         // POST: api/Enrollments
