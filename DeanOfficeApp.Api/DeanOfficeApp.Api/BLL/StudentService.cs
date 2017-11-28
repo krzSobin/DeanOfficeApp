@@ -32,7 +32,7 @@ namespace DeanOfficeApp.Api.BLL
             _userAddressRepository = userAddressRepository;
         }
         
-        public async Task<int> AddAddressAsync(AddAddressDTO address)
+        private async Task<int> AddAddressAsync(AddAddressDTO address)
         {
             var user = await _userManager.FindByIdAsync((int)address.UserId);
 
@@ -73,6 +73,9 @@ namespace DeanOfficeApp.Api.BLL
             var createdStudent = _repository.InsertStudent(student);
             if (_repository.Save())
             {
+                studentDTO.Address.UserId = student.UserId;
+                var addressId = await AddAddressAsync(studentDTO.Address);
+
                 createResult.Created = true;
                 createResult.Student = Mapper.Map<GetStudentDTO>(createdStudent);
 

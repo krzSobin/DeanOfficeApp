@@ -146,23 +146,6 @@ namespace DeanOfficeApp.Api.Controllers
             return Ok(address);
         }
 
-        // POST: api/Students/addresses
-        [Route("addresses")]
-        [HttpPost]
-        [ResponseType(typeof(AddAddressDTO))]
-        public async Task<IHttpActionResult> PostAddressAsync(AddAddressDTO address)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            address.UserId = HttpContext.Current.User.Identity.GetUserId<int>();
-            var result = await StudentService.AddAddressAsync(address);
-
-            return CreatedAtRoute("GetAddress", new { id = result }, address);
-        }
-
         // PUT: api/Students/5
         [Route("{id:int}")]
         [HttpPut]
