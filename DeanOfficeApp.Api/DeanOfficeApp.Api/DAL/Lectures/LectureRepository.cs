@@ -30,6 +30,11 @@ namespace DeanOfficeApp.Api.DAL.Lectures
             return context.Lectures.ToList();
         }
 
+        public IEnumerable<Lecture> GetLecturesOfTeacher(int userId)
+        {
+            return context.Lectures.Where(l => l.Teacher.UserId == userId).ToList();
+        }
+
         public IEnumerable<Lecture> GetLecturesAvailableForEnroll(int userId, int currentSemester)
         {
             var enrollments = context.Enrollments.Where(e => e.Student.UserId == userId);

@@ -17,6 +17,7 @@ using Microsoft.AspNet.Identity;
 using DeanOfficeApp.Api.DAL;
 using DeanOfficeApp.Api.DAL.Lectures;
 using DeanOfficeApp.Contracts.Grades;
+using System.Security.Claims;
 
 namespace DeanOfficeApp.Api.Controllers
 {
@@ -51,7 +52,7 @@ namespace DeanOfficeApp.Api.Controllers
         }
 
         // GET: api/Enrollments
-        [Authorize(Roles = "student")]
+        [Authorize(Roles = "student, admin")]
         [Route("")]
         [HttpGet]
         [ResponseType(typeof(IEnumerable<GetEnrollmentDTO>))]
@@ -59,7 +60,12 @@ namespace DeanOfficeApp.Api.Controllers
         {
             var userId = HttpContext.Current.User.Identity.GetUserId<int>();
 
-            return EnrollmentService.GetEnrollments(userId);
+            var role = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value).FirstOrDefault();
+
+
+            return EnrollmentService.GetEnrollments(userId, role);
         }
 
         // GET: api/Grades

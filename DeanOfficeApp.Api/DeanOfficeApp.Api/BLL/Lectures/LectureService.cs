@@ -22,9 +22,17 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             _studentRepository = studentRepository;
         }
 
-        public IEnumerable<GetLectureDTO> GetLectures()
+        public IEnumerable<GetLectureDTO> GetLectures(int userId, string role)
         {
-            var lectureEntites = _repository.GetLectures();
+            IEnumerable<Lecture> lectureEntites;
+            if (role == "teacher")
+            {
+                lectureEntites = _repository.GetLecturesOfTeacher(userId);
+            }
+            else
+            {
+                lectureEntites = _repository.GetLectures();
+            }
 
             return Mapper.Map<IEnumerable<GetLectureDTO>>(lectureEntites);
         }

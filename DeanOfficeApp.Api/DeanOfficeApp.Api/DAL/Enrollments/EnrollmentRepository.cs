@@ -23,6 +23,11 @@ namespace DeanOfficeApp.Api.DAL.Enrollments
             return context.Enrollments.Where(e => e.Student.UserId == userId).ToList();
         }
 
+        public IEnumerable<Enrollment> GetEnrollments()
+        {
+            return context.Enrollments.ToList();
+        }
+
         public IEnumerable<Enrollment> GetEnrollmentsOfLecture(int lectureId)
         {
             return context.Enrollments.Where(e => e.LectureId == lectureId).OrderBy(e => e.Student.UserData.LastName).ToList();

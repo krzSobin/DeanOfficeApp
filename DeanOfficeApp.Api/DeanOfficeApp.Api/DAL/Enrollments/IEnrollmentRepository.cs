@@ -8,6 +8,7 @@ namespace DeanOfficeApp.Api.DAL.Enrollments
     {
         Enrollment InsertEnrollment(Enrollment enrollment);
         IEnumerable<Enrollment> GetEnrollments(int userId);
+        IEnumerable<Enrollment> GetEnrollments();
         Enrollment GetEnrollmentById(int id);
         GradeValue GetGradeValueById(int gradeValueId);
         Grade InsertGrade(Grade grade);

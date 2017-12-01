@@ -25,9 +25,18 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
             _lectureRepository = lectureRepository;
         }
 
-        public IEnumerable<GetEnrollmentDTO> GetEnrollments(int userId)
+        public IEnumerable<GetEnrollmentDTO> GetEnrollments(int userId, string role)
         {
-            var enrollments = _repository.GetEnrollments(userId);
+            IEnumerable<Enrollment> enrollments = new List<Enrollment>();
+            switch (role)
+            {
+                case "student":
+                    enrollments = _repository.GetEnrollments(userId);
+                    break;
+                case "admin":
+                    enrollments = _repository.GetEnrollments();
+                    break;
+            }
 
             return Mapper.Map<IEnumerable<GetEnrollmentDTO>>(enrollments);
         }
@@ -59,7 +68,7 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
             {
                 grade.GradeValue = null;
             }
-            
+
 
             var addedGrade = _repository.InsertGrade(grade);
             if (_repository.Save())

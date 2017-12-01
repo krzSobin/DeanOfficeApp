@@ -14,5 +14,6 @@ namespace DeanOfficeApp.Api.DAL.Lectures
         bool LectureExists(int lectureId);
         bool Save();
         IEnumerable<Lecture> GetLecturesAvailableForEnroll(int userId, int minimalSemester);
+        IEnumerable<Lecture> GetLecturesOfTeacher(int userId);
     }
 }
