@@ -8,8 +8,7 @@ import { AuthService } from '../../auth/auth.service'
 
 @Component({
 	selector: 'teacher-dashboard',
-	templateUrl: './dashboard.component.html',
-	styleUrls: ['./dashboard.component.scss']
+	templateUrl: './dashboard.component.html'
 })
 
 export class TeacherDashboardComponent {

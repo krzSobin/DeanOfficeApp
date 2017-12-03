@@ -13,6 +13,7 @@ import { StudentsComponent } from './components/admin/students/students.componen
 import { TeachersComponent } from './components/admin/teachers/teachers.component'
 import { LecturesComponent } from './components/admin/lectures/lectures.component'
 import { AvailableLecturesComponent } from './components/student/available-lectures/available-lectures.component'
+import { TeacherLecturesComponent } from './components/teacher/lectures/lectures.component'
 import { StudentLecturesComponent } from './components/student/lectures/lectures.component'
 
 import { AuthGuard } from './auth/auth-guard.service'
@@ -47,10 +48,16 @@ const routes: Routes = [
 	},
 	{
 		path: 'teacher',
-		canActivateChild: [AuthGuard],
 		data: { expectedRole: 'teacher' },
 		canActivate: [AuthGuard],
-		component: TeacherDashboardComponent
+    canActivateChild: [AuthGuard],
+		component: TeacherDashboardComponent,
+    children: [
+			{
+				path: 'lectures',
+				component: TeacherLecturesComponent
+			}
+    ]
 	},
 	{
 		path: 'admin',

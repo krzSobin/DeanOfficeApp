@@ -2,13 +2,13 @@
 	<h1 class="page__subtitle">Studenci</h1>
 
 	<button mat-button class="button--add mat-elevation-z2" color="accent" (click)="openAddStudentModal()">
-	<div class="button__circle">
-		<img class="button__circle-plus" src="/assets/img/plus-symbol.svg"/>
-	</div>
-	<p class="button__text">
-		Dodaj studenta
-	</p>
-</button>
+		<div class="button__circle">
+			<img class="button__circle-plus" src="/assets/img/plus-symbol.svg"/>
+		</div>
+		<p class="button__text">
+			Dodaj studenta
+		</p>
+	</button>
 
 	<mat-table #table [dataSource]="dataSource" class="mat-elevation-z2">
 

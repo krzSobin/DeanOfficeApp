@@ -10,8 +10,7 @@ import { Enrollment } from '../../../models/Enrollment'
 
 @Component({
 	selector: 'student-lectures',
-	templateUrl: './lectures.component.html',
-	styleUrls: ['./lectures.component.scss']
+	templateUrl: './lectures.component.html'
 })
 
 export class StudentLecturesComponent implements OnInit {

@@ -12,6 +12,7 @@ import { TeacherDashboardComponent } from './components/teacher/dashboard.compon
 import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
 import { AvailableLecturesComponent } from './components/student/available-lectures/available-lectures.component'
+import { TeacherLecturesComponent } from './components/teacher/lectures/lectures.component'
 import { StudentLecturesComponent } from './components/student/lectures/lectures.component'
 import { StudentsComponent, AddEditStudentModal } from './components/admin/students/students.component'
 import { TeachersComponent, AddEditTeacherModal } from './components/admin/teachers/teachers.component'
@@ -54,7 +55,8 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		ConfirmationModal,
 		PasswordModal,
 		EqualValidator,
-		StudentLecturesComponent
+		StudentLecturesComponent,
+    TeacherLecturesComponent
 	],
 	imports: [
 		BrowserModule,

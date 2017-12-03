@@ -25,8 +25,12 @@ export class LecturesService {
 		this.lectureFormSubmitHandler.next({ lecture, type, modal })
 	}
 
-	get(id: number | string = ''): Observable<Lecture[]> {
+  get(id: number | string = ''): Observable<Lecture[]> {
 		return this.http.get(`${ this.url }/${ id }`)
+	}
+
+  getAvailable(): Observable<Lecture[]> {
+		return this.http.get(`${ this.url }/available`)
 	}
 
 	add(lecture: Lecture): Observable<Lecture> {

@@ -11,12 +11,12 @@ import 'rxjs/add/operator/mergeMap'
 import { Lecture } from '../../../models/Lecture'
 
 @Component({
-	selector: 'available-lectures',
-	templateUrl: './available-lectures.component.html',
-	// styleUrls: ['./dashboard.component.scss']
+	selector: 'teacher-lectures',
+	templateUrl: './lectures.component.html',
+	styleUrls: ['./lectures.component.scss']
 })
 
-export class AvailableLecturesComponent implements OnInit {
+export class TeacherLecturesComponent implements OnInit {
 
 	private lectures: Lecture[]
 
@@ -27,7 +27,7 @@ export class AvailableLecturesComponent implements OnInit {
 	}
 
 	getLectures(): void {
-		this.lecturesService.getAvailable().subscribe(lectures => {
+		this.lecturesService.get().subscribe(lectures => {
 			this.lectures = lectures
 		})
 	}
