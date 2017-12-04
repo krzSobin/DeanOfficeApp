@@ -1,6 +1,6 @@
-<h1 class="page__title">Panel nauczyciela</h1>
+<h1 class="page__title" *ngIf="!isSingleLecture">Panel nauczyciela</h1>
 
-<header class="card__container">
+<header class="card__container" *ngIf="!isSingleLecture">
 	<a routerLink="/teacher/lectures/" class="card__link">
 		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/teacher/lectures' }">
 			<mat-card-content>
@@ -12,7 +12,6 @@
 			</mat-card-content>
 		</mat-card>
 	</a>
-
 </header>
 
 <router-outlet></router-outlet>

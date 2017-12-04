@@ -25,12 +25,12 @@ export class LecturesService {
 		this.lectureFormSubmitHandler.next({ lecture, type, modal })
 	}
 
-  get(id: number | string = ''): Observable<Lecture[]> {
-		return this.http.get(`${ this.url }/${ id }`)
+	get(id: number | string = ''): Observable<Lecture[]> {
+		return this.http.get(`${this.url}/${id}`)
 	}
 
-  getAvailable(): Observable<Lecture[]> {
-		return this.http.get(`${ this.url }/available`)
+	getAvailable(): Observable<Lecture[]> {
+		return this.http.get(`${this.url}/available`)
 	}
 
 	add(lecture: Lecture): Observable<Lecture> {
@@ -38,10 +38,10 @@ export class LecturesService {
 	}
 
 	edit(lecture: Lecture): Observable<any> {
-		return this.http.put(`${ this.url }/${ lecture.lectureId }`, lecture)
+		return this.http.put(`${this.url}/${lecture.lectureId}`, lecture)
 	}
 
 	delete(lecture: Lecture): Observable<any> {
-		return this.http.delete(`${ this.url }/${ lecture.lectureId }`, lecture)
+		return this.http.delete(`${this.url}/${lecture.lectureId}`, lecture)
 	}
 }

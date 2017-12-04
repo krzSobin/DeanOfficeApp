@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable'
 
 import { Lecture } from '../models/Lecture'
 import { Enrollment } from '../models/Enrollment'
+import { Grade } from '../models/Grade'
 import { ConfirmationModal } from '../components/admin/confirmation.component'
 
 @Injectable()
@@ -25,6 +26,18 @@ export class EnrollmentsService {
 
 	get(): Observable<Enrollment[]> {
 		return this.http.get(this.url)
+	}
+
+	addGrade(grade): Observable<Grade> {
+		return this.http.post(`${ this.url }/${ grade.enrollementId }/grades`, grade)
+	}
+
+	getGrades() {
+		return this.http.get('api/grades')
+	}
+
+	getEnrolledStudents(id: number): Observable<Enrollment[]> {
+		return this.http.get(`api/lectures/${ id }/Enrollments/`)
 	}
 
 	signOut(id: number): Observable<Enrollment> {

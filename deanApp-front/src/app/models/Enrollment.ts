@@ -1,4 +1,5 @@
 import { Lecture } from './Lecture'
+import { Grade } from './Grade'
 
 export class Enrollment {
 	id: number
@@ -8,5 +9,5 @@ export class Enrollment {
 	lectureName: string
 	studentName: string
 	studentLastName: string
-	grades: string
+	grades: Grade[]
 }

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatSnackBarModule, MatAutocompleteModule, MatExpansionModule } from '@angular/material'
+import { MatDialogModule, MatTableModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatSnackBarModule, MatAutocompleteModule, MatExpansionModule, MatFormFieldModule, MatSelectModule } from '@angular/material'
 
 import { AppComponent, PasswordModal } from './app.component'
 import { StudentDashboardComponent } from './components/student/dashboard.component'
@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component'
 import { AdminComponent } from './components/admin/admin.component'
 import { AvailableLecturesComponent } from './components/student/available-lectures/available-lectures.component'
 import { TeacherLecturesComponent } from './components/teacher/lectures/lectures.component'
+import { SingleLectureComponent } from './components/teacher/lectures/single-lecture.component'
 import { StudentLecturesComponent } from './components/student/lectures/lectures.component'
 import { StudentsComponent, AddEditStudentModal } from './components/admin/students/students.component'
 import { TeachersComponent, AddEditTeacherModal } from './components/admin/teachers/teachers.component'
@@ -56,7 +57,8 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		PasswordModal,
 		EqualValidator,
 		StudentLecturesComponent,
-    TeacherLecturesComponent
+		TeacherLecturesComponent,
+		SingleLectureComponent
 	],
 	imports: [
 		BrowserModule,
@@ -67,6 +69,8 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		BrowserAnimationsModule,
 
 		MatInputModule,
+		MatFormFieldModule,
+		MatSelectModule,
 		MatButtonModule,
 		MatCardModule,
 		MatToolbarModule,

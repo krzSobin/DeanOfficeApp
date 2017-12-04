@@ -14,6 +14,7 @@ import { TeachersComponent } from './components/admin/teachers/teachers.componen
 import { LecturesComponent } from './components/admin/lectures/lectures.component'
 import { AvailableLecturesComponent } from './components/student/available-lectures/available-lectures.component'
 import { TeacherLecturesComponent } from './components/teacher/lectures/lectures.component'
+import { SingleLectureComponent } from './components/teacher/lectures/single-lecture.component'
 import { StudentLecturesComponent } from './components/student/lectures/lectures.component'
 
 import { AuthGuard } from './auth/auth-guard.service'
@@ -21,9 +22,9 @@ import { AuthService } from './auth/auth.service'
 
 const routes: Routes = [
 	{
-		 path: '',
-		 redirectTo: 'login',
-		 pathMatch: 'full'
+		path: '',
+		redirectTo: 'login',
+		pathMatch: 'full'
 	},
 	{
 		path: 'login',
@@ -50,14 +51,18 @@ const routes: Routes = [
 		path: 'teacher',
 		data: { expectedRole: 'teacher' },
 		canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+		canActivateChild: [AuthGuard],
 		component: TeacherDashboardComponent,
-    children: [
+		children: [
 			{
 				path: 'lectures',
 				component: TeacherLecturesComponent
+			},
+			{
+				path: 'lecture/:id',
+				component: SingleLectureComponent
 			}
-    ]
+		]
 	},
 	{
 		path: 'admin',

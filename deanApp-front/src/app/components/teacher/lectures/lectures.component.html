@@ -1,7 +1,7 @@
 <h1 class="page__subtitle">Twoje zajęcia</h1>
 
 <div class="lecture__container">
-	<a *ngFor="let lecture of lectures" routerLink="/teacher/lectures/{{ lecture.lectureId }}" class="lecture__link" color="accent">
+	<a *ngFor="let lecture of lectures" routerLink="/teacher/lecture/{{ lecture.lectureId }}" class="lecture__link" color="accent">
 		<mat-card class="card lecture__card">
 			<img class="lecture__link-img" src="/assets/img/lecture.svg"/>
 			<div>
@@ -15,56 +15,3 @@
 		</mat-card>
 	</a>
 </div>
-
-
-<mat-expansion-panel *ngFor="let lecture of lectures" class="panel">
-	<mat-expansion-panel-header>
-		<mat-panel-title>
-			{{ lecture.name }}
-		</mat-panel-title>
-	</mat-expansion-panel-header>
-
-	<table class="panel__table">
-		<tr>
-			<td class="panel__table-label">
-				Kierownik przedmiotu:
-			</td>
-			<td class="panel__table-description">
-				{{ lecture.teacher }}
-			</td>
-		</tr>
-		<tr>
-			<td class="panel__table-label">
-				Punkty ECTS:
-			</td>
-			<td class="panel__table-description">
-				{{ lecture.ecstsPoints }}
-			</td>
-		</tr>
-		<tr>
-			<td class="panel__table-label">
-				Opis:
-			</td>
-			<td class="panel__table-description">
-				{{ lecture.description }}
-			</td>
-		</tr>
-		<tr>
-			<td class="panel__table-label">
-				Bibliografia:
-			</td>
-			<td class="panel__table-description">
-				{{ lecture.bibliography }}
-			</td>
-		</tr>
-	</table>
-
-	<p class="panel__heading-inner">
-		Twoje oceny z zajęć
-	</p>
-
-
-	<mat-action-row>
-		<button mat-raised-button color="primary" (click)="joinLecture(lecture.lectureId)">Zapisz się</button>
-	</mat-action-row>
-</mat-expansion-panel>

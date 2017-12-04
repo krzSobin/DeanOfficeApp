@@ -1,6 +1,6 @@
 export class Lecture {
 	lectureId?: number
-	teacherId: number
+	teacherId?: number
 	teacher?: string
 	name: string
 	description: string

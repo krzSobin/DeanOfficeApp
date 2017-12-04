@@ -1,0 +1,86 @@
+<h1 class="page__title">{{ lecture && lecture.name }}</h1>
+
+<mat-card class="card">
+	<mat-card-content>
+		<table class="panel__table">
+			<tr>
+				<td class="panel__table-label">
+					Kierownik przedmiotu:
+				</td>
+				<td class="panel__table-description">
+					{{ lecture && lecture.teacher }}
+				</td>
+			</tr>
+			<tr>
+				<td class="panel__table-label">
+					Punkty ECTS:
+				</td>
+				<td class="panel__table-description">
+					{{ lecture && lecture.ecstsPoints }}
+				</td>
+			</tr>
+			<tr>
+				<td class="panel__table-label">
+					Opis:
+				</td>
+				<td class="panel__table-description">
+					{{ lecture && lecture.description }}
+				</td>
+			</tr>
+			<tr>
+				<td class="panel__table-label">
+					Bibliografia:
+				</td>
+				<td class="panel__table-description">
+					{{ lecture && lecture.bibliography }}
+				</td>
+			</tr>
+		</table>
+	</mat-card-content>
+</mat-card>
+
+<h2 class="page__title">Lista uczniów zapisanych na przedmiot:</h2>
+
+<mat-expansion-panel *ngFor="let enrollment of enrollments; let i = index" class="panel">
+	<mat-expansion-panel-header>
+		<mat-panel-title>
+			{{ i + 1 }}. {{ enrollment.studentLastName }} {{ enrollment.studentName }}, {{ enrollment.studentRecordBookNumber }}
+		</mat-panel-title>
+	</mat-expansion-panel-header>
+
+	<table>
+		<tr *ngFor="let grade of enrollment.grades">
+			<td>
+				{{ grade.date | date:"dd.MM.yyyy" }}
+			</td>
+			<td>
+				{{ grade.comment }}
+			</td>
+			<td>
+				{{ grade.gradeValue }}
+			</td>
+		</tr>
+	</table>
+
+	<button mat-raised-button class="form__button" (click)="addGrade = true" *ngIf="!addGrade">Dodaj ocenę</button>
+
+	<form #gradesForm="ngForm" (ngSubmit)="onSubmit(gradesForm.form)" *ngIf="addGrade">
+		<mat-form-field class="form__field form__field--half">
+			<input matInput type="text" name="comment" placeholder="Opis" [ngModel]="comment" required>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-select placeholder="Ocena" name="gradeValueId" [(ngModel)]="selectedValue">
+				<mat-option *ngFor="let grade of gradeOptions" [value]="grade.id">
+					{{ grade.value }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<input type="hidden" name="enrollementId" [ngModel]="enrollment.id">
+
+		<button mat-raised-button class="form__button form__button--right" color="primary">Dodaj</button>
+
+	</form>
+
+</mat-expansion-panel>
