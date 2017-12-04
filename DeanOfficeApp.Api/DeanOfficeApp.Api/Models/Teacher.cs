@@ -12,6 +12,8 @@ namespace DeanOfficeApp.Api.Models
         public string Degree { get; set; } //todo wrzucić do słownika/enuma
         public string Position { get; set; }
         public string Room { get; set; }
+
+        [Index(IsUnique = true)]
         public long Pesel { get; set; }
 
         public int UserId { get; set; }

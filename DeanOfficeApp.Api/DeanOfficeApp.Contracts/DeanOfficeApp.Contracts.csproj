@@ -40,8 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addresses\AddAddressDTO.cs" />
+    <Compile Include="Addresses\GetAddressDTO.cs" />
     <Compile Include="CreateStudentDTO.cs" />
     <Compile Include="CreateTeacherDTO.cs" />
+    <Compile Include="Enrollments\CreateEnrollmentDTO.cs" />
+    <Compile Include="Enrollments\CreateEnrollmentResultDTO.cs" />
+    <Compile Include="Enrollments\DeleteEnrollmentResultDTO.cs" />
+    <Compile Include="Enrollments\GetEnrollmentDTO.cs" />
+    <Compile Include="Grades\AddGradeDTO.cs" />
+    <Compile Include="Grades\AddGradeResultDTO.cs" />
+    <Compile Include="Grades\GetGradeDTO.cs" />
+    <Compile Include="Grades\GetGradeValueDTO.cs" />
     <Compile Include="Lectures\DeleteLectureResultDTO.cs" />
     <Compile Include="Lectures\GetLectureDTO.cs" />
     <Compile Include="Lectures\NewLectureDTO.cs" />
@@ -60,5 +70,6 @@
     <Compile Include="Teachers\UpdateTeacherDTO.cs" />
     <Compile Include="Teachers\UpdateTeacherResultDTO.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

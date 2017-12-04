@@ -50,6 +50,10 @@ namespace DeanOfficeApp.Api.Models
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Error> Errors { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<GradeValue> GradeValues { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 
     public class CustomUserRole : IdentityUserRole<int> { }

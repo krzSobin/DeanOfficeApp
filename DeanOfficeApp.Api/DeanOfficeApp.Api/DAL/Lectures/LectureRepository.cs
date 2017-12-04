@@ -30,6 +30,13 @@ namespace DeanOfficeApp.Api.DAL.Lectures
             return context.Lectures.ToList();
         }
 
+        public IEnumerable<Lecture> GetLecturesAvailableForEnroll(int userId, int currentSemester)
+        {
+            var enrollments = context.Enrollments.Where(e => e.Student.UserId == userId);
+
+            return context.Lectures.Where(l => !l.Enrollments.Any(e => enrollments.Contains(e)) && l.MinimalSemester <= currentSemester).ToList();
+        }
+
         public Lecture InsertLecture(Lecture lecture)
         {
             return context.Lectures.Add(lecture);

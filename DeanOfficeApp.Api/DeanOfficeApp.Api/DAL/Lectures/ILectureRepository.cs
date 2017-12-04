@@ -13,5 +13,6 @@ namespace DeanOfficeApp.Api.DAL.Lectures
         void UpdateLecture(Lecture lecture);
         bool LectureExists(int lectureId);
         bool Save();
+        IEnumerable<Lecture> GetLecturesAvailableForEnroll(int userId, int minimalSemester);
     }
 }

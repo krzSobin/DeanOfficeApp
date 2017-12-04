@@ -44,7 +44,7 @@ namespace DeanOfficeApp.Api.Providers
 
             Claim role = oAuthIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, role.Value);
+            AuthenticationProperties properties = CreateProperties(user.FirstName, user.LastName, role.Value);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -86,11 +86,11 @@ namespace DeanOfficeApp.Api.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string role)
+        public static AuthenticationProperties CreateProperties(string firstName, string lastName, string role)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName },
+                { "userName", $"{firstName} {lastName}" },
                 {"role", role }
             };
                 return new AuthenticationProperties(data);

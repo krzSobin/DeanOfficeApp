@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DeanOfficeApp.Api.DAL;
+using DeanOfficeApp.Api.DAL.Enrollments;
 using DeanOfficeApp.Api.DAL.Lectures;
 using DeanOfficeApp.Api.DAL.Teachers;
 using DeanOfficeApp.Api.Models;
@@ -11,16 +13,27 @@ namespace DeanOfficeApp.Api.BLL.Lectures
     {
         private readonly ILectureRepository _repository;
         private readonly ITeacherRepository _teacherRepository;
+        private readonly IStudentRepository _studentRepository;
 
-        public LectureService(ILectureRepository repository, ITeacherRepository teacherRepository)
+        public LectureService(ILectureRepository repository, ITeacherRepository teacherRepository, IStudentRepository studentRepository)
         {
             _repository = repository;
             _teacherRepository = teacherRepository;
+            _studentRepository = studentRepository;
         }
 
         public IEnumerable<GetLectureDTO> GetLectures()
         {
             var lectureEntites = _repository.GetLectures();
+
+            return Mapper.Map<IEnumerable<GetLectureDTO>>(lectureEntites);
+        }
+
+        public IEnumerable<GetLectureDTO> GetLecturesAvailableForEnroll(int userId)
+        {
+            var student = _studentRepository.GetStudentByUserId(userId);
+
+            var lectureEntites = _repository.GetLecturesAvailableForEnroll(userId, student.CurrentSemester);
 
             return Mapper.Map<IEnumerable<GetLectureDTO>>(lectureEntites);
         }
@@ -41,6 +54,7 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             };
 
             var lecture = Mapper.Map<Lecture>(lectureDTO);
+            lecture.Teacher = _teacherRepository.GetTeacherByID((int)lecture.TeacherId);
 
             var createdLecture = _repository.InsertLecture(lecture);
             if (_repository.Save())
@@ -69,9 +83,8 @@ namespace DeanOfficeApp.Api.BLL.Lectures
             lectureEntity.Description = lecture.Description;
             lectureEntity.Bibliography = lecture.Bibliography;
             lectureEntity.TeacherId = lecture.TeacherId;
-
-            if (lecture.TeacherId != null)
-                lectureEntity.Teacher = _teacherRepository.GetTeacherByID((int)lectureEntity.TeacherId);
+            
+            lectureEntity.Teacher = _teacherRepository.GetTeacherByID(lectureEntity.TeacherId);
 
             updateResult.Lecture = Mapper.Map<GetLectureDTO>(lectureEntity);
 

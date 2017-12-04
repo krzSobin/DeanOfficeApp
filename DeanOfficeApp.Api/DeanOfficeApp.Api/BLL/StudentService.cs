@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using DeanOfficeApp.Api.BLL.Users;
 using DeanOfficeApp.Api.DAL;
+using DeanOfficeApp.Api.DAL.User;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Contracts;
+using DeanOfficeApp.Contracts.Addresses;
 using DeanOfficeApp.Contracts.Students;
 using System;
 using System.Collections.Generic;
@@ -12,21 +15,40 @@ namespace DeanOfficeApp.Api.BLL
 {
     public class StudentService
     {
-        private ApplicationUserManager _userManager;
+        private IUserManager _userManager;
         private ApplicationRoleManager _roleManager;
         private readonly IStudentRepository _repository;
         private readonly CustomUserStore _store;
         private readonly CustomRoleStore _roleStore;
+        private readonly IUserAddressRepository _userAddressRepository;
 
-        public StudentService(ApplicationUserManager userManager, ApplicationRoleManager roleManager, IStudentRepository repository, CustomUserStore store, CustomRoleStore roleStore)
+        public StudentService(IUserManager userManager, ApplicationRoleManager roleManager, IStudentRepository repository, CustomUserStore store, CustomRoleStore roleStore, IUserAddressRepository userAddressRepository)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _repository = repository;
             _store = store;
             _roleStore = roleStore;
+            _userAddressRepository = userAddressRepository;
         }
         
+        private async Task<int> AddAddressAsync(AddAddressDTO address)
+        {
+            var user = await _userManager.FindByIdAsync((int)address.UserId);
+
+            var student = _repository.GetStudentByUserId(user.Id);
+            address.UserId = student.RecordBookNumber;
+            var id = _userAddressRepository.InsertUserAddress(address, ConfigurationManager.ConnectionStrings["DeanOffice"].ConnectionString);
+
+            var addedAddress = _userAddressRepository.GetAddressById(id);
+            student.Addresses.Add(addedAddress);
+
+            _repository.UpdateStudent(student);
+            _repository.Save();
+
+            return addedAddress.Id;
+        }
+
         public async Task<NewStudentResultDTO> AddStudentAsync(CreateStudentDTO studentDTO)
         {
             var createResult = new NewStudentResultDTO
@@ -46,10 +68,14 @@ namespace DeanOfficeApp.Api.BLL
 
             var student = Mapper.Map<Student>(studentDTO);
             student.UserId = user.Id;
+            student.Addresses = new List<Address>();
 
             var createdStudent = _repository.InsertStudent(student);
             if (_repository.Save())
             {
+                studentDTO.Address.UserId = student.UserId;
+                var addressId = await AddAddressAsync(studentDTO.Address);
+
                 createResult.Created = true;
                 createResult.Student = Mapper.Map<GetStudentDTO>(createdStudent);
 
@@ -61,7 +87,7 @@ namespace DeanOfficeApp.Api.BLL
 
         public IEnumerable<GetStudentDTO> GetStudents()
         {
-            var studentEntities = _repository.GetStudents(ConfigurationManager.ConnectionStrings["DeanOffice"].ConnectionString);
+            var studentEntities = _repository.GetStudents();
 
             return Mapper.Map<IEnumerable<GetStudentDTO>>(studentEntities);
         }
@@ -71,6 +97,13 @@ namespace DeanOfficeApp.Api.BLL
             var studentEntity = _repository.GetStudentByID(id);
 
             return Mapper.Map<GetStudentDTO>(studentEntity);
+        }
+
+        public GetAddressDTO GetAddressById(int id)
+        {
+            var addressEntity = _userAddressRepository.GetAddressById(id);
+
+            return Mapper.Map<GetAddressDTO>(addressEntity);
         }
 
         public async Task<DeleteStudentResultDTO> DeleteStudentAsync(int id)

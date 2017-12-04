@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeanOfficeApp.Contracts.Addresses;
+using System;
 
 namespace DeanOfficeApp.Contracts
 {
@@ -10,5 +11,6 @@ namespace DeanOfficeApp.Contracts
         public long Pesel { get; set; }
         public int CurrentSemester { get; set; }
         public DateTime EnrollmentDate { get; set; }
+        public AddAddressDTO Address { get; set; }
     }
 }
