@@ -1,6 +1,6 @@
 <h1 class="page__title">{{ lecture && lecture.name }}</h1>
 
-<mat-card class="card">
+<mat-card class="card card--lecture">
 	<mat-card-content>
 		<table class="panel__table">
 			<tr>
@@ -41,46 +41,82 @@
 
 <h2 class="page__title">Lista uczniów zapisanych na przedmiot:</h2>
 
-<mat-expansion-panel *ngFor="let enrollment of enrollments; let i = index" class="panel">
-	<mat-expansion-panel-header>
-		<mat-panel-title>
-			{{ i + 1 }}. {{ enrollment.studentLastName }} {{ enrollment.studentName }}, {{ enrollment.studentRecordBookNumber }}
-		</mat-panel-title>
-	</mat-expansion-panel-header>
+<div class="panel__container">
+	<mat-expansion-panel *ngFor="let enrollment of enrollments; let i = index" class="panel">
+		<mat-expansion-panel-header class="panel__header">
+			<mat-panel-title>
+				<span class="gradesTable__title--index">{{ i + 1 }}.</span>
+				<span class="gradesTable__title--name">
+					<span class="gradesTable__title--lastName">{{ enrollment.studentLastName }} </span>
+					<span class="gradesTable__title--firstName"> {{ enrollment.studentName }}</span>
+				</span>
+				<span class="gradesTable__title--recordBookNo">{{ enrollment.studentRecordBookNumber }}</span>
+			</mat-panel-title>
+		</mat-expansion-panel-header>
 
-	<table>
-		<tr *ngFor="let grade of enrollment.grades">
-			<td>
-				{{ grade.date | date:"dd.MM.yyyy" }}
-			</td>
-			<td>
-				{{ grade.comment }}
-			</td>
-			<td>
-				{{ grade.gradeValue }}
-			</td>
-		</tr>
-	</table>
+		<form #gradesForm="ngForm" class="gradesTable" (ngSubmit)="onSubmit(gradesForm.form)">
+			<table class="gradesTable__table">
+				<tr>
+					<th class="gradesTable__heading">
+						Data
+					</th>
+					<th class="gradesTable__heading">
+						Komentarz
+					</th>
+					<th class="gradesTable__heading gradesTable__heading--grades">
+						Ocena
+					</th>
+				</tr>
+				<tr *ngFor="let grade of enrollment.grades">
+					<td>
+						{{ grade.date | date:"dd.MM.yyyy" }}
+					</td>
+					<td>
+						{{ grade.comment }}
+					</td>
+					<td>
+						{{ grade.gradeValue }}
+					</td>
+				</tr>
+				<tr *ngIf="!enrollment.grades.length">
+					<td colspan="3" class="gradesTable__empty">
+						Brak ocen do wyświetlenia
+					</td>
+				</tr>
+				<tr class="gradesTable__add" *ngIf="addGrade">
+					<td>
+						{{ dateNow | date:"dd.MM.yyyy" }}
+					</td>
+					<td>
+						<mat-form-field class="gradesTable__input">
+							<input matInput type="text" name="comment" placeholder="Komentarz" [ngModel]="comment" required>
+						</mat-form-field>
 
-	<button mat-raised-button class="form__button" (click)="addGrade = true" *ngIf="!addGrade">Dodaj ocenę</button>
+						<input type="hidden" name="enrollementId" [ngModel]="enrollment.id">
+					</td>
+					<td class="gradesTable__add-cell">
+						<mat-form-field class="gradesTable__input">
+							<mat-select placeholder="Ocena" name="gradeValueId" [(ngModel)]="selectedValue" required>
+								<mat-option *ngFor="let grade of gradeOptions" [value]="grade.id">
+									{{ grade.value }}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
 
-	<form #gradesForm="ngForm" (ngSubmit)="onSubmit(gradesForm.form)" *ngIf="addGrade">
-		<mat-form-field class="form__field form__field--half">
-			<input matInput type="text" name="comment" placeholder="Opis" [ngModel]="comment" required>
-		</mat-form-field>
+						<button mat-raised-button class="form__button gradesTable__addButton" color="primary" [disabled]="gradesForm.pristine || gradesForm.invalid">Dodaj</button>
+					</td>
+				</tr>
+			</table>
 
-		<mat-form-field>
-			<mat-select placeholder="Ocena" name="gradeValueId" [(ngModel)]="selectedValue">
-				<mat-option *ngFor="let grade of gradeOptions" [value]="grade.id">
-					{{ grade.value }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+			<button type="button" class="form__button gradesTable__showFormButton" (click)="showAddGradeForm()" *ngIf="!addGrade">
+				<svg viewBox="0 -256 1792 1792" width="100%" height="100%">
+					<g transform="matrix(1,0,0,-1,205.01695,1368.9492)" id="g3015">
+						<path d="M 1408,800 V 608 q 0,-40 -28,-68 -28,-28 -68,-28 H 896 V 96 Q 896,56 868,28 840,0 800,0 H 608 Q 568,0 540,28 512,56 512,96 V 512 H 96 Q 56,512 28,540 0,568 0,608 v 192 q 0,40 28,68 28,28 68,28 h 416 v 416 q 0,40 28,68 28,28 68,28 h 192 q 40,0 68,-28 28,-28 28,-68 V 896 h 416 q 40,0 68,-28 28,-28 28,-68 z" id="path3017" inkscape:connector-curvature="0" style="fill:currentColor" />
+					</g>
+				</svg>
+				Dodaj ocenę
+			</button>
 
-		<input type="hidden" name="enrollementId" [ngModel]="enrollment.id">
-
-		<button mat-raised-button class="form__button form__button--right" color="primary">Dodaj</button>
-
-	</form>
-
-</mat-expansion-panel>
+		</form>
+	</mat-expansion-panel>
+</div>

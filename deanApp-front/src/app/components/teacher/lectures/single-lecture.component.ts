@@ -13,7 +13,8 @@ import { EnrollmentsService } from '../../../services/enrollments.service'
 
 @Component({
 	selector: 'single-lecture',
-	templateUrl: './single-lecture.component.html'
+	templateUrl: './single-lecture.component.html',
+	styleUrls: ['./single-lecture.scss']
 })
 
 export class SingleLectureComponent implements OnInit {
@@ -23,6 +24,7 @@ export class SingleLectureComponent implements OnInit {
 	private grades: Grade[]
 	private enrollments: Enrollment[]
 	private addGrade: boolean = false
+	private dateNow: Date
 
 	lecture$: Observable<Lecture[]>
 	private lecture: Lecture[]
@@ -43,9 +45,27 @@ export class SingleLectureComponent implements OnInit {
 		})
 	}
 
+	ngAfterViewInit() {
+		const spans = document.querySelectorAll('.gradesTable__title--name')
+		let longest = ''
+		Array.from(spans).forEach(span => {
+			console.log(span.innerHTML);
+			if (span.innerHTML.length > longest.length) {
+				longest = span.innerHTML
+			}
+		})
+		console.log(longest)
+
+	}
+
+	showAddGradeForm(): void {
+		this.addGrade = true
+		this.dateNow = new Date()
+	}
+
 	onSubmit(form): void {
 		const formData = form.value
-		formData.date = new Date
+		formData.date = this.dateNow
 		this.enrollmentsService.addGrade(formData).subscribe(res => {
 			this.enrollments.find(enrollment => enrollment.id === formData.enrollementId).grades.push(res)
 			this.addGrade = false

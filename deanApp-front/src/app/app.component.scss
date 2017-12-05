@@ -341,10 +341,9 @@ textarea:-webkit-autofill {
 	position: relative;
 
 	&__button {
-		position: absolute;
+		position: absolute !important;
 		right: 20px;
 		top: 95px;
-
 	}
 
 	&__table {
