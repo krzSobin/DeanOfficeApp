@@ -14,6 +14,7 @@ export class LoginComponent {
 	login(form: any): void {
 		const login = this.auth.login(form.value)
 		login.catch(err => {
+      console.log('xd')
 			form.controls['UserName'].setErrors({ 'incorrect': true })
 			form.controls['Password'].setErrors({ 'incorrect': true })
 		})
