@@ -85,7 +85,22 @@ namespace DeanOfficeApp.Api.Controllers
 
             return Ok(enrollment);
         }
+        public Enrollment GetEnrollments(int id)
+        {
+            var grades = new List<Grade>
+            {
+                new Grade{ EnrollementId = 1, GradeValue = new GradeValue(2.0), Date = DateTime.Now},
+                new Grade{ EnrollementId = 1, GradeValue = new GradeValue(3.0), Date = DateTime.Now},
+                new Grade{ EnrollementId = 1, Comment = "Komentarz do oceny", GradeValueId=null, Date=DateTime.Now},
+                new Grade{ EnrollementId = 1, GradeValue = new GradeValue(4.0), Date = DateTime.Now},
+            };
 
+            Enrollment e = new Enrollment { StudentId = 1, LectureId = 1, EnrollmentDate = DateTime.Now };
+            e.Grades = grades;
+
+            return e;
+
+        }
         // PUT: api/Enrollments/5/grades
         [Route("{enrollmentId:int}/grades")]
         [HttpPost]

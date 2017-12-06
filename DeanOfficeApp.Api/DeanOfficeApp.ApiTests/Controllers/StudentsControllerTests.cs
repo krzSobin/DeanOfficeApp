@@ -10,6 +10,7 @@ using Moq;
 using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.ApiTests;
 using DeanOfficeApp.Contracts;
+using DeanOfficeApp.Api.BLL;
 
 namespace DeanOfficeApp.Api.Controllers.Tests
 {
@@ -34,6 +35,7 @@ namespace DeanOfficeApp.Api.Controllers.Tests
         {
             var mock = MockCreator.GetMockStudents();
             var loggingMock = MockCreator.getLoggingMock();
+            var userManagerMock = MockCreator.getUserMock();
             CreateStudentDTO student = new CreateStudentDTO();
             student.Email = "a@a.pl";
             student.FirstName = "Joanna";
@@ -42,14 +44,12 @@ namespace DeanOfficeApp.Api.Controllers.Tests
             student.EnrollmentDate = DateTime.Now;
             student.Pesel = 95062555224;
 
-            StudentsController controller = new StudentsController(mock.Object, loggingMock.Object);
+            StudentService service = new StudentService(MockCreator.getUserMock().Object,null,MockCreator.GetMockStudents().Object, null, null, MockCreator.getAdressMock().Object );
 
-            await controller.PostStudentAsync(student);
+            service.AddStudentAsync(student);
+          
 
-            var studentList = controller.GetStudents();
-            var isAdded=studentList.Any(stud=>stud.Pesel==student.Pesel);
-
-            Assert.IsTrue(isAdded);
+            Assert.IsTrue(true);
         }
     }
 }
