@@ -32,7 +32,7 @@
 
 	&__container {
 		width: 600px;
-		margin: 0 0 50px;
+		margin: 0 auto 50px;
 	}
 
 	/deep/ .mat-expansion-panel-body {
@@ -44,12 +44,6 @@
 		font-size: 13px;
 	}
 
-	/deep/ {
-		.mat-expansion-panel-body,
-		.mat-expansion-panel-content {
-			overflow: visible;
-		}
-	}
 }
 
 .gradesTable {
@@ -102,6 +96,7 @@
 		border: 1px solid #ccc;
 		padding: 10px;
 
+
 		&:nth-child(2) {
 			min-width: 305px;
 		}
@@ -117,10 +112,10 @@
 
 		td {
 			border: none;
-			padding: 0 10px;
-
-			&:nth-child(2) {
-				padding: 0 7px;
+			padding: 7px 10px !important;
+			vertical-align: top;
+			&:first-child {
+				padding: 21px 10px !important;
 			}
 		}
 
@@ -136,10 +131,8 @@
 	}
 
 	&__addButton {
-		position: absolute;
-		top: 17px;
-		left: 111px;
 		margin: 0 !important;
+		float: right;
 	}
 
 	&__empty {
@@ -178,4 +171,8 @@
 			width: 16px;
 		}
 	}
+}
+
+.page__subtitle {
+	text-align: center;
 }

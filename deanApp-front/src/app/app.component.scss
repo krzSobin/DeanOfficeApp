@@ -216,6 +216,15 @@
 	}
 }
 
+.button__back {
+	margin-top: 25px !important;
+	& > span > span {
+		position: relative;
+		top: -1px;
+		font-size: 20px;
+	}
+}
+
 password-modal {
 	padding: 0 20px;
 	display: block;

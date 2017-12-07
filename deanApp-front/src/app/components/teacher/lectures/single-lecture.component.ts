@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
+import { Location } from '@angular/common'
 
 import 'rxjs/add/operator/switchMap'
 import { Observable } from 'rxjs/Observable'
@@ -29,7 +30,7 @@ export class SingleLectureComponent implements OnInit {
 	lecture$: Observable<Lecture[]>
 	private lecture: Lecture[]
 
-	constructor(private router: Router, private route: ActivatedRoute, private lecturesService: LecturesService, private enrollmentsService: EnrollmentsService) { }
+	constructor(private router: Router, private route: ActivatedRoute, private lecturesService: LecturesService, private enrollmentsService: EnrollmentsService, private location: Location) { }
 
 	ngOnInit() {
 		this.id = +this.route.snapshot.paramMap.get('id')
@@ -43,6 +44,10 @@ export class SingleLectureComponent implements OnInit {
 		this.enrollmentsService.getGrades().subscribe(gradeOptions => {
 			this.gradeOptions = gradeOptions
 		})
+	}
+
+	goBack() {
+		this.location.back()
 	}
 
 	showAddGradeForm(): void {

@@ -1,3 +1,5 @@
+<button class="button__back" mat-button (click)="goBack()"><span>&larr; </span> Powrót</button>
+
 <h1 class="page__title">{{ lecture && lecture.name }}</h1>
 
 <mat-card class="card card--lecture">
@@ -39,7 +41,7 @@
 	</mat-card-content>
 </mat-card>
 
-<h2 class="page__title">Lista uczniów zapisanych na przedmiot:</h2>
+<h2 class="page__subtitle">Lista uczniów zapisanych na przedmiot:</h2>
 
 <div class="panel__container">
 	<mat-expansion-panel *ngFor="let enrollment of enrollments; let i = index" class="panel">
