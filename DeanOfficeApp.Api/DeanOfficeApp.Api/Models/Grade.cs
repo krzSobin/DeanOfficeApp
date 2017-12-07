@@ -18,8 +18,8 @@ namespace DeanOfficeApp.Api.Models
         public int? GradeValueId { get; set; }
         public virtual GradeValue GradeValue { get; set; }
 
-        public int EnrollmentId { get; set; }
-        public virtual Enrollment Enrollment { get; set; }
+        public int EnrollementId { get; set; }
+        public virtual Enrollment Enrollement { get; set; }
     }
 
     public class GradeValue
