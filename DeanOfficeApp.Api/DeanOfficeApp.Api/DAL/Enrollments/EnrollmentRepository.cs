@@ -46,7 +46,7 @@ namespace DeanOfficeApp.Api.DAL.Enrollments
         public IEnumerable<GradeValue> GetGradeValues(string connectionString)
         {
             var gradeValues = new List<GradeValue>();
-            var queryString = "SELECT * FROM GradeValue";
+            var queryString = "SELECT * FROM GradeValues";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(queryString, connection))
