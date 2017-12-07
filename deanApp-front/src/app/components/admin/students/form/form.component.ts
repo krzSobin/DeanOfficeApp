@@ -41,7 +41,15 @@ export class StudentFormComponent implements OnInit {
 	}
 
 	onSubmit(form) {
-		const student: Student = form.value
+		const formData = form.value
+		formData.address = {}
+		Object.entries(formData).forEach(([key, value]) => {
+			if (key.startsWith('address.')) {
+				formData.address[key.split('.')[1]] = value
+				delete formData[key]
+			}
+		})
+		const student: Student = formData
 		this.studentsService.passStudentFormData(student, this.type)
 	}
 }

@@ -65,7 +65,8 @@ export class StudentsComponent implements OnDestroy {
 			data: {
 				action: 'add',
 				student: {
-					enrollmentDate: new Date()
+					enrollmentDate: new Date(),
+					address: {}
 				}
 			}
 		})
@@ -80,6 +81,7 @@ export class StudentsComponent implements OnDestroy {
 	}
 
 	addStudent(student: Student): void {
+		console.log(student);
 		this.studentsService.add(student).subscribe(student => {
 			this.students.push(student)
 			this.refreshTable()

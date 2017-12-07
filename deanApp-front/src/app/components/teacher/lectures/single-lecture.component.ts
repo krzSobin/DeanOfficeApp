@@ -45,19 +45,6 @@ export class SingleLectureComponent implements OnInit {
 		})
 	}
 
-	ngAfterViewInit() {
-		const spans = document.querySelectorAll('.gradesTable__title--name')
-		let longest = ''
-		Array.from(spans).forEach(span => {
-			console.log(span.innerHTML);
-			if (span.innerHTML.length > longest.length) {
-				longest = span.innerHTML
-			}
-		})
-		console.log(longest)
-
-	}
-
 	showAddGradeForm(): void {
 		this.addGrade = true
 		this.dateNow = new Date()

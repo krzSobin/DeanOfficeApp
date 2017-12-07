@@ -10,12 +10,28 @@
 		<input matInput type="text" name="lastName" placeholder="Nazwisko" [(ngModel)]="student.lastName" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field class="form__field form__field--full">
+	<mat-form-field class="form__field form__field--half">
 		<input matInput type="email" name="email" placeholder="Email" [(ngModel)]="student.email" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
 		<input matInput type="text" name="pesel" placeholder="PESEL" [(ngModel)]="student.pesel" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="text" name="address.road" placeholder="Ulica" [(ngModel)]="student.address.road" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="address.house" placeholder="Nr domu" [(ngModel)]="student.address.house" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="address.city" placeholder="Miasto" [(ngModel)]="student.address.city" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="text" name="address.country" placeholder="Państwo" [(ngModel)]="student.address.country" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field *ngIf="type === 'edit'" class="form__field form__field--half">
@@ -27,8 +43,10 @@
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="enrollmentDate" placeholder="enrollmentDate" [(ngModel)]="student.enrollmentDate" required [readonly]="!isEditable">
+		<input matInput type="text" placeholder="Data zapisania" [ngModel]="student.enrollmentDate | date:'dd.MM.yyyy'" readonly [ngModelOptions]="{ standalone: true }">
 	</mat-form-field>
+
+	<input type="hidden" name="enrollmentDate" [(ngModel)]="student.enrollmentDate">
 
 	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteStudentModal(student)" *ngIf="type === 'edit'">Usuń</button>
 

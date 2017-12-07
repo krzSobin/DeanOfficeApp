@@ -1,3 +1,5 @@
+import { Address } from './Address'
+
 export class Student {
 	recordBookNumber?: number
 	firstName: string
@@ -6,4 +8,5 @@ export class Student {
 	pesel: number
 	currentSemester: number
 	enrollmentDate: string
+	address?: Address
 }

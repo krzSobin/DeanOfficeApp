@@ -43,6 +43,13 @@
 	/deep/ .mat-form-field-placeholder-wrapper {
 		font-size: 13px;
 	}
+
+	/deep/ {
+		.mat-expansion-panel-body,
+		.mat-expansion-panel-content {
+			overflow: visible;
+		}
+	}
 }
 
 .gradesTable {
@@ -51,7 +58,7 @@
 	&__table {
 		border-collapse: collapse;
 		margin-bottom: 40px;
-		min-width: 504px;
+		min-width: calc(100% - 1px);
 	}
 
 	&__title {
@@ -63,6 +70,10 @@
 		&--lastName {
 			font-weight: 700;
 			margin-right: 10px;
+		}
+
+		&--name {
+			min-width: 200px;
 		}
 
 		&--recordBookNo {
@@ -79,6 +90,7 @@
 		font-size: 13px;
 		color: #fff;
 		text-align: left;
+		border: 1px solid $teal;
 
 		&--grades {
 			text-align: center;
@@ -126,7 +138,7 @@
 	&__addButton {
 		position: absolute;
 		top: 17px;
-		left: 89px;
+		left: 111px;
 		margin: 0 !important;
 	}
 
@@ -151,7 +163,7 @@
 		font-size: 13px;
 		font-weight: 300;
 		line-height: 20px;
-		width: 505px;
+		width: calc(100% - 1px);
 		cursor: pointer;
 		transition: 0.2s;
 

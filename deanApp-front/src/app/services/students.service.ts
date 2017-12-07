@@ -9,6 +9,7 @@ import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
 
 import { Student } from '../models/Student'
+import { Address } from '../models/Address'
 import { ConfirmationModal } from '../components/admin/confirmation.component'
 
 @Injectable()

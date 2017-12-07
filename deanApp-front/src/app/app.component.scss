@@ -355,13 +355,18 @@ textarea:-webkit-autofill {
 			font-size: 15px;
 			margin: 25px 0 0;
 			min-width: 155px;
-    		vertical-align: top;
 		}
 
 		&-description {
-			padding-left: 10px;
 			font-weight: 700;
 			font-size: 16px;
+			padding: 4px 0 4px 10px;
+		}
+		&-date {
+			color: rgba(0,0,0,.54);
+			font-style: italic;
+			font-weight: 300;
+			padding-left: 20px;
 		}
 
 		&--grades {

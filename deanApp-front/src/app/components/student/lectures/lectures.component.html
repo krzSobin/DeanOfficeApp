@@ -49,36 +49,15 @@
 	</p>
 
 	<table class="panel__table panel__table--grades">
-		<tr>
+		<tr *ngFor="let grade of enrollment.grades">
 			<td class="panel__table-label">
-				Kartkówka 1:
+				{{ grade.comment }}:
 			</td>
 			<td class="panel__table-description">
-				2
+				{{ grade.gradeValue }}
 			</td>
-		</tr>
-		<tr>
-			<td class="panel__table-label">
-				Kartkówka 2:
-			</td>
-			<td class="panel__table-description">
-				2
-			</td>
-		</tr>
-		<tr>
-			<td class="panel__table-label">
-				Projekt 1
-			</td>
-			<td class="panel__table-description">
-				5
-			</td>
-		</tr>
-		<tr>
-			<td class="panel__table-label">
-				Hehehe:
-			</td>
-			<td class="panel__table-description">
-				3.5
+			<td class="panel__table-date">
+				(wystawiono dnia {{ grade.date | date:"dd.MM.yyyy" }})
 			</td>
 		</tr>
 	</table>

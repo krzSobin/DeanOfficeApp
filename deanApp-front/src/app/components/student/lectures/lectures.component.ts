@@ -7,6 +7,7 @@ import { TeachersService } from '../../../services/teachers.service'
 import { EnrollmentsService } from '../../../services/enrollments.service'
 
 import { Enrollment } from '../../../models/Enrollment'
+import { Grade } from '../../../models/Grade'
 
 @Component({
 	selector: 'student-lectures',
@@ -26,6 +27,11 @@ export class StudentLecturesComponent implements OnInit {
 	getEnrollments(): void {
 		this.enrollmentsService.get().subscribe(enrollments => {
 			this.enrollments = enrollments
+			// this.enrollments.map((enrollment: Enrollment) => {
+			// 	enrollment.grades.map((grade: Grade) => {
+			// 		grade.date = Date.parse(grade.date)
+			// 	})
+			// })
 		})
 	}
 
