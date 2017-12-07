@@ -42,8 +42,7 @@ export class AuthService {
 
 				this.router.navigate([res.role])
 			})
-          .catch((err: any) => {
-              console.log('hehe')
+			.catch((err: any) => {
 				console.error(err.error)
 				return Promise.reject(err)
 			})

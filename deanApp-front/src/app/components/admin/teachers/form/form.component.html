@@ -1,4 +1,5 @@
-<h2 mat-dialog-title class="modal__title">Dodaj wykładowcę</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type === 'add'">Dodaj wykładowcę</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type !== 'add'">{{ teacher.firstName }} {{ teacher.lastName }}</h2>
 
 <form id="teacherForm" #teacherForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(teacherForm.form)">
 	<mat-form-field class="form__field form__field--full">
@@ -32,7 +33,7 @@
 	<input type="hidden" name="teacherId" [(ngModel)]="teacher.teacherId">
 
 	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">Usuń</button>
-	
+
 	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="teacherForm.pristine || teacherForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
 	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
 </form>

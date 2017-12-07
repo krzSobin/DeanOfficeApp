@@ -24,7 +24,7 @@ import { TeacherFormComponent } from './components/admin/teachers/form/form.comp
 import { LectureFormComponent } from './components/admin/lectures/form/form.component'
 
 import { RoutingModule } from './routing.module'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AuthGuard } from './auth/auth-guard.service'
 import { AuthService } from './auth/auth.service'
@@ -65,6 +65,7 @@ import { EqualValidator } from './directives//equalValidator.directive'
 		RoutingModule,
 		HttpModule,
 		FormsModule,
+		ReactiveFormsModule,
 		HttpClientModule,
 		BrowserAnimationsModule,
 

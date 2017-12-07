@@ -9,4 +9,5 @@ export class Student {
 	currentSemester: number
 	enrollmentDate: string
 	address?: Address
+	addresses?: Address[]
 }

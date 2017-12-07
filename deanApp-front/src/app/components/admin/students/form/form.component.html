@@ -1,4 +1,5 @@
-<h2 mat-dialog-title class="modal__title">Dodaj studenta</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type === 'add'">Dodaj studenta</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type !== 'add'">{{ student.firstName }} {{ student.lastName }}</h2>
 
 <form id="studentForm" #studentForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(studentForm.form)">
 
@@ -19,19 +20,19 @@
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--full">
-		<input matInput type="text" name="address.road" placeholder="Ulica" [(ngModel)]="student.address.road" required [readonly]="!isEditable">
+		<input matInput type="text" name="address.road" placeholder="Ulica" [(ngModel)]="student.addresses[0].road" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="address.house" placeholder="Nr domu" [(ngModel)]="student.address.house" required [readonly]="!isEditable">
+		<input matInput type="text" name="address.house" placeholder="Nr domu" [(ngModel)]="student.addresses[0].house" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="address.city" placeholder="Miasto" [(ngModel)]="student.address.city" required [readonly]="!isEditable">
+		<input matInput type="text" name="address.city" placeholder="Miasto" [(ngModel)]="student.addresses[0].city" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field class="form__field form__field--full">
-		<input matInput type="text" name="address.country" placeholder="Państwo" [(ngModel)]="student.address.country" required [readonly]="!isEditable">
+	<mat-form-field class="form__field form__field--full" [ngClass]="{ 'form__field--half': type === 'edit', 'form__field--full': type !== 'edit' }">
+		<input matInput type="text" name="address.country" placeholder="Państwo" [(ngModel)]="student.addresses[0].country" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field *ngIf="type === 'edit'" class="form__field form__field--half">

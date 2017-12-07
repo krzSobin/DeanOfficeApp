@@ -15,6 +15,7 @@
 
 		<mat-form-field class="login__form-field">
 			<input matInput type="password" name="Password" class="login__input" placeholder="Hasło" (ngModelChange)="dataChanged(loginForm.form)" ngModel required>
+			<mat-error *ngIf="loginForm.controls['UserName'] && loginForm.controls['UserName'].dirty && loginForm.controls['UserName'].errors">Zły login lub hasło. Spróbuj jeszcze raz</mat-error>
 		</mat-form-field>
 
 		<input type="hidden" name="grant_type" value="password" ngModel="password">
