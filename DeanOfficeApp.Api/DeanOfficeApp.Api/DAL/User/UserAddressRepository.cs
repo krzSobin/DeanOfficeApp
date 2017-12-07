@@ -19,6 +19,11 @@ namespace DeanOfficeApp.Api.DAL.User
             this.context = context;
         }
 
+        public void RemoveAddress(Address address)
+        {
+            context.Addresses.Remove(address);
+        }
+
         public Address GetAddressById(int id)
         {
             return context.Addresses.FirstOrDefault(a => a.Id == id);
@@ -81,6 +86,11 @@ namespace DeanOfficeApp.Api.DAL.User
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
+        }
+
+        public bool Save()
+        {
+           return context.SaveChanges() > 0;
         }
         #endregion
     }

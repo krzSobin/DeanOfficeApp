@@ -9,6 +9,7 @@ using DeanOfficeApp.Contracts.Students;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DeanOfficeApp.Api.BLL
@@ -111,6 +112,13 @@ namespace DeanOfficeApp.Api.BLL
             var student = _repository.GetStudentByID(id);
             if (student == null)
                 return null;
+            
+            if (student.Addresses != null && student.Addresses.Count() > 0)
+            {
+                var address = _userAddressRepository.GetAddressById(student.Addresses.First().Id);
+                _userAddressRepository.RemoveAddress(address);
+                _userAddressRepository.Save();
+            }
 
             _repository.DeleteStudent(student);
             var deleteStudentResult = new DeleteStudentResultDTO

@@ -11,5 +11,7 @@ namespace DeanOfficeApp.Api.DAL.User
     {
         Address GetAddressById(int id);
         int InsertUserAddress(AddAddressDTO address, string connection);
+        void RemoveAddress(Address address);
+        bool Save();
     }
 }
