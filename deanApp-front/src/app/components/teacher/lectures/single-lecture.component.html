@@ -98,7 +98,7 @@
 					</td>
 					<td class="gradesTable__add-cell">
 						<mat-form-field class="gradesTable__input">
-							<mat-select placeholder="Ocena" name="gradeValueId" [(ngModel)]="selectedValue" required>
+							<mat-select placeholder="Ocena" name="gradeValueId" [(ngModel)]="selectedValue">
 								<mat-option *ngFor="let grade of gradeOptions" [value]="grade.id">
 									{{ grade.value }}
 								</mat-option>
