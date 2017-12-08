@@ -17,11 +17,11 @@
 	  </mat-form-field>
 
 	<mat-form-field class="form__field form__field--full">
-		<textarea matInput name="description" placeholder="Opis" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="6" [(ngModel)]="lecture.description" required [readonly]="!isEditable" style="max-height:115px;"></textarea>
+		<textarea matInput name="description" placeholder="Opis" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="14" [(ngModel)]="lecture.description" required [readonly]="!isEditable"></textarea>
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--full">
-		<textarea matInput name="bibliography" placeholder="Bibliografia" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="4" [(ngModel)]="lecture.bibliography" required [readonly]="!isEditable" style="max-height:75px;"></textarea>
+		<textarea matInput name="bibliography" placeholder="Bibliografia" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="10" [(ngModel)]="lecture.bibliography" required [readonly]="!isEditable"></textarea>
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">

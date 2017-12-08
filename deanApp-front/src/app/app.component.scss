@@ -112,7 +112,7 @@
 	height: 60px;
 	background: $teal;
 	width: 100%;
-	z-index: 9999;
+	z-index: 999;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -177,10 +177,6 @@
 			background: $teal-light;
 		}
 	}
-}
-
-.mat-dialog-container {
-	overflow: hidden !important;
 }
 
 .mat-dialog-title {
@@ -306,7 +302,7 @@ password-modal {
 }
 
 .form {
-	max-width: 400px;
+	// max-width: 400px;
 	margin: 40px 0 0;
 
 	&__field {
@@ -450,4 +446,10 @@ textarea:-webkit-autofill {
 .mat-expansion-panel-header-title {
 	font-family: 'Roboto Slab';
 	font-size: 15px;
+}
+
+.mat-dialog-container {
+	max-width: 600px !important;
+	max-height: 100vh;
+	overflow-x: hidden !important;
 }
