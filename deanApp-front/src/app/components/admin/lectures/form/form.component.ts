@@ -33,8 +33,13 @@ export class LectureFormComponent implements OnInit {
 		this.teachersService.get().subscribe(teachers => {
 			this.teachers = teachers
 			this.filteredTeachers = teachers
+			this.getTeacherId(this.lecture.teacher)
 		})
 		this.isEditable = this.type === 'add'
+	}
+
+	getTeacherId(fullName: string) {
+		this.teacherId = this.teachers.filter(teacher => `${ teacher.firstName } ${ teacher.lastName }` === fullName)[0].teacherId
 	}
 
 	showFullName(teacherId: number): string {
@@ -47,11 +52,12 @@ export class LectureFormComponent implements OnInit {
 		}
 	}
 
-	makeEditable(): void {
+	makeEditable(form): void {
 		this.isEditable = true
 		window.setTimeout(() => {
 			const firstInput = <HTMLElement>document.querySelector('#lectureForm input')
 			firstInput.focus()
+			form.control.markAsDirty()
 		}, 0)
 	}
 
