@@ -25,16 +25,5 @@ namespace DeanOfficeApp.Api.Controllers.Tests
             else
                 Assert.Fail();
         }
-
-        //[TestMethod()]
-        //public void PostEnrollmentForGoodStudentTest()
-        //{
-        //    EnrollmentService service = new EnrollmentService(MockCreator.getEnrollmentMock().Object, MockCreator.GetMockStudents().Object, MockCreator.getLectureMock().Object);
-        //    var result = service.AddEnrollment(3, 1);
-        //    if (result.Created)
-        //        Assert.IsTrue(true);
-        //    else
-        //        Assert.Fail();
-        //}
     }
 }

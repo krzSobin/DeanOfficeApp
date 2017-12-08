@@ -25,7 +25,6 @@ namespace DeanOfficeApp.ApiTests
             initStudentMock();
             initEnrollmentMock();
             initLectureMock();
-            //userMock.Setup(m=>m.CreateAsync()).
         }
         private Mock<IStudentRepository> studentMock = new Mock<IStudentRepository>();
         private Mock<IUserAddressRepository> adressMock = new Mock<IUserAddressRepository>();
@@ -46,10 +45,6 @@ namespace DeanOfficeApp.ApiTests
             studentMock.Setup(m => m.GetStudents()).Returns(students);
             studentMock.Setup(m => m.GetStudentByUserId(1)).Returns(students[0]);
             studentMock.Setup(m => m.GetStudentByUserId(3)).Returns(students[2]);
-          //  studentMock.Setup(m => m.GetStudentByUserId(It.IsAny<int>())).Returns(new Student());
-           // studentMock.Setup(m => m.InsertStudent(It.IsAny<Student>())).Returns<Student>(x => x);
-            //studentMock.Setup(m => m.Save()).Returns(true);
-           // studentMock.Setup(m => m.UpdateStudent(It.IsAny<Student>()));
 
         }
         private void initEnrollmentMock()
@@ -70,8 +65,6 @@ namespace DeanOfficeApp.ApiTests
                 new Grade{ EnrollementId = 1, GradeValue = new GradeValue(4.0), Date = DateTime.Now},
             };
             enrollmentRepository.Setup(e => e.InsertGrade(grades[2])).Callback(() => grades.Add(grades[2]));
-           // enrollmentRepository.Setup(e => e.InsertEnrollment(It.IsAny<Enrollment>())).Returns(new Enrollment() { Id=727272, StudentId=1, LectureId=3});
-          //  enrollmentRepository.Setup(e => e.Save()).Returns(true);
 
         }
         private void initLectureMock()
@@ -83,20 +76,6 @@ namespace DeanOfficeApp.ApiTests
                 new Lecture{ Name ="Wykład3", EcstsPoints = 4, MinimalSemester = 1 }
             };
             lectureMock.Setup(m => m.GetLectureByID(1)).Returns(lectures[0]);
-            //lectureMock.Setup(m => m.GetLectureByID(It.IsAny<int>())).Returns(new Lecture());
-
-           // adressMock.Setup(m => m.InsertUserAddress(new AddAddressDTO(), " asda")).Returns(1);
-          //  adressMock.Setup(m => m.GetAddressById(It.IsAny<int>())).Returns(new Address());
-
-            //userMock.Setup(m => m.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).Returns((x, y) =>
-            //{
-            //    if (y == "12345asi")
-            //        return Task.FromResult(IdentityResult.Success);
-            //    else
-            //        return Task.FromResult(IdentityResult.Failed);
-            //});
-           // userMock.Setup(m => m.AddToRoleAsync(It.IsAny<int>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Success));
-          //  userMock.Setup(m => m.FindByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(new ApplicationUser()));
 
         }
         private Enrollment[] enrollments;

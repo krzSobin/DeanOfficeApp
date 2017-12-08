@@ -17,39 +17,27 @@ namespace DeanOfficeApp.Api.Controllers.Tests
     [TestClass()]
     public class StudentsControllerTests
     {
-        [TestInitialize]
-        public void ini()
-        {
-
-        }
 
         //[TestMethod()]
-        //public void GetStudentsTest()
+        //public async Task PostStudentAsyncTest()
         //{
-        //    var mock=MockCreator.GetMockStudents();
-        //    Assert.Fail();
-        //}
+        //    var mock = MockCreator.GetMockStudents();
+        //    var loggingMock = MockCreator.getLoggingMock();
+        //    var userManagerMock = MockCreator.getUserMock();
+        //    CreateStudentDTO student = new CreateStudentDTO();
+        //    student.Email = "a@a.pl";
+        //    student.FirstName = "Joanna";
+        //    student.LastName = "Wypych";
+        //    student.CurrentSemester = 1;
+        //    student.EnrollmentDate = DateTime.Now;
+        //    student.Pesel = 95062555224;
 
-        [TestMethod()]
-        public async Task PostStudentAsyncTest()
-        {
-            var mock = MockCreator.GetMockStudents();
-            var loggingMock = MockCreator.getLoggingMock();
-            var userManagerMock = MockCreator.getUserMock();
-            CreateStudentDTO student = new CreateStudentDTO();
-            student.Email = "a@a.pl";
-            student.FirstName = "Joanna";
-            student.LastName = "Wypych";
-            student.CurrentSemester = 1;
-            student.EnrollmentDate = DateTime.Now;
-            student.Pesel = 95062555224;
+        //    StudentService service = new StudentService(MockCreator.getUserMock().Object,null,MockCreator.GetMockStudents().Object, null, null, MockCreator.getAdressMock().Object );
 
-            StudentService service = new StudentService(MockCreator.getUserMock().Object,null,MockCreator.GetMockStudents().Object, null, null, MockCreator.getAdressMock().Object );
-
-            service.AddStudentAsync(student);
+        //    service.AddStudentAsync(student);
           
 
-            Assert.IsTrue(true);
-        }
+        //    Assert.IsTrue(true);
+        //}
     }
 }
