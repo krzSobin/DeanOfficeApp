@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addresses\AddAddressDTO.cs" />
-    <Compile Include="Addresses\GetAddressDTO.cs" />
     <Compile Include="CreateStudentDTO.cs" />
     <Compile Include="CreateTeacherDTO.cs" />
     <Compile Include="Enrollments\CreateEnrollmentDTO.cs" />

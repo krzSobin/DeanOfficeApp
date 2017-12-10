@@ -8,7 +8,6 @@ using DeanOfficeApp.Contracts.Teachers;
 using DeanOfficeApp.Contracts.Lectures;
 using DeanOfficeApp.Contracts.Enrollments;
 using DeanOfficeApp.Contracts.Grades;
-using DeanOfficeApp.Contracts.Addresses;
 
 [assembly: OwinStartup(typeof(DeanOfficeApp.Api.Startup))]
 
@@ -80,11 +79,6 @@ namespace DeanOfficeApp.Api
                 cfg.CreateMap<AddGradeDTO, Grade>()
                 .ForMember(dest => dest.Enrollement, opt => opt.Ignore())
                 .ForMember(dest => dest.GradeValue, opt => opt.Ignore());
-
-
-                //address
-                cfg.CreateMap<Address, GetAddressDTO>();
-
             });
         }
     }

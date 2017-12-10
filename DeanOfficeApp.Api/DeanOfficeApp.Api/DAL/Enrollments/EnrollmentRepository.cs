@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using DeanOfficeApp.Api.Models;
 using System.Data.Entity.Validation;
-using System.Data.SqlClient;
 
 namespace DeanOfficeApp.Api.DAL.Enrollments
 {
@@ -43,35 +40,9 @@ namespace DeanOfficeApp.Api.DAL.Enrollments
             return context.GradeValues.FirstOrDefault(g => g.Id == id);
         }
 
-        public IEnumerable<GradeValue> GetGradeValues(string connectionString)
+        public IEnumerable<GradeValue> GetGradeValues()
         {
-            var gradeValues = new List<GradeValue>();
-            var queryString = "SELECT * FROM GradeValues";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(queryString, connection))
-            {
-                connection.Open();
-                var reader = command.ExecuteReader();
-                try
-                {
-                    while (reader.Read())
-                    {
-                        gradeValues.Add(new GradeValue
-                        {
-                            Id = reader.GetInt32(0),
-                            Value = reader.GetDouble(1)
-                        });
-                    }
-                }
-                finally
-                {
-                    // Always call Close when done reading.
-                    reader.Close();
-                }
-            }
-
-            return gradeValues;
+            return context.GradeValues.ToList();
         }
 
         public Grade InsertGrade(Grade grade)

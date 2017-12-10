@@ -1,8 +1,7 @@
 namespace DeanOfficeApp.Api.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class UniqueAndMaxLenght : DbMigration
     {
         public override void Up()

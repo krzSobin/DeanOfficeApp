@@ -1,9 +1,6 @@
 ﻿using DeanOfficeApp.Api.Models;
 using DeanOfficeApp.Api.Models.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DeanOfficeApp.Api.DAL.Logging
 {

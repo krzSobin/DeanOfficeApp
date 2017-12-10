@@ -15,6 +15,6 @@ namespace DeanOfficeApp.Api.DAL.Enrollments
         IEnumerable<Enrollment> GetEnrollmentsOfLecture(int lectureId);
         void DeleteEnrollment(Enrollment enrollment);
         bool Save();
-        IEnumerable<GradeValue> GetGradeValues(string connectionString);
+        IEnumerable<GradeValue> GetGradeValues();
     }
 }

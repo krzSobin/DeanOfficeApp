@@ -8,7 +8,6 @@ using DeanOfficeApp.Contracts.Enrollments;
 using DeanOfficeApp.Contracts.Grades;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 
 namespace DeanOfficeApp.Api.BLL.Enrollments
 {
@@ -129,7 +128,7 @@ namespace DeanOfficeApp.Api.BLL.Enrollments
 
         public IEnumerable<GetGradeValueDTO> GetGradeValues()
         {
-            var grades = _repository.GetGradeValues(ConfigurationManager.ConnectionStrings["DeanOffice"].ConnectionString);
+            var grades = _repository.GetGradeValues();
 
             return Mapper.Map<IEnumerable<GetGradeValueDTO>>(grades);
         }

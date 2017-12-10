@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DeanOfficeApp.Api.DAL;
-using DeanOfficeApp.Api.DAL.Enrollments;
 using DeanOfficeApp.Api.DAL.Lectures;
 using DeanOfficeApp.Api.DAL.Teachers;
 using DeanOfficeApp.Api.Models;
