@@ -1,0 +1,34 @@
+<section>
+	<h1 class="page__subtitle">Zajęcia</h1>
+
+	<button mat-button class="button--add mat-elevation-z2" color="accent" (click)="openAddLectureModal()">
+		<div class="button__circle">
+			<img class="button__circle-plus" src="/assets/img/plus-symbol.svg"/>
+		</div>
+		<p class="button__text">
+			Dodaj przedmiot
+		</p>
+	</button>
+
+	<mat-table #table [dataSource]="dataSource" class="mat-elevation-z2">
+
+		<ng-container matColumnDef="name">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Nazwa</mat-header-cell>
+			<mat-cell *matCellDef="let lecture">{{ lecture.name }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="minimalSemester">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Minimalny wymagany semestr</mat-header-cell>
+			<mat-cell *matCellDef="let lecture">{{ lecture.minimalSemester }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="ecstsPoints">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Punkty ECTS za przedmiot</mat-header-cell>
+			<mat-cell *matCellDef="let lecture">{{ lecture.ecstsPoints }}</mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="columns" class="table__header"></mat-header-row>
+		<mat-row class="table__row" *matRowDef="let lecture; columns: columns;" (click)="openEditLectureModal(lecture)"></mat-row>
+
+	</mat-table>
+</section>

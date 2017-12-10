@@ -1,0 +1,178 @@
+@import "variables";
+
+.card--lecture {
+	width: 100%;
+	margin: 0;
+	box-sizing: border-box;
+
+	&:after {
+		content: none;
+	}
+
+	&:hover {
+		background: none;
+	}
+}
+
+.panel {
+	box-shadow: none !important;
+
+	&:hover {
+		.mat-expansion-panel-header {
+			background: none !important;
+		}
+	}
+
+	&:nth-child(odd) {
+		background: $teal-light;
+		// &:hover {
+		// 	background: $teal-light;
+		// }
+	}
+
+	&__container {
+		width: 600px;
+		margin: 0 auto 50px;
+	}
+
+	/deep/ .mat-expansion-panel-body {
+		margin: 0 !important;
+		background: #fff;
+	}
+
+	/deep/ .mat-form-field-placeholder-wrapper {
+		font-size: 13px;
+	}
+
+}
+
+.gradesTable {
+	position: relative;
+
+	&__table {
+		border-collapse: collapse;
+		margin-bottom: 40px;
+		min-width: calc(100% - 1px);
+	}
+
+	&__title {
+		&--index {
+			display: inline-block;
+			margin-right: 10px;
+		}
+
+		&--lastName {
+			font-weight: 700;
+			margin-right: 10px;
+		}
+
+		&--name {
+			min-width: 200px;
+		}
+
+		&--recordBookNo {
+			font-weight: 300;
+			margin-left: 50px;
+			font-family: Roboto,"Helvetica Neue",sans-serif;
+		}
+	}
+
+	&__heading {
+		padding: 5px 10px;
+		background: $teal;
+		font-weight: 300;
+		font-size: 13px;
+		color: #fff;
+		text-align: left;
+		border: 1px solid $teal;
+
+		&--grades {
+			text-align: center;
+			min-width: 65px;
+		}
+	}
+
+	td {
+		border: 1px solid #ccc;
+		padding: 10px;
+
+
+		&:nth-child(2) {
+			min-width: 305px;
+		}
+
+		&:last-child {
+			padding: 10px;
+			text-align: center;
+		}
+	}
+
+	&__add {
+		position: relative;
+
+		td {
+			border: none;
+			padding: 7px 10px !important;
+			vertical-align: top;
+			&:first-child {
+				padding: 21px 10px !important;
+			}
+		}
+
+		&-cell {
+			position: relative;
+		}
+	}
+
+	&__input {
+		float: none;
+		width: 100%;
+		margin: 0;
+	}
+
+	&__addButton {
+		margin: 0 !important;
+		float: right;
+	}
+
+	&__empty {
+		border: none !important;
+		text-align: center;
+		font-style: italic;
+		font-weight: 300;
+		padding: 25px !important;
+	}
+
+	&__showFormButton {
+		position: absolute;
+		bottom: -32px;
+		left: 0;
+		margin: 0 !important;
+		background: $teal;
+		border: none;
+		border-radius: 0;
+		color: #fff;
+		height: 33px;
+		font-size: 13px;
+		font-weight: 300;
+		line-height: 20px;
+		width: calc(100% - 1px);
+		cursor: pointer;
+		transition: 0.2s;
+
+		&:hover {
+			background: darken($teal, 7%);
+		}
+
+		svg {
+			position: absolute;
+			top: 0;
+			left: 38%;
+			width: 16px;
+		}
+	}
+}
+
+.page__subtitle {
+	text-align: center;
+}

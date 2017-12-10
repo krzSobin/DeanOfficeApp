@@ -1,0 +1,41 @@
+<h1 class="page__title">Panel administratora</h1>
+
+<header class="card__container">
+	<a routerLink="/admin/students/" class="card__link">
+		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/admin/students' }">
+			<mat-card-content>
+				<img class="card__img" src="/assets/img/graduates.svg" />
+				<h2 class="card__heading">Studenci</h2>
+				<p class="card__lead">
+					Wyświetl listę studentów, dodaj, edytuj lub usuń studenta
+				</p>
+			</mat-card-content>
+		</mat-card>
+	</a>
+
+	<a routerLink="/admin/teachers/" class="card__link">
+		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/admin/teachers' }">
+			<mat-card-content>
+				<img class="card__img" src="/assets/img/presentation.svg" />
+				<h2 class="card__heading">Wykładowcy</h2>
+				<p class="card__lead card__lead--long">
+					Wyświetl listę pracowników, dodaj, edytuj lub usuń wykładowcę
+				</p>
+			</mat-card-content>
+		</mat-card>
+	</a>
+
+	<a routerLink="/admin/lectures/" class="card__link">
+		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/admin/lectures' }">
+			<mat-card-content>
+				<img class="card__img" src="/assets/img/blackboard.svg" />
+				<h2 class="card__heading">Zajęcia</h2>
+				<p class="card__lead card__lead--long">
+					Wyświetl listę zajęć, dodaj, edytuj lub usuń przedmiot
+				</p>
+			</mat-card-content>
+		</mat-card>
+	</a>
+</header>
+
+<router-outlet></router-outlet>

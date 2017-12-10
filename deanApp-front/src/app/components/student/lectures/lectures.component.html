@@ -1,0 +1,64 @@
+<h1 class="page__subtitle">Twoje zajęcia</h1>
+
+<mat-expansion-panel *ngFor="let enrollment of enrollments" class="panel" (opened)="getLectureDetails(enrollment)">
+	<mat-expansion-panel-header>
+		<mat-panel-title>
+			{{ enrollment.lectureName }}
+		</mat-panel-title>
+	</mat-expansion-panel-header>
+
+	<button mat-raised-button class="panel__button" (click)="signOutFromLecture(enrollment.id)">Wypisz się</button>
+
+	<table class="panel__table">
+		<tr>
+			<td class="panel__table-label">
+				Kierownik przedmiotu:
+			</td>
+			<td class="panel__table-description">
+				{{ enrollment.lecture && enrollment.lecture.teacher }}
+			</td>
+		</tr>
+		<tr>
+			<td class="panel__table-label">
+				Punkty ECTS:
+			</td>
+			<td class="panel__table-description">
+				{{ enrollment.lecture && enrollment.lecture.ecstsPoints }}
+			</td>
+		</tr>
+		<tr>
+			<td class="panel__table-label">
+				Opis:
+			</td>
+			<td class="panel__table-description">
+				{{ enrollment.lecture && enrollment.lecture.description }}
+			</td>
+		</tr>
+		<tr>
+			<td class="panel__table-label">
+				Bibliografia:
+			</td>
+			<td class="panel__table-description">
+				{{ enrollment.lecture && enrollment.lecture.bibliography }}
+			</td>
+		</tr>
+	</table>
+
+	<p class="panel__heading-inner">
+		Twoje oceny z zajęć
+	</p>
+
+	<table class="panel__table panel__table--grades">
+		<tr *ngFor="let grade of enrollment.grades">
+			<td class="panel__table-label">
+				{{ grade.comment }}:
+			</td>
+			<td class="panel__table-description">
+				{{ grade.gradeValue }}
+			</td>
+			<td class="panel__table-date">
+				(wystawiono dnia {{ grade.date | date:"dd.MM.yyyy" }})
+			</td>
+		</tr>
+	</table>
+</mat-expansion-panel>

@@ -1,0 +1,17 @@
+<h1 class="page__subtitle">Twoje zajęcia</h1>
+
+<div class="lecture__container">
+	<a *ngFor="let lecture of lectures" routerLink="/teacher/lecture/{{ lecture.lectureId }}" class="lecture__link" color="accent">
+		<mat-card class="card lecture__card">
+			<img class="lecture__link-img" src="/assets/img/lecture.svg"/>
+			<div>
+				<h2 class="lecture__link-heading">
+					{{ lecture.name }}
+				</h2>
+				<p class="lecture__link-text">
+					Dla studentów od {{ lecture.minimalSemester }} semestru
+				</p>
+			</div>
+		</mat-card>
+	</a>
+</div>

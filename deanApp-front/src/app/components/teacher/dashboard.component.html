@@ -1,0 +1,17 @@
+<h1 class="page__title" *ngIf="!isSingleLecture">Panel nauczyciela</h1>
+
+<header class="card__container" *ngIf="!isSingleLecture">
+	<a routerLink="/teacher/lectures/" class="card__link">
+		<mat-card class="card" [ngClass]="{ 'card--active': router.url === '/teacher/lectures' }">
+			<mat-card-content>
+				<img class="card__img" src="/assets/img/blackboard.svg" />
+				<h2 class="card__heading">Twoje zajęcia</h2>
+				<p class="card__lead">
+					Wyświetl listę swoich zajęć, zrezygnuj z wybranych zajęć
+				</p>
+			</mat-card-content>
+		</mat-card>
+	</a>
+</header>
+
+<router-outlet></router-outlet>

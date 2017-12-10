@@ -1,0 +1,24 @@
+<main class="login">
+	<h1 class="login__heading">
+		<img src="/assets/img/owl.svg" class="login__heading-img" />
+		<p>
+			Sztosowy<br>dziekanat
+		</p>
+	</h1>
+	<h2 class="login__subheading">
+		Zaloguj się
+	</h2>
+	<form #loginForm="ngForm" class="login__form" (ngSubmit)="loginForm.valid && login(loginForm.form)">
+		<mat-form-field class="login__form-field">
+			<input matInput type="text" name="UserName" class="login__input" placeholder="E-mail" (ngModelChange)="dataChanged(loginForm.form)" ngModel required>
+		</mat-form-field>
+
+		<mat-form-field class="login__form-field">
+			<input matInput type="password" name="Password" class="login__input" placeholder="Hasło" (ngModelChange)="dataChanged(loginForm.form)" ngModel required>
+			<mat-error *ngIf="loginForm.controls['UserName'] && loginForm.controls['UserName'].dirty && loginForm.controls['UserName'].errors">Zły login lub hasło. Spróbuj jeszcze raz</mat-error>
+		</mat-form-field>
+
+		<input type="hidden" name="grant_type" value="password" ngModel="password">
+		<button mat-raised-button class="login__button" color="primary">Zaloguj</button>
+	</form>
+</main>

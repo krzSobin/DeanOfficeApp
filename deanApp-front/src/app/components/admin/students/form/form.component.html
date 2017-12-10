@@ -1,0 +1,40 @@
+<h2 mat-dialog-title class="modal__title" *ngIf="type === 'add'">Dodaj studenta</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type !== 'add'">{{ student.firstName }} {{ student.lastName }}</h2>
+
+<form id="studentForm" #studentForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(studentForm.form)">
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="firstName" placeholder="Imię" [(ngModel)]="student.firstName" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="lastName" placeholder="Nazwisko" [(ngModel)]="student.lastName" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="email" name="email" placeholder="Email" [(ngModel)]="student.email" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="pesel" placeholder="PESEL" [(ngModel)]="student.pesel" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field *ngIf="type === 'edit'" class="form__field form__field--half">
+		<input matInput type="text" name="recordBookNumber" placeholder="Nr indeksu" [(ngModel)]="student.recordBookNumber" required readonly>
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="currentSemester" placeholder="Semestr studiów" [(ngModel)]="student.currentSemester" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" placeholder="Data zapisania" [ngModel]="student.enrollmentDate | date:'dd.MM.yyyy'" readonly [ngModelOptions]="{ standalone: true }">
+	</mat-form-field>
+
+	<input type="hidden" name="enrollmentDate" [(ngModel)]="student.enrollmentDate">
+
+	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteStudentModal(student)" *ngIf="type === 'edit'">Usuń</button>
+
+	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="studentForm.pristine || studentForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
+</form>

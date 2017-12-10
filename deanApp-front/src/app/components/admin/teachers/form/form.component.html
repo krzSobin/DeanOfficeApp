@@ -1,0 +1,39 @@
+<h2 mat-dialog-title class="modal__title" *ngIf="type === 'add'">Dodaj wykładowcę</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type !== 'add'">{{ teacher.degree }} {{ teacher.firstName }} {{ teacher.lastName }}</h2>
+
+<form id="teacherForm" #teacherForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(teacherForm.form)">
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="text" name="degree" placeholder="Stopień naukowy" [(ngModel)]="teacher.degree" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="firstName" class="login__input firstInput" placeholder="Imię" [(ngModel)]="teacher.firstName" required [readonly]="!isEditable" autofocus>
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="lastName" placeholder="Nazwisko" [(ngModel)]="teacher.lastName" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="email" name="email" placeholder="Email" [(ngModel)]="teacher.email" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="pesel" placeholder="PESEL" [(ngModel)]="teacher.pesel" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="room" placeholder="Pokój" [(ngModel)]="teacher.room" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="position" placeholder="Stanowisko" [(ngModel)]="teacher.position" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<input type="hidden" name="teacherId" [(ngModel)]="teacher.teacherId">
+
+	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteTeacherModal(teacher)" *ngIf="type === 'edit'">Usuń</button>
+
+	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="teacherForm.pristine || teacherForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable()">Edytuj</button>
+</form>

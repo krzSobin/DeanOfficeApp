@@ -1,0 +1,34 @@
+<section>
+	<h1 class="page__subtitle">Studenci</h1>
+
+	<button mat-button class="button--add mat-elevation-z2" color="accent" (click)="openAddStudentModal()">
+		<div class="button__circle">
+			<img class="button__circle-plus" src="/assets/img/plus-symbol.svg"/>
+		</div>
+		<p class="button__text">
+			Dodaj studenta
+		</p>
+	</button>
+
+	<mat-table #table [dataSource]="dataSource" class="mat-elevation-z2">
+
+		<ng-container matColumnDef="firstName">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Imię</mat-header-cell>
+			<mat-cell *matCellDef="let student">{{ student.firstName }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="lastName">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Nazwisko</mat-header-cell>
+			<mat-cell *matCellDef="let student">{{ student.lastName }}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="recordBookNumber">
+			<mat-header-cell class="table__header-cell" *matHeaderCellDef>Nr indeksu</mat-header-cell>
+			<mat-cell *matCellDef="let student">{{ student.recordBookNumber }}</mat-cell>
+		</ng-container>
+
+		<mat-header-row *matHeaderRowDef="columns" class="table__header"></mat-header-row>
+		<mat-row class="table__row" *matRowDef="let student; columns: columns;" (click)="openEditStudentModal(student)"></mat-row>
+
+	</mat-table>
+</section>

@@ -1,0 +1,41 @@
+<h2 mat-dialog-title class="modal__title" *ngIf="type === 'add'">Dodaj przedmiot</h2>
+<h2 mat-dialog-title class="modal__title" *ngIf="type !== 'add'">{{ lecture.name }}</h2>
+
+<form id="lectureForm" #lectureForm="ngForm" class="form" [ngClass]="{ 'form--readonly': !isEditable }" (ngSubmit)="onSubmit(lectureForm.form)">
+
+	<mat-form-field class="form__field form__field--full">
+		<input matInput type="text" name="name" placeholder="Nazwa" [(ngModel)]="lecture.name" required [readonly]="!isEditable">
+	</mat-form-field>
+	<mat-form-field class="form__field form__field--full">
+		<input type="hidden" name="teacherId" [(ngModel)]="teacherId">
+		<input type="text" (ngModelChange)="filteredTeachers = filter($event)" placeholder="Wykładowca prowadzący" matInput [matAutocomplete]="auto" [(ngModel)]="teacherId" [ngModelOptions]="{ standalone: true }" [readonly]="!isEditable">
+		<mat-autocomplete #auto="matAutocomplete" [displayWith]="showFullName.bind(this)">
+		  <mat-option *ngFor="let teacher of filteredTeachers" [value]="teacher.teacherId" (onSelectionChange)="lectureForm.control.markAsDirty()">
+			{{ teacher.firstName }} {{ teacher.lastName }}
+		  </mat-option>
+		</mat-autocomplete>
+	  </mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<textarea matInput name="description" placeholder="Opis" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="14" [(ngModel)]="lecture.description" required [readonly]="!isEditable"></textarea>
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--full">
+		<textarea matInput name="bibliography" placeholder="Bibliografia" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="10" [(ngModel)]="lecture.bibliography" required [readonly]="!isEditable"></textarea>
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="email" name="minimalSemester" placeholder="Minimalny wymagany semestr" [(ngModel)]="lecture.minimalSemester" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<mat-form-field class="form__field form__field--half">
+		<input matInput type="text" name="ecstsPoints" placeholder="Punkty ECTS za przedmiot" [(ngModel)]="lecture.ecstsPoints" required [readonly]="!isEditable">
+	</mat-form-field>
+
+	<input type="hidden" name="lectureId" [(ngModel)]="lecture.lectureId">
+
+	<button mat-raised-button class="form__button" type="button" color="warn" (click)="openDeleteLectureModal(lecture)" *ngIf="type === 'edit'">Usuń</button>
+
+	<button mat-raised-button class="form__button form__button--right" color="primary" [disabled]="lectureForm.pristine || lectureForm.invalid">{{ type === 'add' ? 'Dodaj' : 'Zapisz' }}</button>
+	<button mat-raised-button class="form__button form__button--right" type="button"  *ngIf="type === 'edit'" (click)="makeEditable(lectureForm)">Edytuj</button>
+</form>

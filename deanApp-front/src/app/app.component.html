@@ -1,0 +1,19 @@
+<nav class="nav" *ngIf="router.url !== '/login'">
+	<img src="/assets/img/owl.svg" class="nav__logo" />
+	<h1 class="nav__title">Sztosowy Dziekanat</h1>
+	<div>
+		<p class="nav__text">
+			Zalogowany jako
+		</p>
+		<button class="nav__button" mat-button [matMenuTriggerFor]="options">{{ user.name }}</button>
+		<mat-menu class="nav__menu" #options="matMenu" [overlapTrigger]="false">
+			<button mat-menu-item (click)="openPasswordModal()">Zmień hasło</button>
+			<button class="nav__menu-item nav__menu-item--logout" mat-menu-item (click)="logout()">Wyloguj</button>
+		</mat-menu>
+	</div>
+</nav>
+<div class="nav-replacer" *ngIf="router.url !== '/login'"></div>
+
+<div class="app__container">
+	<router-outlet></router-outlet>
+</div>
