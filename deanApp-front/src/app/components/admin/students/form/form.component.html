@@ -11,28 +11,12 @@
 		<input matInput type="text" name="lastName" placeholder="Nazwisko" [(ngModel)]="student.lastName" required [readonly]="!isEditable">
 	</mat-form-field>
 
-	<mat-form-field class="form__field form__field--half">
+	<mat-form-field class="form__field form__field--full">
 		<input matInput type="email" name="email" placeholder="Email" [(ngModel)]="student.email" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field class="form__field form__field--half">
 		<input matInput type="text" name="pesel" placeholder="PESEL" [(ngModel)]="student.pesel" required [readonly]="!isEditable">
-	</mat-form-field>
-
-	<mat-form-field class="form__field form__field--full">
-		<input matInput type="text" name="address.road" placeholder="Ulica" [(ngModel)]="student.addresses[0].road" required [readonly]="!isEditable">
-	</mat-form-field>
-
-	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="address.house" placeholder="Nr domu" [(ngModel)]="student.addresses[0].house" required [readonly]="!isEditable">
-	</mat-form-field>
-
-	<mat-form-field class="form__field form__field--half">
-		<input matInput type="text" name="address.city" placeholder="Miasto" [(ngModel)]="student.addresses[0].city" required [readonly]="!isEditable">
-	</mat-form-field>
-
-	<mat-form-field class="form__field form__field--full" [ngClass]="{ 'form__field--half': type === 'edit', 'form__field--full': type !== 'edit' }">
-		<input matInput type="text" name="address.country" placeholder="Państwo" [(ngModel)]="student.addresses[0].country" required [readonly]="!isEditable">
 	</mat-form-field>
 
 	<mat-form-field *ngIf="type === 'edit'" class="form__field form__field--half">

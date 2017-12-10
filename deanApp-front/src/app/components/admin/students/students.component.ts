@@ -65,8 +65,7 @@ export class StudentsComponent implements OnDestroy {
 			data: {
 				action: 'add',
 				student: {
-					enrollmentDate: new Date(),
-					addresses: [{}]
+					enrollmentDate: new Date()
 				}
 			}
 		})
