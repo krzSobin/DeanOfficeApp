@@ -24,6 +24,14 @@ namespace DeanOfficeApp.Api.Models
 
     public class GradeValue
     {
+        public GradeValue()
+        {
+
+        }
+        public GradeValue(double Value)
+        {
+            this.Value = Value;
+        }
         [Key]
         [DatabaseGe‌​nerated(DatabaseGen‌​eratedOption.Identity)]
         public int Id { get; set; }
